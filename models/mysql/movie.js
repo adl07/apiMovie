@@ -1,82 +1,88 @@
 import mysql from "mysql2/promise";
 
-const DATABASE_CONFIG_DEFAULT = {
-  host: "localhost",
-  user: "root",
-  port: 3306,
-  password: "",
-  database: "moviesdb",
-};
-
 const DATABASE_CONFIG = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  port: process.env.DB_PORT,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  port: process.env.DB_PORT || 3306,
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "moviesdb",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 };
 
-const connectionString = process.env.DATABASE_CONFIG ?? DATABASE_CONFIG_DEFAULT;
-
-const connection = await mysql.createConnection(connectionString);
+const pool = mysql.createPool(DATABASE_CONFIG);
 
 export class MovieModel {
   static async getAll({ genre }) {
-    const [movies] = await connection.query(
-      "SELECT title,year, director,duration,poster,rate, BIN_TO_UUID(id) id from movie"
-    );
-
-    return movies;
+    try {
+      const [movies] = await pool.query(
+        "SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id FROM movie"
+      );
+      return movies;
+    } catch (error) {
+      console.error("Error en getAll:", error);
+      throw new Error("No se pudieron obtener las películas");
+    }
   }
 
   static async getById({ id }) {
-    const [movies] = await connection.query(
-      `SELECT title,year, director,duration,poster,rate,BIN_TO_UUID(id) id 
-      from movie where id = UUID_TO_BIN(?);`,
-      [id]
-    );
-
-    if (movies.length === 0) return null;
-
-    return movies;
+    try {
+      const [movies] = await pool.query(
+        `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id 
+        FROM movie WHERE id = UUID_TO_BIN(?);`,
+        [id]
+      );
+      return movies.length === 0 ? null : movies[0];
+    } catch (error) {
+      console.error("Error en getById:", error);
+      throw new Error("No se pudo obtener la película");
+    }
   }
 
   static async create({ input }) {
-    const {
-      genre: genreInput,
-      title,
-      year,
-      duration,
-      director,
-      rate,
-      poster,
-    } = input;
-
-    //creando los UUID utilizando el sql//
-    const [uuidResult] = await connection.query("SELECT UUID() uuid;");
-
-    const [{ uuid }] = uuidResult;
+    const { title, year, duration, director, rate, poster } = input;
 
     try {
-      await connection.query(
-        `INSERT INTO movie(id,title, year, duration, director, rate,poster)
-          VALUES(UUID_TO_BIN("${uuid}"), ?, ?, ?, ?, ?, ? );`,
-        [title, year, duration, director, rate, poster]
+      const [uuidResult] = await pool.query("SELECT UUID() uuid;");
+      const [{ uuid }] = uuidResult;
+
+      await pool.query(
+        `INSERT INTO movie(id, title, year, duration, director, rate, poster)
+        VALUES(UUID_TO_BIN(?), ?, ?, ?, ?, ?, ?);`,
+        [uuid, title, year, duration, director, rate, poster]
       );
-    } catch (e) {
-      throw new Error("Error al crear movies");
+
+      const [movies] = await pool.query(
+        `SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id 
+        FROM movie WHERE id = UUID_TO_BIN(?);`,
+        [uuid]
+      );
+
+      return movies[0];
+    } catch (error) {
+      console.error("Error en create:", error);
+      throw new Error("No se pudo crear la película");
     }
-
-    const [movies] = await connection.query(
-      `SELECT title,year, director,duration,poster,rate,BIN_TO_UUID(id) id 
-      FROM movie WHERE id = UUID_TO_BIN(?);`,
-      [uuid]
-    );
-
-    return movies[0];
   }
 
-  static async delete({ id }) {}
+  static async delete({ id }) {
+    // Implementa la lógica de eliminación aquí
+  }
 
-  static async update({ id, input }) {}
+  static async update({ id, input }) {
+    // Implementa la lógica de actualización aquí
+  }
+}
+
+export async function testConnection() {
+  try {
+    const connection = await pool.getConnection();
+    console.log("Conexión a la base de datos exitosa");
+    connection.release();
+    return true;
+  } catch (error) {
+    console.error("Falló la conexión a la base de datos:", error);
+    return false;
+  }
 }
