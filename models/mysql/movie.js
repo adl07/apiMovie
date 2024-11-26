@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 
-const DATABASE_CONFIG = {
+const DATABASE_CONFIG_DEFAULT = {
   host: "localhost",
   user: "root",
   port: 3306,
@@ -8,7 +8,17 @@ const DATABASE_CONFIG = {
   database: "moviesdb",
 };
 
-const connection = await mysql.createConnection(DATABASE_CONFIG);
+const DATABASE_CONFIG = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  port: process.env.DB_PORT,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+};
+
+const connectionString = process.env.DATABASE_CONFIG ?? DATABASE_CONFIG_DEFAULT;
+
+const connection = await mysql.createConnection(connectionString);
 
 export class MovieModel {
   static async getAll({ genre }) {
