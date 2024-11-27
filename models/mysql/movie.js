@@ -3,26 +3,40 @@ import mysql from "mysql2/promise";
 const DATABASE_CONFIG = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT || 3306,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  ssl: {
+    rejectUnauthorized: true,
+  },
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 };
 
-const pool = mysql.createPool(DATABASE_CONFIG);
+let pool;
+try {
+  pool = mysql.createPool(DATABASE_CONFIG);
+} catch (error) {
+  console.error("Error al crear el pool de conexiones:", error);
+  throw new Error("No se pudo inicializar la conexión a la base de datos");
+}
 
 export class MovieModel {
   static async getAll({ genre }) {
     try {
-      const [movies] = await pool.query(
-        "SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id FROM movie"
-      );
-      return movies;
+      const connection = await pool.getConnection();
+      try {
+        const [movies] = await connection.query(
+          "SELECT title, year, director, duration, poster, rate, BIN_TO_UUID(id) id FROM movie"
+        );
+        return movies;
+      } finally {
+        connection.release();
+      }
     } catch (error) {
       console.error("Error en getAll:", error);
-      throw new Error("No se pudieron obtener las películas");
+      throw new Error("Error al conectar con la base de datos");
     }
   }
 
@@ -82,7 +96,7 @@ export async function testConnection() {
     connection.release();
     return true;
   } catch (error) {
-    console.error("Falló la conexión a la base de datos:", error);
+    console.error("Error de conexión a la base de datos:", error);
     return false;
   }
 }
