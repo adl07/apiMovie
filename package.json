@@ -1,12 +1,12 @@
 {
-  "name": "03-api-rest",
+  "name": "api-movie",
   "version": "1.0.0",
-  "description": "",
+  "description": "API de películas",
   "main": "api.js",
   "type": "module",
   "scripts": {
     "start": "node api.js",
-    "start:sql": "node --watch server-with-mysql.js"
+    "dev": "node --watch api.js"
   },
   "author": "",
   "license": "ISC",

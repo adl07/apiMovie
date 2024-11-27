@@ -6,12 +6,12 @@ const DATABASE_CONFIG = {
   port: process.env.DB_PORT || 3306,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  ssl: {
-    rejectUnauthorized: true,
-  },
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+  ssl:
+    process.env.DB_SSL === "true"
+      ? {
+          rejectUnauthorized: true,
+        }
+      : false,
 };
 
 let pool;
@@ -90,9 +90,10 @@ export class MovieModel {
 }
 
 export async function testConnection() {
+  if (!pool) return false;
+
   try {
     const connection = await pool.getConnection();
-    console.log("Conexión a la base de datos exitosa");
     connection.release();
     return true;
   } catch (error) {
