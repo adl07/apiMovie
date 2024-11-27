@@ -14,12 +14,21 @@ export const createApp = ({ movieModel }) => {
   //Devolver toda la informacion//
   app.use("/movies", createMovieRouter({ movieModel }));
 
-  const PORT = process.env.PORT ?? 1234;
+  // Solo usar app.listen cuando NO estamos en Vercel
+  if (process.env.NODE_ENV !== "production") {
+    const PORT = process.env.PORT ?? 1234;
+    app.listen(PORT, () => {
+      console.log(`server se levanto en el puerto http://localhost:${PORT}`);
+    });
+  }
 
-  app.listen(PORT, () => {
-    console.log(`server se levanto en el puerto http://localhost:${PORT}`);
-  });
+  return app;
 };
+
+// Añade esta exportación para Vercel
+import { MovieModel } from "./models/movie.js";
+const app = createApp({ movieModel: MovieModel });
+export default app;
 
 /* app.options("/movies/:id", (req, res) => {
   const origin = req.header("origin");
