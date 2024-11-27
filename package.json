@@ -2,7 +2,10 @@
   "name": "03-api-rest",
   "version": "1.0.0",
   "description": "",
-  "main": "api.js",
+  "main": "server-with-mysql.js",
+  "engines": {
+    "node": "20.x"
+  },
   "type": "module",
   "scripts": {
     "start:sql": "node --watch server-with-mysql.js"
