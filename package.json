@@ -5,11 +5,13 @@
   "main": "api.js",
   "type": "module",
   "scripts": {
-    "start:sql": "node --watch server-with-mysql.js"
+    "start:sql": "node --watch server-with-mysql.js",
+    "start:superbase": "node --watch server-with-superbase.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.46.2",
     "cors": "2.8.5",
     "express": "4.21.1",
     "mysql2": "^3.11.4",
