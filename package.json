@@ -5,7 +5,7 @@
   "main": "api.js",
   "type": "module",
   "scripts": {
-    "start:sql": "node --watch server-with-mysql.js",
+    "start": "node api.js",
     "start:superbase": "node --watch server-with-superbase.js"
   },
   "author": "",
