@@ -1,12 +1,29 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Inicializa el cliente de Supabase
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// Inicializa el cliente de Supabase con mejor manejo de errores
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Las variables de entorno de Supabase no están configuradas correctamente');
+}
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Función para verificar la conexión
+async function checkSupabaseConnection() {
+  try {
+    const { data, error } = await supabase.from('movies').select('count').single();
+    if (error) throw error;
+    console.log('Conexión con Supabase establecida correctamente');
+    return true;
+  } catch (error) {
+    console.error('Error al conectar con Supabase:', error);
+    return false;
+  }
+}
 
-// Asegúrate de haber importado y configurado correctamente el cliente de Supabase
+checkSupabaseConnection()
 
 export class MovieModel {
   static async getAll({ genre }) {
