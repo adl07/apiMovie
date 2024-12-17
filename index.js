@@ -1,4 +1,26 @@
-import express, { json } from "express";
+import express from "express";
+import { createMovieRouter } from "./routes/movies.js";
+import { MovieModel } from "./models/superbase-test/movie.js"; // Asegúrate de que la ruta sea correcta
+
+const app = express();
+app.use(express.json());
+app.disable("x-powered-by");
+
+app.use("/movies", createMovieRouter({ movieModel: MovieModel }));
+
+export default app;
+
+
+
+
+
+
+
+
+
+
+
+/* import express, { json } from "express";
 import { createMovieRouter } from "./routes/movies.js";
 import dotenv from 'dotenv';
 dotenv.config();
@@ -21,7 +43,7 @@ export const createApp = ({ movieModel }) => {
   app.listen(PORT, () => {
     console.log(`server se levanto en el puerto http://localhost:${PORT}`);
   });
-};
+}; */
 
 /* app.options("/movies/:id", (req, res) => {
   const origin = req.header("origin");
