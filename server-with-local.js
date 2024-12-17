@@ -1,4 +1,4 @@
-import { createApp } from "./api.js";
+import { createApp } from "./index.js";
 import { MovieModel } from "./models/local-file-system/movie.js";
 
 

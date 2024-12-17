@@ -94,21 +94,6 @@ async function testSupabaseIntegration() {
       const singleMovie = await MovieModel.getById({ id: movieId });
       console.log("Película individual:", singleMovie);
   
-      // Probar create
-      //const newMovie = await MovieModel.create({
-      //  input: {
-      //    title: "Nueva Película de Prueba",
-      //    year: 2023,
-      //    director: "Director de Prueba",
-      //    duration: 120,
-      //    poster: "https://ejemplo.com/poster.jpg",
-      //    rate: 8.5
-      //  }
-      //});
-      //console.log("Nueva película creada:", newMovie);
-  
-      // Puedes añadir más pruebas para update y delete aquí
-  
     } catch (error) {
       console.error("Error durante las pruebas:", error);
     }

@@ -2,10 +2,10 @@
   "name": "03-api-rest",
   "version": "1.0.0",
   "description": "",
-  "main": "api.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node api.js",
+    "start": "node index.js",
     "start:superbase": "node --watch server-with-superbase.js",
     "start:mysql": "node --watch server-with-mysql.js",
     "start:local": "node --watch server-with-local.js",
