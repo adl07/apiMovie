@@ -1,5 +1,7 @@
 import express, { json } from "express";
 import { createMovieRouter } from "./routes/movies.js";
+import dotenv from 'dotenv';
+dotenv.config();
 //import { corsMiddleware } from "./middlewares/cors.js";
 //import { moviesRouter } from "./routes/movies.js";
 

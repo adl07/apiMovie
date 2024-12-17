@@ -5,10 +5,10 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export class MovieModel {
+export class moviesModel {
   static async getAll({ genre }) {
     try {
-      let query = supabase.from("movie").select("*");
+      let query = supabase.from("movies").select("*");
       if (genre) {
         query = query.eq("genre", genre);
       }
@@ -24,7 +24,7 @@ export class MovieModel {
   static async getById({ id }) {
     try {
       const { data, error } = await supabase
-        .from("movie")
+        .from("movies")
         .select("*")
         .eq("id", id)
         .single();
@@ -40,7 +40,7 @@ export class MovieModel {
     const { title, year, duration, director, rate, poster } = input;
     try {
       const { data, error } = await supabase
-        .from("movie")
+        .from("movies")
         .insert([{ title, year, duration, director, rate, poster }])
         .select();
       if (error) throw error;
@@ -53,7 +53,7 @@ export class MovieModel {
 
   static async delete({ id }) {
     try {
-      const { error } = await supabase.from("movie").delete().eq("id", id);
+      const { error } = await supabase.from("movies").delete().eq("id", id);
       if (error) throw error;
       return true;
     } catch (error) {
@@ -65,7 +65,7 @@ export class MovieModel {
   static async update({ id, input }) {
     try {
       const { data, error } = await supabase
-        .from("movie")
+        .from("movies")
         .update(input)
         .eq("id", id)
         .select();
@@ -81,7 +81,7 @@ export class MovieModel {
 export async function testConnection() {
   try {
     const { data, error } = await supabase
-      .from("movie")
+      .from("movies")
       .select("count", { count: "exact" });
     if (error) throw error;
     console.log("Conexión a Supabase exitosa");
@@ -91,3 +91,4 @@ export async function testConnection() {
     return false;
   }
 }
+
