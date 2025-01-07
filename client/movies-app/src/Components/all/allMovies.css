@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.container-card{
+    display: grid;
+    justify-content: center;
+    margin: 20px auto;
+}
+

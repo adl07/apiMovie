@@ -1,4 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 // Inicializa el cliente de Supabase con mejor manejo de errores
 const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -8,50 +12,77 @@ if (!supabaseUrl || !supabaseKey) {
   throw new Error('Las variables de entorno de Supabase no están configuradas correctamente');
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+let supabase = createClient(supabaseUrl, supabaseKey);
 
-// Función para verificar la conexión
-async function checkSupabaseConnection() {
-  try {
-    const { data, error } = await supabase.from('movies').select('count').single();
-    if (error) throw error;
-    console.log('Conexión con Supabase establecida correctamente');
-    return true;
-  } catch (error) {
-    console.error('Error al conectar con Supabase:', error);
-    return false;
-  }
-}
+// Función para reiniciar el cliente de Supabase
+const resetSupabaseClient = () => {
+  supabase = createClient(supabaseUrl, supabaseKey);
+};
 
-checkSupabaseConnection()
 
 export class MovieModel {
-  static async getAll({ genre }) {
+  static async getAll({ genre } = {}) {
     try {
       let query = supabase.from("movies").select("*");
-      if (genre) {
-        query = query.eq("genre", genre);
+      
+      // Solo aplicar el filtro de género si existe la columna
+      // Primero verificamos la estructura de la tabla
+      const { data: tableInfo, error: tableError } = await supabase
+        .from('movies')
+        .select('*')
+        .limit(1);
+
+      if (tableError) {
+        console.error('Error al verificar la estructura de la tabla:', tableError);
+        throw new Error("Error al acceder a la base de datos");
       }
+
+      // Si se proporciona género y la columna existe, aplicar el filtro
+      if (genre && tableInfo && tableInfo[0] && 'genre' in tableInfo[0]) {
+        query = query.eq("genre", genre.toUpperCase());
+      } else if (genre) {
+        console.warn('La columna genre no existe en la tabla movies');
+      }
+
       const { data, error } = await query;
-      if (error) throw error;
+      
+      if (error) {
+        console.error('Error en getAll:', error);
+        resetSupabaseClient();
+        throw new Error("Error al obtener las películas");
+      }
+      
       return data;
     } catch (error) {
       console.error("Error en getAll:", error);
+      // Intentar reconectar en caso de error de conexión
+      resetSupabaseClient();
       throw new Error("No se pudieron obtener las películas");
     }
   }
 
   static async getById({ id }) {
     try {
+      if (!id) {
+        throw new Error('ID no proporcionado');
+      }
+
       const { data, error } = await supabase
         .from("movies")
         .select("*")
         .eq("id", id)
-        .single();
-      if (error) throw error;
+        .maybeSingle();
+      
+      if (error) {
+        console.error('Error en getById:', error);
+        resetSupabaseClient();
+        throw new Error("Error al obtener la película");
+      }
+      
       return data;
     } catch (error) {
       console.error("Error en getById:", error);
+      resetSupabaseClient();
       throw new Error("No se pudo obtener la película");
     }
   }
@@ -96,24 +127,23 @@ export class MovieModel {
       throw new Error("No se pudo actualizar la película");
     }
   } 
+
+
+  // Método para verificar la conexión
+static async checkConnection() {
+  try {
+    const { data, error } = await supabase.from("movies").select("id").limit(1);
+    if (error) {
+      console.error('Error de conexión:', error);
+      resetSupabaseClient();
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('Error al verificar conexión:', error);
+    resetSupabaseClient();
+    return false;
+  }
+  }
 }
 
-
-
-async function testSupabaseIntegration() {
-    try {
-      // Probar getAll
-      const allMovies = await MovieModel.getAll({});
-      console.log("Todas las películas:", allMovies);
-  
-      // Probar getById (asegúrate de usar un ID válido de las películas que añadiste)
-      const movieId = '65d41b6a-68ae-4298-a589-8f2fba1acdbc';
-      const singleMovie = await MovieModel.getById({ id: movieId });
-      console.log("Película individual:", singleMovie);
-  
-    } catch (error) {
-      console.error("Error durante las pruebas:", error);
-    }
-  }
-  
-  testSupabaseIntegration();

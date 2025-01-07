@@ -1,0 +1,35 @@
+#root {
+  width: 100%;
+  height:max-content;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+header{
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px auto;
+}
+
+
+header a{
+  text-decoration: none;
+  color: #73777c;
+  font-size: .890rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: solid 1px #1b1e1c;
+}
+
+header a:hover{
+  color: #ffffff;
+  opacity: 0.7;
+  transition: 0.3s;
+  background-color: #393939;
+}
+
+

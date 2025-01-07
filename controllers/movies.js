@@ -9,17 +9,49 @@ export class MovieController {
   }
 
   getAll = async (req, res) => {
-    const { genre } = req.query;
-    const movies = await this.movieModel.getAll({ genre });
-    console.log("Llego hasta acá");
-    res.json(movies);
+    try {
+      const { genre } = req.query;
+      const movies = await this.movieModel.getAll({ genre });
+      return res.json(movies);
+    } catch (error) {
+      console.error('Error en controller getAll:', error);
+      return res.status(500).json({ 
+        error: 'Error interno', 
+        message: error.message || 'Error al obtener las películas' 
+      });
+    }
   };
 
   getById = async (req, res) => {
-    const { id } = req.params;
-    const movie = await this.movieModel.getById({ id });
-    if (movie) return res.json(movie);
-    res.status(404).json({ message: "movie not found" });
+    try {
+      const { id } = req.params;
+      
+      // Validar formato UUID
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      if (!uuidRegex.test(id)) {
+        return res.status(400).json({ 
+          error: 'ID inválido', 
+          message: 'El ID debe ser un UUID válido' 
+        });
+      }
+
+      const movie = await this.movieModel.getById({ id });
+      
+      if (!movie) {
+        return res.status(404).json({ 
+          error: 'No encontrada',
+          message: 'Película no encontrada' 
+        });
+      }
+
+      return res.json(movie);
+    } catch (error) {
+      console.error('Error en controller getById:', error);
+      return res.status(500).json({ 
+        error: 'Error interno', 
+        message: error.message || 'Error al obtener la película' 
+      });
+    }
   };
 
   create = async (req, res) => {
