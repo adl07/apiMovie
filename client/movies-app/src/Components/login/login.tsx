@@ -5,7 +5,7 @@ import UserLogin from "../users/user"
 
 interface UserInfo{
     userName: string,
-    pass: string
+    pass?: string;
 }
 
 const Login: React.FC<{}>=()=>{
@@ -18,7 +18,7 @@ const Login: React.FC<{}>=()=>{
 
     
     const getUser = async ({user}:{user:string})=>{
-        const response = await fetch(`https://api-movies-app.vercel.app/movies/${user}`);
+        const response = await fetch(`https://api-movies-app.vercel.app/movies/user?userName=${user}`);
         const data: UserInfo[] = await response.json()
         console.log(data)
     }
