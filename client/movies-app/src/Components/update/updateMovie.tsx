@@ -212,7 +212,7 @@ export default function UpdateMovie(){
                                     ) : useSuccess ? (
                                         <Success isOpen={isPopupOpen} title={useTitle}>
                                             <h4 className="popup-text">Actualizado!</h4>
-                                            <p className="popup-text-title">Actualizaste con exito la pelicula {useTitle}</p>
+                                            <p className="popup-text-title">Actualizaste con exito la pelicula</p>
                                             <button onClick={closePopup} className="button-close">
                                                 Cerrar
                                             </button>

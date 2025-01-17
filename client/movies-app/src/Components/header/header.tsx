@@ -15,6 +15,7 @@ export default function Header(){
                 <Link to="/createMovie">Create</Link>
                 <Link to="/updateMovie">Update</Link>
                 <Link to="/deleteMovie">Delete</Link>
+                <Link to="/login">Login</Link>
             </div>
         </header>
     )

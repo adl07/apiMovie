@@ -178,7 +178,8 @@ export default function CreateMovie(){
                             <button onClick={closePopup} className="button-close">
                                 Cerrar
                             </button>
-                        </ErrorPopUp>)}
+                        </ErrorPopUp>)
+            }
         </div>
     )
 }
