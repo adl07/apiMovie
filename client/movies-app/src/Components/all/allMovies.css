@@ -1,13 +1,13 @@
 .container {
     display: flex;
-    justify-content: center;
-}
-
-
-
-.container-card{
-    display: grid;
-    justify-content: center;
-    margin: 20px auto;
-}
-
+    flex-wrap: wrap; /* Permite que las cards se ajusten automáticamente a la siguiente fila */
+    justify-content: space-between; /* Espaciado uniforme entre las cards */
+    gap: 16px; /* Espaciado entre las cards (puedes ajustarlo a tus necesidades) */
+    padding: 16px;
+  }
+  
+  .container-card {
+    flex: 1 1 calc(33.33% - 16px); /* Cada card ocupa un tercio del ancho del contenedor */
+    box-sizing: border-box; /* Asegura que el padding no rompa el diseño */
+  }
+  

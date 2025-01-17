@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState,useRef } from "react"
+import { FormEvent, useEffect, useState} from "react"
 import { Movie } from "../movie"
 import './updateMovie.css'
 import Success from "../success/success";
@@ -36,8 +36,6 @@ export default function UpdateMovie(){
     const [useSuccess, setUseSuccess]= useState<boolean>(false);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -199,7 +197,8 @@ export default function UpdateMovie(){
                             </button>
 
                             {isLoading ? (
-                                        <ThreeDots
+                                        <div className="loading-overlay">
+                                            <ThreeDots
                                             visible={true}
                                             height="80"
                                             width="80"
@@ -209,8 +208,11 @@ export default function UpdateMovie(){
                                             wrapperStyle={{}}
                                             wrapperClass="loader-update"
                                         />
+                                        </div>
                                     ) : useSuccess ? (
-                                        <Success isOpen={isPopupOpen} title={useDataMovie.title}>
+                                        <Success isOpen={isPopupOpen} title={useTitle}>
+                                            <h4 className="popup-text">Actualizado!</h4>
+                                            <p className="popup-text-title">Actualizaste con exito la pelicula {useTitle}</p>
                                             <button onClick={closePopup} className="button-close">
                                                 Cerrar
                                             </button>

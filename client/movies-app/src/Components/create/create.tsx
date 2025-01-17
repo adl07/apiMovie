@@ -1,6 +1,9 @@
 
 import { FormEvent, useState } from 'react'
 import './create.css'
+import Success from '../success/success';
+import {ThreeDots} from 'react-loader-spinner'
+import ErrorPopUp from '../error-movie/error-popUp';
 
 
 
@@ -29,11 +32,18 @@ export default function CreateMovie(){
 
     const [useGenre, setUseGenre]= useState<string>("") 
 
-    
-
     const [useGetData, setUseGetData] = useState<DateMovie[]>([])
 
-   
+    const [useSuccess, setUseSuccess]= useState<boolean>(false);
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => setIsPopupOpen(true);
+
+    const closePopup = () => setIsPopupOpen(false);
+
     
     
 
@@ -43,6 +53,7 @@ export default function CreateMovie(){
     const sendData= async (event: FormEvent<HTMLFormElement>)=>{
         event.preventDefault()
 
+        setIsLoading(true);
         // Convierte el género en un array (puedes dividir por comas si es necesario)
         const genreArray = useGenre.split(',').map((g) => g.trim()); // Divide por comas y elimina espacios adicionales
 
@@ -69,11 +80,21 @@ export default function CreateMovie(){
             const result = await response.json();
             console.log('Película agregada con éxito:', result);
             setUseGetData((prevList) => [...prevList, data]);
+            setUseSuccess(true);
+            setUseTitle("");
+            setUseYear("");
+            setUseDuration("");
+            setUseDirector("");
+            setUseGenre("");
+            setUsePoster("");
             } else {
             console.error('Error al agregar la película:', response.statusText);
             }
         } catch (error) {
             console.error('Hubo un error con el POST:', error);
+        }
+        finally{
+            setIsLoading(false)
         }
 
     }
@@ -127,8 +148,37 @@ export default function CreateMovie(){
                 onChange={(e)=>setUsePoster(e.target.value)}
                 value={usePoster}/>
                 
-                <button className='button-agregar' type='submit'>Agregar</button>
+                <button className='button-agregar' type='submit' disabled={isLoading} onClick={openPopup}>Agregar</button>
             </form>
+            {
+                isLoading ? (
+                    <div className='loading-overlay'>
+                        <ThreeDots
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#4fa94d"
+                        radius="9"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="loader-update"
+                        />
+                    </div>
+                    ): useSuccess ? (
+                        <Success isOpen={isPopupOpen}>
+                            <h4 className="popup-text">Pelicula Creada!</h4>
+                            <p className="popup-text-title">Ya podes acceder a los datos de la misma</p>
+                            <button onClick={closePopup} className="button-close">
+                                Cerrar
+                            </button>
+                        </Success>
+                    ) : (<ErrorPopUp isOpen={isPopupOpen}>
+                            <h4 className="popup-text">Error al crear la pelicula</h4>
+                            <p className="popup-text-title">Por favor corrobora los datos de la misma e intenta nuevamente</p>
+                            <button onClick={closePopup} className="button-close">
+                                Cerrar
+                            </button>
+                        </ErrorPopUp>)}
         </div>
     )
 }

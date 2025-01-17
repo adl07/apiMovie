@@ -19,7 +19,7 @@ export default function SearchId(){
         const data:Movie[]  = await response.json();
         setUseLoading(true);
         setInfo(data)
-
+        setIdValue('')
         console.log(data)
     }
     const handleValue=()=>{
