@@ -17,9 +17,8 @@ export const createMovieRouter = ({ movieModel }) => {
 
   moviesRouter.patch("/:id", movieController.update);
 
-  //Se agrega route para user//
-
-  moviesRouter.get("/user", movieController.getUser);
+   // Cambiamos la ruta para usar query params
+   moviesRouter.get("/auth/user", movieController.getUser); // Nota: movido antes de las rutas con :id
 
   return moviesRouter;
 };

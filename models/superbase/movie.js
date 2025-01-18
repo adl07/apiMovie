@@ -6,6 +6,27 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export class moviesModel {
+
+  //Se agrega const para user//
+
+  static async getUser({ user }) {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("username", user)
+        .single();
+
+      if (error) throw error;
+      return data;
+
+    } catch (error) {
+      console.error("Error en getUser:", error);
+      throw new Error("No se pudo obtener el usuario");
+    }
+  }
+
+
   static async getAll({ genre }) {
     try {
       let query = supabase.from("movies").select("*");
@@ -77,22 +98,7 @@ export class moviesModel {
     }
   }
 
-  //Se agrega const para user//
-
-  static async getUser({user}){
-    try {
-      const { data, error } = await supabase
-        .from("users")
-        .select("*")
-        .eq("userName", user)
-        .single();
-      if (error) throw error;
-      return data;
-    } catch (error) {
-      console.error("Error en getByUser:", error);
-      throw new Error("No se pudo obtener el usuario");
-    }
-  }
+  
 }
 
 export async function testConnection() {

@@ -8,6 +8,7 @@ export class MovieController {
     this.movieModel = movieModel;
   }
 
+
   getAll = async (req, res) => {
     try {
       const { genre } = req.query;
@@ -22,23 +23,28 @@ export class MovieController {
     }
   };
 
-  getUser = async(req, res)=>{
-
+  getUser = async (req, res) => {
     try {
-      const {user} = req.params
+      // Cambiamos de params a query
+      const userName = req.query.userName;
 
+      if (!userName) {
+        return res.status(400).json({
+          error: 'Usuario inválido',
+          message: 'El nombre de usuario es requerido'
+        });
+      }
 
-      const userData = await this.movieModel.getUser({user})
+      const userData = await this.movieModel.getUser({ user: userName });
 
-      if(!userData){
+      if (!userData) {
         return res.status(404).json({
-          error: 'User no encontrado',
+          error: 'Usuario no encontrado',
           message: 'No existe usuario con esos datos'
-        })
+        });
       }
 
       return res.json(userData);
-
     } catch (error) {
       console.error('Error en controller getUser:', error);
       return res.status(500).json({ 
@@ -46,6 +52,7 @@ export class MovieController {
         message: error.message || 'Error al obtener el usuario' 
       });
     }
+  };
     
 
   }

@@ -17,7 +17,7 @@ const Login: React.FC=()=>{
   const getUser = async ({ user }: { user: string }) => {
     try {
         const response = await fetch(
-          `https://api-movies-app.vercel.app/movies/auth/user?userName=${encodeURIComponent(user)}`
+          `https://api-movies-app.vercel.app/movies/auth/user?username=${encodeURIComponent(user)}`
         );
         
         if (!response.ok) {
