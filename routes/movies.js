@@ -17,5 +17,9 @@ export const createMovieRouter = ({ movieModel }) => {
 
   moviesRouter.patch("/:id", movieController.update);
 
+  //Se agrega route para user//
+
+  moviesRouter.get("/user", movieController.getUser);
+
   return moviesRouter;
 };

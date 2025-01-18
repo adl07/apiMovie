@@ -76,6 +76,23 @@ export class moviesModel {
       throw new Error("No se pudo actualizar la película");
     }
   }
+
+  //Se agrega const para user//
+
+  static async getUser({user}){
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("userName", user)
+        .single();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error("Error en getByUser:", error);
+      throw new Error("No se pudo obtener el usuario");
+    }
+  }
 }
 
 export async function testConnection() {
