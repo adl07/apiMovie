@@ -21,6 +21,26 @@ export class moviesModel {
     }
   }
 
+  static async getUser({ username }) {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("username", username)
+        .single();
+
+      if (error) {
+        console.error("Error en getUser:", error);
+        throw new Error("No se pudo obtener el usuario");
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error en getUser:", error);
+      throw new Error("No se pudo obtener el usuario");
+    }
+  }
+
   static async getById({ id }) {
     try {
       const { data, error } = await supabase

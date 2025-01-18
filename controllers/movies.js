@@ -22,6 +22,37 @@ export class MovieController {
     }
   };
 
+  getUser = async (req, res) => {
+    try {
+      const { username } = req.query;
+
+      if (!username) {
+        return res.status(400).json({
+          error: 'Usuario requerido',
+          message: 'El nombre de usuario es necesario'
+        });
+      }
+
+      const userData = await this.movieModel.getUser({ username });
+
+      if (!userData) {
+        return res.status(404).json({
+          error: 'Usuario no encontrado',
+          message: 'No existe usuario con esos datos'
+        });
+      }
+
+      return res.json(userData);
+
+    } catch (error) {
+      console.error('Error en controller getUser:', error);
+      return res.status(500).json({ 
+        error: 'Error interno', 
+        message: error.message || 'Error al obtener el usuario' 
+      });
+    }
+  }
+
   getById = async (req, res) => {
     try {
       const { id } = req.params;
