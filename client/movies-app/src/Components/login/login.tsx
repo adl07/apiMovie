@@ -9,8 +9,11 @@ interface UserInfo{
 }
 
 const Login: React.FC=()=>{
+const Login: React.FC=()=>{
 
     const [useUser, setUseUser] = useState<string>('');
+  const [usePassword, setUsePassword] = useState<string>('');
+  const [useUserData, setUseUserData] = useState<UserInfo[]>([]);
   const [usePassword, setUsePassword] = useState<string>('');
   const [useUserData, setUseUserData] = useState<UserInfo[]>([]);
 
