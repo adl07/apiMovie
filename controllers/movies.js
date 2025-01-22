@@ -25,8 +25,14 @@ export class MovieController {
 
   getUser = async (req, res) => {
     try {
-      console.log("Attempting to call getUser method")
-      const users = await this.movieModel.getUser()
+      const { user } = req.params;
+      const users = await this.movieModel.getUser({user})
+      if (!users) {
+        return res.status(404).json({ 
+          error: 'No encontrado',
+          message: 'Usuario no encontrado' 
+        });
+      }
       return res.json(users)
     } catch (error) {
       console.error("Error en controller getUser:", error)

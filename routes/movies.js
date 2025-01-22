@@ -7,11 +7,10 @@ export const createMovieRouter = ({ movieModel }) => {
 
   const movieController = new MovieController({ movieModel });
 
-  moviesRouter.get("/users", movieController.getUser);
-
   // Asegúrate de que esta ruta esté antes de cualquier ruta que use parámetros dinámicos como :id
-
   moviesRouter.get("/", movieController.getAll);
+
+  moviesRouter.get("/users/:user", movieController.getUser);
 
   moviesRouter.post("/", movieController.create);
 

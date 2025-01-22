@@ -61,10 +61,20 @@ export class MovieModel {
     }
   }
 
-  static async getUser() {
+  static async getUser({user}) {
     try {
-      const { data, error } = await supabase.from("users").select("*")
-      if (error) throw error
+      if(!user){
+        throw new Error('user no proporcionado');
+      }
+      const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("username", user)
+      .maybeSingle()
+
+      if (error) {
+        throw new Error("Error al obtener el usuario")
+      }
       return data
     } catch (error) {
       console.error("Error en getUser:", error)
