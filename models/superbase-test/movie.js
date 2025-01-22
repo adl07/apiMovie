@@ -61,6 +61,17 @@ export class MovieModel {
     }
   }
 
+  static async getUser() {
+    try {
+      const { data, error } = await supabase.from("users").select("*")
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error("Error en getUser:", error)
+      throw new Error("No se pudo obtener el usuario")
+    }
+  }
+
   static async getById({ id }) {
     try {
       if (!id) {
