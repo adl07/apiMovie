@@ -23,18 +23,12 @@ export class moviesModel {
 
   static async getUser() {
     try {
-
-      let query = supabase.from("users").select("*");
-
-      const { data, error } = await query
-      if (error) {
-        console.error("Error en getUser:", error);
-        throw new Error("No se pudo obtener el usuario");
-      }
-      return data;
+      const { data, error } = await supabase.from("users").select("*")
+      if (error) throw error
+      return data
     } catch (error) {
-      console.error("Error en getUser:", error);
-      throw new Error("No se pudo obtener el usuario");
+      console.error("Error en getUser:", error)
+      throw new Error("No se pudo obtener el usuario")
     }
   }
 
@@ -99,6 +93,10 @@ export async function testConnection() {
   try {
     const { data, error } = await supabase
       .from("movies")
+      .select("count", { count: "exact" });
+
+      const { dat, err } = await supabase
+      .from("users")
       .select("count", { count: "exact" });
     if (error) throw error;
     console.log("Conexión a Supabase exitosa");

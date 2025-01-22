@@ -5,7 +5,8 @@ import { validateMovie, validatePartialMovie } from "../schemas/movie.js";
 
 export class MovieController {
   constructor({ movieModel }) {
-    this.movieModel = movieModel;
+    this.movieModel = movieModel
+    console.log("MovieModel methods:", Object.getOwnPropertyNames(this.movieModel))
   }
 
   getAll = async (req, res) => {
@@ -24,14 +25,15 @@ export class MovieController {
 
   getUser = async (req, res) => {
     try {
-      const users = await this.movieModel.getUser();
-      return res.json(users);
+      console.log("Attempting to call getUser method")
+      const users = await this.movieModel.getUser()
+      return res.json(users)
     } catch (error) {
-      console.error('Error en controller getUser:', error);
-      return res.status(500).json({ 
-        error: 'Error interno', 
-        message: error.message || 'Error al obtener el usuario' 
-      });
+      console.error("Error en controller getUser:", error)
+      return res.status(500).json({
+        error: "Error interno",
+        message: error.message || "Error al obtener el usuario",
+      })
     }
   }
 
