@@ -21,19 +21,16 @@ export class moviesModel {
     }
   }
 
-  static async getUser({ username }) {
+  static async getUser() {
     try {
-      const { data, error } = await supabase
-        .from("users")
-        .select("*")
-        .eq("username", username)
-        .single();
 
+      let query = supabase.from("users").select("*");
+
+      const { data, error } = await query
       if (error) {
         console.error("Error en getUser:", error);
         throw new Error("No se pudo obtener el usuario");
       }
-
       return data;
     } catch (error) {
       console.error("Error en getUser:", error);
