@@ -1,19 +1,17 @@
 import { Link } from "react-router-dom"
 import './header.css'
 import Logo from '../../images/Logo.png'
-import { useSelector } from "react-redux"
+import UserSaludo from "../users/userSaludo"
 
 export default function Header(){
-
-    const userName = useSelector((state)=>state.user.username)
 
     return(
         <header>
             <div>
                 <img src={Logo} alt="" className="logo-img"/>
             </div>
-            <div className="username">
-                <h5>Hola {userName}</h5>
+            <div>
+                <UserSaludo/>
             </div>
             <div>
                 <Link to="/">Home</Link>
