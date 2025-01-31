@@ -88,31 +88,41 @@ export class MovieModel {
         throw new Error("User ID not provided")
       }
 
-      console.log(`Fetching favorite movies for user: ${userId}`)
+      console.log("[DEBUG] Iniciando consulta para userId:", userId)
 
-      const { data, error } = await supabase
-      .from('movies')
-      .select(`
-        *,
-        moviesFavs!inner (
-          iduser,
-          users!inner (
-            id
-          )
-        )
-      `)
-      .eq('moviesFavs.users.id', userId)
+      // Primero, obtener los IDs de las películas favoritas del usuario
+      const { data: favMovies, error: favError } = await supabase
+        .from("moviesFavs")
+        .select("idMovie")
+        .eq("idUser", userId)
 
-      if (error) {
-        console.error("Supabase error:", error)
-        throw new Error("Error getting favorite movies")
+      if (favError) {
+        console.error("[DEBUG] Error al obtener moviesFavs:", favError)
+        throw favError
       }
 
-      console.log(`Found ${data.length} favorite movies for user ${userId}`)
-      return data
+      if (!favMovies || favMovies.length === 0) {
+        console.log("[DEBUG] No se encontraron películas favoritas")
+        return []
+      }
+
+      // Extraer los IDs de las películas
+      const movieIds = favMovies.map((fav) => fav.idMovie)
+      console.log("[DEBUG] IDs de películas encontrados:", movieIds)
+
+      // Obtener los detalles de las películas
+      const { data: movies, error: moviesError } = await supabase.from("movies").select("*").in("id", movieIds)
+
+      if (moviesError) {
+        console.error("[DEBUG] Error al obtener movies:", moviesError)
+        throw moviesError
+      }
+
+      console.log("[DEBUG] Películas encontradas:", movies?.length || 0)
+      return movies || []
     } catch (error) {
-      console.log("Error al consultar peliculas favoritas del userId",error);
-      throw new Error("Error al consultar peliculas favoritas")
+      console.error("[DEBUG] Error completo:", error)
+      throw error
     }
   }
 

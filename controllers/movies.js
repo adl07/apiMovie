@@ -48,23 +48,36 @@ export class MovieController {
       
     try {
       const { userId } = req.params
+      console.log("[DEBUG] Controller - Recibida petición para userId:", userId)
+
       if (!userId) {
+        console.log("[DEBUG] Controller - UserId no proporcionado")
         return res.status(400).json({
           error: "Bad Request",
-          message: "User ID is required",
+          message: "Se requiere el ID del usuario",
         })
       }
 
-      const userIdFav = await this.movieModel.getMoviesFav({ userId })
-      if (!userIdFav || userIdFav.length === 0) {
+      const movies = await this.movieModel.getMoviesFav({ userId })
+      console.log("[DEBUG] Controller - Respuesta del modelo:", movies)
+
+      if (!movies) {
         return res.status(404).json({
           error: "Not Found",
-          message: "No favorite movies found for this user",
+          message: "Usuario no encontrado",
         })
       }
-      return res.json(userIdFav)
+
+      if (movies.length === 0) {
+        return res.status(404).json({
+          error: "Not Found",
+          message: "No se encontraron películas favoritas para este usuario",
+        })
+      }
+
+      return res.json(movies)
     } catch (error) {
-      console.error("Error en controller getMoviesFav:", error)
+      console.error("[DEBUG] Controller - Error completo:", error)
       return res.status(500).json({
         error: "Error interno",
         message: error.message || "Error al obtener las películas favoritas",
