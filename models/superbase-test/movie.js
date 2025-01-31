@@ -90,36 +90,33 @@ export class MovieModel {
 
       console.log("[DEBUG] Iniciando consulta para userId:", userId)
 
-      // Obtener las películas favoritas del usuario
-      const { data: favMovies, error: favError } = await supabase
-        .from("moviesfavs") // Exactamente como está en Supabase
-        .select("idmovie")
-        .eq("iduser", userId)
+      // Primero, obtener las películas favoritas con un join directo
+      const { data: movies, error } = await supabase
+        .from("movies")
+        .select(`
+          *,
+          moviesFavs!inner (idUser)
+        `)
+        .eq("moviesFavs.idUser", userId)
 
-      if (favError) {
-        console.error("[DEBUG] Error al obtener moviesFavs:", favError)
-        throw favError
+      if (error) {
+        console.error("[DEBUG] Error en la consulta:", error)
+        throw error
       }
 
-      if (!favMovies || favMovies.length === 0) {
+      if (!movies || movies.length === 0) {
         console.log("[DEBUG] No se encontraron películas favoritas")
         return []
       }
 
-      // Extraer los IDs de las películas
-      const movieIds = favMovies.map((fav) => fav.idMovie)
-      console.log("[DEBUG] IDs de películas encontrados:", movieIds)
+      console.log("[DEBUG] Películas encontradas:", movies.length)
+      // Limpiamos los datos antes de devolverlos
+      const cleanedMovies = movies.map((movie) => {
+        const { moviesFavs, ...movieData } = movie
+        return movieData
+      })
 
-      // Obtener los detalles de las películas
-      const { data: movies, error: moviesError } = await supabase.from("movies").select("*").in("id", movieIds)
-
-      if (moviesError) {
-        console.error("[DEBUG] Error al obtener movies:", moviesError)
-        throw moviesError
-      }
-
-      console.log("[DEBUG] Películas encontradas:", movies?.length || 0)
-      return movies || []
+      return cleanedMovies
     } catch (error) {
       console.error("[DEBUG] Error completo:", error)
       throw error
