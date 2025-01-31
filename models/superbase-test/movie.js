@@ -91,17 +91,17 @@ export class MovieModel {
       console.log(`Fetching favorite movies for user: ${userId}`)
 
       const { data, error } = await supabase
-        .from("movies")
-        .select(`
-          *,
-          moviesFavs!inner (
-            idUser,
-            users!inner (
-              id
-            )
+      .from('movies')
+      .select(`
+        *,
+        moviesFavs!inner (
+          idUser,
+          users!inner (
+            id
           )
-        `)
-        .eq("moviesFavs.users.id", userId)
+        )
+      `)
+      .eq('moviesFavs.users.id', userId)
 
       if (error) {
         console.error("Supabase error:", error)
@@ -111,8 +111,8 @@ export class MovieModel {
       console.log(`Found ${data.length} favorite movies for user ${userId}`)
       return data
     } catch (error) {
-      console.error("Error in MovieModel.getMoviesFav:", error)
-      throw error
+      console.log("Error al consultar peliculas favoritas del userId",error);
+      throw new Error("Error al consultar peliculas favoritas")
     }
   }
 
