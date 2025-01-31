@@ -1,6 +1,7 @@
 //import { MovieModel } from "../models/movie.js";
 //import { MovieModel } from "../models/mysql/movie.js";
 
+import { json } from "express";
 import { validateMovie, validatePartialMovie } from "../schemas/movie.js";
 
 export class MovieController {
@@ -41,6 +42,28 @@ export class MovieController {
         message: error.message || "Error al obtener el usuario",
       })
     }
+  }
+
+  getMoviesFav= async(req, res)=>{
+      
+        try{
+          const {userId} = req.params;
+          if(!userId){
+            return res.status(404).json({
+              error: 'No encontrado',
+              message: 'Usuario no encontrado'
+            })
+          }
+
+          const userIdFav = await this.movieModel.getMoviesFav({userId})
+          return res.json(userIdFav)
+        }catch(error){
+          console.error("Error en controller getUser:", error)
+          return res.status(500).json({
+            error: "Error interno",
+            message: error.message || "Error al obtener el usuario",
+          })
+        }
   }
 
   getById = async (req, res) => {

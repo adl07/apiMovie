@@ -82,6 +82,36 @@ export class MovieModel {
     }
   }
 
+  static async getMoviesFav({userId}){
+    try {
+      if(!userId){
+        throw new Error('Id User no proporcionado')
+      }
+
+      const {data, error} = await supabase
+      .from('movies')
+      .select(`
+        *,
+        moviesFavs!inner (
+          users!inner (
+            id
+          )
+        )
+      `)
+      .eq('moviesFavs.users.id', userId)
+      .maybeSingle()
+      
+      if(error){
+        throw new Error("Error al obtener las peliculas favoritas")
+      }
+
+      return data
+    } catch (error) {
+      console.log("Error al consultar peliculas favoritas del userId",error);
+      throw new Error("Error al consultar peliculas favoritas")
+    }
+  }
+
   static async getById({ id }) {
     try {
       if (!id) {

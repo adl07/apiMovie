@@ -10,7 +10,7 @@ const UserSaludo: React.FC =()=>{
 
     const [userMessage, setUserMessage] = useState<boolean>(false)
 
-    console.log("esto recibo de username",userName)
+    //console.log("esto recibo de username",userName)
 
     return(
         <div className="username">

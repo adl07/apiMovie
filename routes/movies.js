@@ -12,6 +12,8 @@ export const createMovieRouter = ({ movieModel }) => {
 
   moviesRouter.get("/users/:user", movieController.getUser);
 
+  moviesRouter.get("/userId/:userId", movieController.getMoviesFav);
+
   moviesRouter.post("/", movieController.create);
 
   moviesRouter.get("/:id", movieController.getById);
