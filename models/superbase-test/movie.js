@@ -84,27 +84,32 @@ export class MovieModel {
 
   static async getMoviesFav({userId}){
     try {
-      if(!userId){
-        throw new Error('Id User no proporcionado')
+      if (!userId) {
+        throw new Error("User ID not provided")
       }
 
-      const {data, error} = await supabase
+      console.log(`Fetching favorite movies for user: ${userId}`)
+
+      const { data, error } = await supabase
       .from('movies')
       .select(`
         *,
         moviesFavs!inner (
+          idUser,
           users!inner (
             id
           )
         )
       `)
       .eq('moviesFavs.users.id', userId)
-      .maybeSingle()
-      
-      if(error){
-        throw new Error("Error al obtener las peliculas favoritas")
+        .maybeSingle()
+
+      if (error) {
+        console.error("Supabase error:", error)
+        throw new Error("Error getting favorite movies")
       }
 
+      console.log(`Found ${data.length} favorite movies for user ${userId}`)
       return data
     } catch (error) {
       console.log("Error al consultar peliculas favoritas del userId",error);

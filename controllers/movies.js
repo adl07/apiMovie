@@ -56,6 +56,12 @@ export class MovieController {
           }
 
           const userIdFav = await this.movieModel.getMoviesFav({userId})
+          if (!userIdFav || userIdFav.length === 0) {
+            return res.status(404).json({
+              error: "Not Found",
+              message: "No favorite movies found for this user",
+            })
+          }
           return res.json(userIdFav)
         }catch(error){
           console.error("Error en controller getUser:", error)
