@@ -95,7 +95,7 @@ export class MovieModel {
       .select(`
         *,
         moviesFavs!inner (
-          idUser,
+          iduser,
           users!inner (
             id
           )
