@@ -90,9 +90,9 @@ export class MovieModel {
 
       console.log("[DEBUG] Iniciando consulta para userId:", userId)
 
-      // Primero, obtener los IDs de las películas favoritas
+      // Obtener las películas favoritas del usuario
       const { data: favMovies, error: favError } = await supabase
-        .from("moviesfavs")
+        .from("moviesFavs")
         .select("idmovie")
         .eq("iduser", userId)
 
@@ -106,10 +106,11 @@ export class MovieModel {
         return []
       }
 
-      const movieIds = favMovies.map((fav) => fav.idMovie)
+      // Extraer los IDs de las películas
+      const movieIds = favMovies.map((fav) => fav.idmovie)
       console.log("[DEBUG] IDs de películas favoritas:", movieIds)
 
-      // Luego, obtener los detalles de las películas
+      // Obtener los detalles de las películas
       const { data: movies, error: moviesError } = await supabase.from("movies").select("*").in("id", movieIds)
 
       if (moviesError) {
