@@ -8,11 +8,9 @@ export default function MovieCard({id, title, poster, director,duration}:Props){
         <div id={id} className="movie-card">
             <h2>{title}</h2>
             <img className="img-movie" src={poster} />
-            <div className="info-movie">
                 <p>{director}</p>
                 <p>{duration}</p>   
-            </div>
-            <button>Agregar a favoritos</button>
+            <button type="button">Agregar a favoritos</button>
         </div>
     )
 }

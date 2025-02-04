@@ -1,7 +1,15 @@
 .movie-card{
     width: 100%;
-    height: 400px;
-    margin: 10px auto;
+        min-height: 400px;
+        /* Cambia height fijo por min-height */
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        max-width: 800px;
 }
 
 .img-movie{
