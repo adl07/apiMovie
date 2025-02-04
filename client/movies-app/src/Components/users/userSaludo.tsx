@@ -8,6 +8,10 @@ const UserSaludo: React.FC =()=>{
     
     const userName = useSelector((state) => state.user.username)
 
+    const id = useSelector((state)=> state.user.id)
+
+    console.log(id)
+
     const [userMessage, setUserMessage] = useState<boolean>(false)
 
     //console.log("esto recibo de username",userName)

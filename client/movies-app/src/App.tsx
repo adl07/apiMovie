@@ -8,6 +8,7 @@ import DeleteMovie from './Components/delete/delete'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './Components/header/header'
 import Login from './Components/login/login'
+import UserFavMovies from './Components/user-fav-movie/userFav'
 
 
 
@@ -24,6 +25,7 @@ function App() {
             <Route path='/updateMovie' element={<UpdateMovie/>}></Route>
             <Route path='/deleteMovie' element={<DeleteMovie/>}></Route>
             <Route path='/login' element={<Login/>}></Route>
+            <Route path='/userFav' element={<UserFavMovies/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

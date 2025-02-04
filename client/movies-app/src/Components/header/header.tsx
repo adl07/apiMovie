@@ -20,6 +20,7 @@ export default function Header(){
                 <Link to="/updateMovie">Update</Link>
                 <Link to="/deleteMovie">Delete</Link>
                 <Link to="/login">Login</Link>
+                <Link to="/userFav">My Movies</Link>
             </div>
         </header>
     )

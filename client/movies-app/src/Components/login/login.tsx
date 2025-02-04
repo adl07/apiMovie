@@ -40,7 +40,7 @@ const Login: React.FC=()=>{
             console.log(data.username)
             setUseInfo({name: data.username, id: data.id})
             if (data.username) {
-                dispatch(addUser({ username: data.username }))
+                dispatch(addUser({ username: data.username, iduser: data.id }))
             }
             console.log('useInfo',useInfoUser)
             if(data.username === null || data.username === undefined){
