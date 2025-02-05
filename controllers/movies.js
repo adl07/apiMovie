@@ -88,12 +88,13 @@ export class MovieController {
 
   addMovieList = async (req, res) => {
     try {
-      const { idUser, idMovie } = req.query;
+      console.log("[DEBUG] Body recibido:", req.body);
+      const { idUser, idMovie } = req.body;
 
       if (!idUser || !idMovie) {
         return res.status(400).json({
           error: "Bad Request",
-          message: "Se requieren idUser e idMovie",
+          message: "Se requieren idUser e idMovie en el body",
         });
       }
 
@@ -102,9 +103,9 @@ export class MovieController {
         idMovie,
       });
 
-      res.status(201).json(newMovieFav);
+      return res.status(201).json(newMovieFav);
     } catch (error) {
-      console.error("Error en addMovieList:", error);
+      console.error("[DEBUG] Error en controller addMovieList:", error);
       res.status(500).json({
         error: "Error interno",
         message: error.message || "No se pudo agregar la película a la lista",

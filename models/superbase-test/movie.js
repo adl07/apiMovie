@@ -137,7 +137,9 @@ export class MovieModel {
 
   static async addMovieList({ idUser, idMovie }) {
     try {
+      console.log("[DEBUG] Recibiendo parámetros:", { idUser, idMovie });
       if (!idUser || idMovie) {
+        console.error("[DEBUG] Faltan parámetros:", { idUser, idMovie });
         throw new Error("Error al proporcionar idUser o idMovie");
       }
 
@@ -146,7 +148,12 @@ export class MovieModel {
         .insert([{ iduser: idUser, idmovie: idMovie }])
         .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error("[DEBUG] Error de Supabase:", error);
+        throw error;
+      }
+
+      console.log("[DEBUG] Película agregada exitosamente:", data);
 
       return data[0];
     } catch (error) {
