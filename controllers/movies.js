@@ -90,10 +90,11 @@ export class MovieController {
     try {
       const { idUser, idMovie } = req.query;
 
-      if (!result.success) {
-        return res
-          .status(400)
-          .json({ error: JSON.parse(result.error.message) });
+      if (!idUser || !idMovie) {
+        return res.status(400).json({
+          error: "Bad Request",
+          message: "Se requieren idUser e idMovie",
+        });
       }
 
       const newMovieFav = await this.movieModel.addMovieList({
