@@ -108,7 +108,7 @@ export class MovieController {
       console.error("[DEBUG] Error en controller addMovieList:", error);
       res.status(500).json({
         error: "Error interno",
-        message: error.message || "No se pudo agregar la película a la lista",
+        message: error.message,
       });
     }
   };

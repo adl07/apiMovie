@@ -138,9 +138,9 @@ export class MovieModel {
   static async addMovieList({ idUser, idMovie }) {
     try {
       console.log("[DEBUG] Recibiendo parámetros:", { idUser, idMovie });
-      if (!idUser || idMovie) {
+      if (!idUser || !idMovie) {
         console.error("[DEBUG] Faltan parámetros:", { idUser, idMovie });
-        throw new Error("Error al proporcionar idUser o idMovie");
+        throw new Error("Se requieren idUser e idMovie");
       }
 
       const { data, error } = await supabase
