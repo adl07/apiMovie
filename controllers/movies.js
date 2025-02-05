@@ -87,18 +87,28 @@ export class MovieController {
   };
 
   addMovieList = async (req, res) => {
-    const result = req.body;
+    try {
+      const { idUser, idMovie } = req.query;
 
-    if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) });
+      if (!result.success) {
+        return res
+          .status(400)
+          .json({ error: JSON.parse(result.error.message) });
+      }
+
+      const newMovieFav = await this.movieModel.addMovieList({
+        idUser,
+        idMovie,
+      });
+
+      res.status(201).json(newMovieFav);
+    } catch (error) {
+      console.error("Error en addMovieList:", error);
+      res.status(500).json({
+        error: "Error interno",
+        message: error.message || "No se pudo agregar la película a la lista",
+      });
     }
-
-    const newMovieFav = await this.movieModel.addMovieList({
-      idUser,
-      idMovie: result.data,
-    });
-
-    res.status(201).json(newMovieFav);
   };
   /*
     create = async (req, res) => {

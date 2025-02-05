@@ -143,7 +143,7 @@ export class MovieModel {
 
       const { data, error } = await supabase
         .from("moviesFavs")
-        .insert([{ idUser, idMovie }])
+        .insert([{ iduser: idUser, idmovie: idMovie }])
         .select();
 
       if (error) throw error;
