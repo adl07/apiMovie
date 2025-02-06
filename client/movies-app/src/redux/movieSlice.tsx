@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 interface MovieData{
-    idMovie: string
+    idmovie: string
 }
 
 const initialState: MovieData={
-    idMovie:""
+    idmovie:""
 }
 
 export const userSliceMovie= createSlice({
@@ -14,8 +14,8 @@ export const userSliceMovie= createSlice({
     initialState,
     reducers:{
         getMovie:(state, action)=>{
-            const {idmovie} = action.payload
-            state.idMovie = idmovie;
+            const {id} = action.payload
+            state.idmovie = id;
         }
     }
 })

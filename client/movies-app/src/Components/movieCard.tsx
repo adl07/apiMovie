@@ -1,18 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Movie } from "./movie";
 import './movieCard.css'
+import { useEffect } from "react";
+import { getMovie } from "../redux/movieSlice";
+import { useAppSelector } from "../hooks/hooks";
+
 
 type Props = Movie;
 
-const idUser = useSelector((state)=> state.user.id);
 
-const idMovie = useSelector((state)=> state.movie.idmovie)
-
-console.log(idUser)
-
-console.log(idMovie)
-
-
+/*
 const addMovieList= async ()=>{
     try {
         const response = await fetch('http://localhost:1234/movies/movieList',{
@@ -34,7 +31,27 @@ const addMovieList= async ()=>{
     }
 }
 
+*/
+
+
+
 export default function MovieCard({id, title, poster, director,duration}:Props){
+
+    const dispatch = useDispatch()
+    
+
+    const idUser = useAppSelector((state)=> state.user.id);
+
+    let idMovie: string = id
+    idMovie = useAppSelector((state)=> state.movie?.id?? id)
+    
+
+    useEffect(()=>{
+        dispatch(getMovie({idmovie:id}))
+            console.log("Id del usuario",idUser)
+            console.log("Id de la pelicula",idMovie)
+    },[dispatch, id])
+
     return(
         <div id={id} className="movie-card">
             <h2>{title}</h2>
@@ -45,3 +62,6 @@ export default function MovieCard({id, title, poster, director,duration}:Props){
         </div>
     )
 }
+
+
+
