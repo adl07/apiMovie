@@ -1,7 +1,6 @@
 .movie-card{
     width: 100%;
         min-height: 400px;
-        /* Cambia height fijo por min-height */
         margin: 10px auto;
         display: flex;
         flex-direction: column;

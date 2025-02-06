@@ -6,10 +6,18 @@ interface UserData {
     
 }
 
+interface MovieData{
+    idMovie: string
+}
+
 const initialState: UserData = {
     username: "",
     id: ""
 };
+
+const movieInitialState: MovieData={
+    idMovie:""
+}
 
 
 export const userSlice = createSlice({
@@ -28,6 +36,10 @@ export const userSlice = createSlice({
             state.username = ""
         }
     }
+})
+
+export const userSliceMovie=  createSlice({
+    
 })
 
 
