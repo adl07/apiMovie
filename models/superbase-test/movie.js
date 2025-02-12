@@ -191,9 +191,13 @@ export class MovieModel {
         throw error
       }
 
-      console.log("Se modifico el estado de la columna fav exitosamente",data)
-
-      return data[0]
+      if (data && data.length > 0) {
+        console.log("Datos actualizados:", data[0]);
+        return data[0];
+      } else {
+        console.log("No se devolvieron datos después de la actualización");
+        return null;
+      }
 
     } catch (error) {
       console.log("Error al modificar pelicula lista", error)

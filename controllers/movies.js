@@ -132,6 +132,11 @@ export class MovieController {
         idMovie,
       });
 
+      if (!updateMovieFav) {
+        return res.status(404).json({ error: "No se encontró la película o no se pudo actualizar" });
+      }
+
+      console.log("Película actualizada:", updateMovieFav);
       return res.status(200).json(updateMovieFav);
 
     } catch (error) {
