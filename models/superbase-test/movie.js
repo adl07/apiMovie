@@ -161,19 +161,56 @@ export class MovieModel {
       throw new Error("No se pudo agregar pelicuala a la lista");
     }
 
-    /*const { title, year, duration, director, rate, poster } = input;
-    try {
-      const { data, error } = await supabase
-        .from("movies")
-        .insert([{ title, year, duration, director, rate, poster }])
-        .select();
-      if (error) throw error;
-      return data[0];
-    } catch (error) {
-      console.error("Error en create:", error);
-      throw new Error("No se pudo crear la película");
-    } */
   }
+
+  static async updateMovieList({idUser, idMovie}){
+    try {
+      if(!idUser || !idMovie){
+        console.log("los parametros enviandos en idUser y idMovie son incorrectos")
+        throw new Error("Error al enviar los paramentros");
+        
+      }
+
+      const {data, error} = await supabase
+      .from("moviesfavs")
+      .upsert(
+        { 
+          iduser: idUser, 
+          idmovie: idMovie, 
+          favs: false 
+        },
+        { 
+          onConflict: ['iduser', 'idmovie'],
+          update: { favs: false }
+        }
+      )
+      .select();
+
+      if(error){
+        console.error("[DEBUG] Error de Supabase:", error)
+        throw error
+      }
+
+      console.log("Se modifico el estado de la columna fav exitosamente",data)
+
+      return data[0]
+
+    } catch (error) {
+      console.log("Error al modificar pelicula lista", error)
+      throw new Error("No se pudo modificar la pelicula de la lista");
+      
+    }
+  }
+  /*static async updateMovieList({id}){
+    try {
+        .from("movies")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+    } catch (error) {
+      
+    }
+  }*/
 
   static async getById({ id }) {
     try {
@@ -241,6 +278,8 @@ export class MovieModel {
       throw new Error("No se pudo actualizar la película");
     }
   }
+
+
 
   // Método para verificar la conexión
   static async checkConnection() {

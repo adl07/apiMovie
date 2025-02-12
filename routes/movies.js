@@ -24,5 +24,7 @@ export const createMovieRouter = ({ movieModel }) => {
 
   moviesRouter.patch("/:id", movieController.update);
 
+  moviesRouter.put("/movieId", movieController.updateMovieList);
+
   return moviesRouter;
 };

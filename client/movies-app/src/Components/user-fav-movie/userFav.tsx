@@ -66,6 +66,7 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
                         director={mov.director}
                         duration={mov.duration}
                         />
+                        
                     </div>
                     
                 ))
