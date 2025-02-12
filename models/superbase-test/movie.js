@@ -166,62 +166,35 @@ export class MovieModel {
   static async updateMovieList({idUser, idMovie}){
     try {
       if(!idUser || !idMovie){
-        console.log("los parametros enviandos en idUser y idMovie son incorrectos")
-        throw new Error("Error al enviar los paramentros");
-        
+        console.log("[DEBUG] Parámetros incorrectos:", { idUser, idMovie });
+        throw new Error("Error al enviar los parámetros");
       }
-
-      // Primero verificamos si el registro existe
-    const { data: existingRecord, error: checkError } = await supabase
-    .from("moviesfavs")
-    .select()
-    .eq('iduser', idUser)
-    .eq('idmovie', idMovie)
-    .single();
-
-    if (checkError) {
-      console.error("[DEBUG] Error al verificar registro:", checkError);
-      throw checkError;
-    }
-
-    if (!existingRecord) {
-      console.log("No se encontró el registro para actualizar");
-      throw new Error("Registro no encontrado");
-    }
-
-
-    // Si el registro existe, procedemos a actualizarlo
-    const { data, error } = await supabase
-    .from("moviesfavs")
-    .update({ favs: false })
-    .match({ 
-      iduser: idUser, 
-      idmovie: idMovie 
-    })
-    .select();
-
+  
+      // Actualización directa sin verificación previa
+      const { data, error } = await supabase
+        .from("moviesfavs")
+        .update({ favs: false })
+        .eq('iduser', idUser)
+        .eq('idmovie', idMovie)
+        .select()
+        .single();
+  
       if(error){
-        console.error("[DEBUG] Error de Supabase:", error)
-        throw error
+        console.error("[DEBUG] Error de Supabase:", error);
+        throw error;
       }
-
-
-      // Verificamos que la actualización fue exitosa
-      const { data: verifyUpdate } = await supabase
-      .from("moviesfavs")
-      .select()
-      .eq('iduser', idUser)
-      .eq('idmovie', idMovie)
-      .single();
-
-      console.log("Estado final del registro:", verifyUpdate);
-
-      return verifyUpdate;
-
+  
+      if(!data) {
+        console.log("[DEBUG] No se encontró el registro para actualizar");
+        throw new Error("Registro no encontrado");
+      }
+  
+      console.log("[DEBUG] Registro actualizado:", data);
+      return data;
+  
     } catch (error) {
-      console.log("Error al modificar pelicula lista", error)
-      throw new Error("No se pudo modificar la pelicula de la lista");
-      
+      console.error("[DEBUG] Error completo:", error);
+      throw new Error("No se pudo modificar la película de la lista");
     }
   }
   /*static async updateMovieList({id}){
