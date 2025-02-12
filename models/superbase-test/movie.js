@@ -171,25 +171,52 @@ export class MovieModel {
         
       }
 
-      const {data, error} = await supabase
-      .from("moviesfavs")
-      .update({ favs: false })
-      .eq('iduser', idUser)
-      .eq('idmovie', idMovie)
-      .select();
+      // Primero verificamos si el registro existe
+    const { data: existingRecord, error: checkError } = await supabase
+    .from("moviesfavs")
+    .select()
+    .eq('iduser', idUser)
+    .eq('idmovie', idMovie)
+    .single();
+
+    if (checkError) {
+      console.error("[DEBUG] Error al verificar registro:", checkError);
+      throw checkError;
+    }
+
+    if (!existingRecord) {
+      console.log("No se encontró el registro para actualizar");
+      throw new Error("Registro no encontrado");
+    }
+
+
+    // Si el registro existe, procedemos a actualizarlo
+    const { data, error } = await supabase
+    .from("moviesfavs")
+    .update({ favs: false })
+    .match({ 
+      iduser: idUser, 
+      idmovie: idMovie 
+    })
+    .select();
 
       if(error){
         console.error("[DEBUG] Error de Supabase:", error)
         throw error
       }
 
-      if (data && data.length > 0) {
-        console.log("Datos actualizados:", data[0]);
-        return data[0];
-      } else {
-        console.log("No se devolvieron datos después de la actualización");
-        return null;
-      }
+
+      // Verificamos que la actualización fue exitosa
+      const { data: verifyUpdate } = await supabase
+      .from("moviesfavs")
+      .select()
+      .eq('iduser', idUser)
+      .eq('idmovie', idMovie)
+      .single();
+
+      console.log("Estado final del registro:", verifyUpdate);
+
+      return verifyUpdate;
 
     } catch (error) {
       console.log("Error al modificar pelicula lista", error)
