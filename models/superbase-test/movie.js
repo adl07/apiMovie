@@ -173,17 +173,9 @@ export class MovieModel {
 
       const {data, error} = await supabase
       .from("moviesfavs")
-      .upsert(
-        { 
-          iduser: idUser, 
-          idmovie: idMovie, 
-          favs: false 
-        },
-        { 
-          onConflict: ['iduser', 'idmovie'],
-          update: { favs: false }
-        }
-      )
+      .update({ favs: false })
+      .eq('iduser', idUser)
+      .eq('idmovie', idMovie)
       .select();
 
       if(error){
