@@ -100,7 +100,8 @@ export class MovieModel {
       const { data: favMovies, error: favError } = await supabase
         .from("moviesfavs")
         .select("idmovie")
-        .eq("iduser", userId);
+        .eq("iduser", userId)
+        .eq("favs", true);
 
       if (favError) {
         console.error("[DEBUG] Error al obtener moviesFavs:", favError);
