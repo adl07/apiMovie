@@ -119,9 +119,17 @@ export class MovieModel {
 
       // Obtener los detalles de las películas
       const { data: movies, error: moviesError } = await supabase
-        .from("movies")
+        /*.from("movies")
         .select("*")
-        .in("id", movieIds);
+        .in("id", movieIds);*/
+
+        .from("movies")
+        .select(`
+          *,
+          moviesfavs!inner (favs)
+        `)
+        .in("id", movieIds)
+        .eq("moviesfavs.iduser", userId);
 
       if (moviesError) {
         console.error("[DEBUG] Error al obtener movies:", moviesError);
