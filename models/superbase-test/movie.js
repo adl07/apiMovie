@@ -197,17 +197,7 @@ export class MovieModel {
       throw new Error("No se pudo modificar la película de la lista");
     }
   }
-  /*static async updateMovieList({id}){
-    try {
-        .from("movies")
-        .select("*")
-        .eq("id", id)
-        .maybeSingle();
-    } catch (error) {
-      
-    }
-  }*/
-
+  
   static async getById({ id }) {
     try {
       if (!id) {
