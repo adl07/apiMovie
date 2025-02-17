@@ -1,8 +1,10 @@
 
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MovieCard from "../movieCard";
 import './userFav.css'
+import { stusMov } from "../../redux/listMovieSlice";
+import { useAppSelector } from "../../hooks/hooks";
 
 
 interface MoviesProps{
@@ -23,11 +25,17 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
 
     const userName = useSelector((state) => state.user.username)
 
+    const favStus = useAppSelector((state)=> state.movfav?.favs);
+
+    const dispatch = useDispatch()
+
+    //const [favStates, setFavState] = useState<boolean>();
 
     const [useMovFav, setMovFav] = useState<MoviesProps[]>([])
 
     console.log(idUser)
     console.log(userName)
+    
 
     
 
@@ -40,7 +48,14 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
             }
             const data = await response.json();
             setMovFav(data)
-            console.log(data)
+            console.log('get movies',data)
+
+            const favstate = data[0]?.favs[0].favs;
+
+            dispatch(stusMov({favs: favstate}))
+            
+            console.log('fav state',favstate);
+
         } catch (error) {
             console.log(error)
             throw new Error("Error al obtener las peliculas favoritas del usuario");
@@ -66,7 +81,12 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
                         director={mov.director}
                         duration={mov.duration}
                         />
-                        
+
+                {  
+                    favStus? 
+                    (<button type="button">Quitar de la lista de favoritos</button> )
+                    :(<button type="button" >Agregar a favoritos</button>)
+                }
                     </div>
                     
                 ))

@@ -3,6 +3,7 @@ import { Movie } from "../movie"
 import MovieCard from "../movieCard";
 import './allMovies.css'
 import {ThreeDots} from 'react-loader-spinner'
+import { useAppSelector } from "../../hooks/hooks";
 
 
 
@@ -14,22 +15,22 @@ export default function AllMovies(){
 
     const [useLoading, setUseLoading] = useState<boolean>(false);
 
-    
+    const favStus = useAppSelector((state)=> state.movfav?.favs);
 
-    const getData = async () => {
-        try {
-          const response = await fetch('https://api-movies-app.vercel.app/movies'); // URL de la API
-          const data: Movie[] = await response.json(); // Convertir respuesta a JSON
-          setAllMovies(data); // Guardar los datos en el estado
-          setUseLoading(true);
-          console.log(data); // Confirmar que los datos llegaron
-        } catch (error) {
-          console.error('Error al obtener las películas:', error);
-        }
-      };
-
-
+  
       useEffect(()=>{
+        const getData = async () => {
+          try {
+            const response = await fetch('https://api-movies-app.vercel.app/movies'); // URL de la API
+            const data: Movie[] = await response.json(); // Convertir respuesta a JSON
+            setAllMovies(data); // Guardar los datos en el estado
+            setUseLoading(true);
+            console.log(data); // Confirmar que los datos llegaron
+          } catch (error) {
+            console.error('Error al obtener las películas:', error);
+          }
+        }
+
         getData()
       },[])
 
@@ -46,6 +47,14 @@ export default function AllMovies(){
                       director={mov.director}
                       duration={mov.duration}
                       />
+
+                  {               
+                      favStus? 
+                      (<button type="button" >Agregar a favoritos</button>)
+                      :(
+                        <button type="button">Quitar de la lista de favoritos</button> 
+                      )
+                    }
                   </div>
                   
               ))

@@ -17,13 +17,17 @@ export default function MovieCard({id, title, poster, director,duration}:Props){
     
     const idUser = useAppSelector((state)=> state.user.id);
 
-    const idMovie = useAppSelector((state)=> state.movie?.id?? id)
-    
+    const idMovie = useAppSelector((state)=> state.movie?.id?? id);
+
+    //const favStus = useAppSelector((state)=> state.movfav?.favs);
+
+
 
     useEffect(()=>{
         dispatch(getMovie({idmovie:id}))
             console.log("Id del usuario",idUser)
             console.log("Id de la pelicula",idMovie)
+            //console.log('reportando status desde moviecard', favStus)
     },[dispatch, id])
 
 
@@ -52,17 +56,16 @@ export default function MovieCard({id, title, poster, director,duration}:Props){
 
     const removeMovieList= async()=>{
         try {
-            //ya tengo un endpoint que recibe el id del user para retornar sus peliculas, lo que necesito para este caso es
-            //tener el id de la pelicular para modificar el estado de fav/favs
-            const response = await fetch(`https://api-movies-app.vercel.app/movies/movieList/${idMovie}`, {
-                method: 'PUT',
+            const response = await fetch('https://api-movies-app.vercel.app/movies/updateFav', {
+                method: 'PATCH',
                 headers: {
-                  'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ favs: false })
-              });
+                body: JSON.stringify({idUser,idMovie})
+            });
 
-              if (response.ok) {
+            console.log(response)
+            if (response.ok) {
                 const result = await response.json();
                 console.log('Película quita con éxito:', result)
             } else{
@@ -78,9 +81,7 @@ export default function MovieCard({id, title, poster, director,duration}:Props){
             <h2>{title}</h2>
             <img className="img-movie" src={poster} />
                 <p>{director}</p>
-                <p>{duration}</p>   
-            <button type="button" onClick={addMovieList}>Agregar a favoritos</button>
-            <button type="button" onClick={removeMovieList}>Quitar de la lista de favoritos</button>
+                <p>{duration}</p>
         </div>
     )
 }

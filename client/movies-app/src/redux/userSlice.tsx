@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface UserData {
     id: string,
-    username: string
+    username: string,
+    favstate?: boolean
     
 }
 
@@ -10,7 +11,7 @@ interface UserData {
 
 const initialState: UserData = {
     username: "",
-    id: ""
+    id: "",
 };
 
 
@@ -23,8 +24,10 @@ export const userSlice = createSlice({
         addUser: (state, action)=>{
             const {username} = action.payload;
             const {iduser} = action.payload;
+    
             state.username = username;
-            state.id= iduser
+            state.id= iduser;
+
             
         },
 
