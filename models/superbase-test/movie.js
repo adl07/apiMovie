@@ -131,7 +131,7 @@ export class MovieModel {
       }
 
       console.log("[DEBUG] Películas encontradas:", movies?.length || 0);
-      return movies,favMovies || [];
+      return movies || [];
     } catch (error) {
       console.error("[DEBUG] Error completo:", error);
       throw error;
