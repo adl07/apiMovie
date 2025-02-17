@@ -99,7 +99,7 @@ export class MovieModel {
       // Obtener las películas favoritas del usuario
       const { data: favMovies, error: favError } = await supabase
         .from("moviesfavs")
-        .select("idmovie")
+        .select("idmovie, favs")
         .eq("iduser", userId)
         .eq("favs", true);
 
