@@ -115,25 +115,15 @@ export class MovieModel {
 
       // Extraer los IDs de las películas
       const movieIds = favMovies.map((fav) => fav.idmovie);
+      const favsState = favMovies.map((state)=> state.favs)
       console.log("[DEBUG] IDs de películas favoritas:", movieIds);
+      console.log("[DEBUG] favs de películas favoritas:", favsState)
 
       // Obtener los detalles de las películas
       const { data: movies, error: moviesError } = await supabase
-        /*.from("movies")
-        .select(`
-          *,
-          moviesfavs!inner (favs)
-        `)
-        .in("id", movieIds)
-        .eq("moviesfavs.iduser", userId);*/
-
         .from("movies")
-        .select(`
-          *,
-          favs:moviesfavs(favs)
-        `)
-        .in("id", movieIds)
-        .eq("moviesfavs.iduser", userId);
+        .select("*")
+        .in("id", movieIds);
 
       if (moviesError) {
         console.error("[DEBUG] Error al obtener movies:", moviesError);
@@ -141,7 +131,7 @@ export class MovieModel {
       }
 
       console.log("[DEBUG] Películas encontradas:", movies?.length || 0);
-      return movies || [];
+      return movies,favMovies || [];
     } catch (error) {
       console.error("[DEBUG] Error completo:", error);
       throw error;
