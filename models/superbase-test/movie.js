@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import dotenv from "dotenv";
-import {useAppSelector} from "../../client/movies-app/src/hooks/hooks.tsx" 
+import dotenv from "dotenv"; 
 
 dotenv.config();
 
@@ -27,10 +26,6 @@ const resetSupabaseClient = () => {
 
 export class MovieModel {
   static async getAll({ genre } = {}) {
-
-    const userId = useAppSelector((state)=> state.user.id)
-
-    console.log('soy el user id desde el getall', userId)
 
     try {
       let query = supabase.from("movies").select("*");
