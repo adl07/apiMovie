@@ -120,13 +120,17 @@ export class MovieModel {
       // Obtener los detalles de las películas
       const { data: movies, error: moviesError } = await supabase
         /*.from("movies")
-        .select("*")
-        .in("id", movieIds);*/
+        .select(`
+          *,
+          moviesfavs!inner (favs)
+        `)
+        .in("id", movieIds)
+        .eq("moviesfavs.iduser", userId);*/
 
         .from("movies")
         .select(`
           *,
-          moviesfavs!inner (favs)
+          favs:moviesfavs(favs)
         `)
         .in("id", movieIds)
         .eq("moviesfavs.iduser", userId);
