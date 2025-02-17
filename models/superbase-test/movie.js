@@ -24,12 +24,14 @@ const resetSupabaseClient = () => {
   supabase = createClient(supabaseUrl, supabaseKey);
 };
 
-const userId = useAppSelector((state)=> state.user.id)
-
-console.log('soy el user id desde el getall', userId)
 
 export class MovieModel {
   static async getAll({ genre } = {}) {
+
+    const userId = useAppSelector((state)=> state.user.id)
+
+    console.log('soy el user id desde el getall', userId)
+
     try {
       let query = supabase.from("movies").select("*");
 
