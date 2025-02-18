@@ -186,9 +186,8 @@ export class MovieModel {
         })
         .eq('iduser', idUser)
         .eq('idmovie', idMovie)
-        .limit(1)
         .select()
-        .single();
+        .maybeSingle();
   
       if(error){
         console.error("[DEBUG] Error de Supabase:", error);
