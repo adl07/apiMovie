@@ -152,6 +152,27 @@ export class MovieModel {
         throw new Error("Se requieren idUser e idMovie");
       }
 
+      //Verifico si la película ya esta en favoritos
+      const { data: existingMovie, error: fetchError } = await supabase
+      .from("moviesfavs")
+      .select("*")
+      .eq("iduser", idUser)
+      .eq("idmovie", idMovie)
+      .is("fecbaja", null) 
+      .eq("favs", true); 
+
+      if (fetchError) {
+          console.error("[DEBUG] Error al buscar la película:", fetchError);
+          throw fetchError;
+      }
+
+      //Si ya existe no la agrego
+      if (existingMovie.length > 0) {
+          console.log("[DEBUG] La película ya está en la lista de favoritos. No se agregará.");
+          return { message: "La película ya está en la lista de favoritos." };
+      }
+
+      //Si no existe se agrega
       const { data, error } = await supabase
         .from("moviesfavs")
         .insert([{ iduser: idUser, idmovie: idMovie }])
