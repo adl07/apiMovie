@@ -181,7 +181,9 @@ export class MovieModel {
       // Actualización directa sin verificación previa
       const { data, error } = await supabase
         .from("moviesfavs")
-        .update({ favs: false })
+        .update({ favs: false,
+                  fecBaja: new Date() // Asigna la fecha y hora actual en formato timestamp
+        })
         .eq('iduser', idUser)
         .eq('idmovie', idMovie)
         .select()
