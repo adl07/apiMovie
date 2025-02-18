@@ -30,8 +30,6 @@ export class MovieModel {
     try {
       let query = supabase.from("movies").select("*");
 
-      // Solo aplicar el filtro de género si existe la columna
-      // Primero verificamos la estructura de la tabla
       const { data: tableInfo, error: tableError } = await supabase
         .from("movies")
         .select("*")
@@ -103,7 +101,8 @@ export class MovieModel {
         .from("moviesfavs")
         .select("idmovie, favs")
         .eq("iduser", userId)
-        .eq("favs", true);
+        .eq("favs", true)
+        .is("fecBaja", null); // Validación para que fecBaja sea NULL
 
       if (favError) {
         console.error("[DEBUG] Error al obtener moviesFavs:", favError);
