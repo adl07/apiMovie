@@ -128,7 +128,8 @@ export class MovieModel {
           favs:moviesfavs(favs)
         `)
         .in("id", movieIds)
-        .eq("moviesfavs.iduser", userId);
+        .eq("moviesfavs.iduser", userId)
+        .eq("moviesfavs.favs",true)
 
       if (moviesError) {
         console.error("[DEBUG] Error al obtener movies:", moviesError);
