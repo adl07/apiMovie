@@ -169,7 +169,7 @@ export class MovieModel {
       //Si ya existe no la agrego
       if (existingMovie.length > 0) {
           console.log("[DEBUG] La película ya está en la lista de favoritos. No se agregará.");
-          return { message: "La película ya está en la lista de favoritos." };
+          return false
       }
 
       //Si no existe se agrega
@@ -188,7 +188,7 @@ export class MovieModel {
       return data[0];
     } catch (error) {
       console.log("Error al agregar pelicula a la lista", error);
-      throw new Error("No se pudo agregar pelicuala a la lista");
+      throw new Error("No se pudo agregar pelicula a la lista");
     }
 
   }
