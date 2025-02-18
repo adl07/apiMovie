@@ -28,13 +28,18 @@ export class MovieModel {
   static async getAll({ genre } = {}) {
 
     try {
-      let query = supabase.from("movies").select("*");
-
-      const { data: tableInfo, error: tableError } = await supabase
+      let query = supabase
+      /*.from("movies").select("*")*/
         .from("movies")
-        .select("*")
-        .limit(1);
+        .select("*, moviesfavs(favs, fecBaja)")
+        .leftJoin("moviesfavs", "movies.id", "moviesfavs.idmovie");
 
+      const { data: tableInfo, error: tableError } = await query
+        /*.from("movies")
+        .select("*")
+        .limit(1);*/
+
+        
       if (tableError) {
         console.error(
           "Error al verificar la estructura de la tabla:",
