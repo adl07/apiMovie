@@ -186,6 +186,7 @@ export class MovieModel {
         })
         .eq('iduser', idUser)
         .eq('idmovie', idMovie)
+        .limit(1)
         .select()
         .single();
   
