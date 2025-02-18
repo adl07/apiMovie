@@ -182,7 +182,7 @@ export class MovieModel {
       const { data, error } = await supabase
         .from("moviesfavs")
         .update({ favs: false,
-                  fecBaja: new Date() // Asigna la fecha y hora actual en formato timestamp
+                  fecbaja: new Date() // Asigna la fecha y hora actual en formato timestamp
         })
         .eq('iduser', idUser)
         .eq('idmovie', idMovie)
