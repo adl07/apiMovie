@@ -102,7 +102,7 @@ export class MovieModel {
         .select("idmovie, favs")
         .eq("iduser", userId)
         .eq("favs", true)
-        .is("fecBaja", null); // Validación para que fecBaja sea NULL
+        .is("fecbaja", null); // Validación para que fecBaja sea NULL
 
       if (favError) {
         console.error("[DEBUG] Error al obtener moviesFavs:", favError);
