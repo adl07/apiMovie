@@ -23,4 +23,4 @@ export const userSliceMovie= createSlice({
 
 export const {getMovie} = userSliceMovie.actions
 
-export const userReducer = userSliceMovie.reducer
+export const moviesReducer = userSliceMovie.reducer

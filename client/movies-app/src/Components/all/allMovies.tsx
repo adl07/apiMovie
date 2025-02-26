@@ -4,7 +4,8 @@ import MovieCard from "../movieCard";
 import './allMovies.css'
 import {ThreeDots} from 'react-loader-spinner'
 import { useAppSelector } from "../../hooks/hooks";
-
+import { addMovieList } from "../movieCard";
+import ErrorPopUp from "../error-movie/error-popUp";
 
 
 
@@ -13,11 +14,20 @@ export default function AllMovies(){
 
     const [useAllMovies, setAllMovies] = useState<Movie[]>([]);
 
+    const [useStatusAdd, setStatusAdd]= useState<boolean>(false);
+
     const [useLoading, setUseLoading] = useState<boolean>(false);
 
-    const favStus = useAppSelector((state)=> state.movfav?.favs);
+    const idUser = useAppSelector((state)=> state.user.id);
 
-  
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => setIsPopupOpen(true);
+
+    const closePopup = () => setIsPopupOpen(false);
+
+
+
       useEffect(()=>{
         const getData = async () => {
           try {
@@ -34,6 +44,22 @@ export default function AllMovies(){
         getData()
       },[])
 
+
+      const successAddMovieList = async(user:string, movieId:string)=>{
+              const addMovie = await addMovieList(user, movieId);
+              if(addMovie !== true){
+                setStatusAdd(false)
+                setIsPopupOpen(true)
+                console.log('valor de setStatusAdd', addMovie)
+              }
+          }
+    
+
+      useEffect(() => {
+      console.log("isPopupOpen cambió:", isPopupOpen);
+      }, [isPopupOpen]);
+
+
     return(
         <div className="container">  
             {
@@ -48,15 +74,19 @@ export default function AllMovies(){
                       duration={mov.duration}
                       />
 
-                  {               
-                      favStus? 
-                      (<button type="button" >Agregar a favoritos</button>)
-                      :(
-                        <button type="button">Quitar de la lista de favoritos</button> 
-                      )
-                    }
+                    <button type="button" onClick={()=>successAddMovieList(idUser, mov.id)}>Agregar a favoritos</button>
+
+                    {!useStatusAdd && (
+                        <ErrorPopUp isOpen={isPopupOpen}>
+                            <h4 className="popup-text">Actualmente ya se encuentra la pelicula en la lista</h4>
+                            <p className="popup-text-title">Por favor corrobora tu lista e intenta nuevamente</p>
+                            <button onClick={closePopup} className="button-close">
+                                Cerrar
+                            </button>
+                        </ErrorPopUp>
+                    )}
                   </div>
-                  
+
               ))
               ): <ThreeDots
                 visible={true}

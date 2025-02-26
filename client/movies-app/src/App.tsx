@@ -9,17 +9,21 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './Components/header/header'
 import Login from './Components/login/login'
 import UserFavMovies from './Components/user-fav-movie/userFav'
+import Home from './Components/home/home'
+import HomeLogIn from './Components/home-login-in/homeLogIn'
+
 
 
 
 function App() {
   return(
-
-    <div>
+    <>
         <BrowserRouter>
-        <Header/>
+          {/**<Header/> */}
         <Routes>
-            <Route index path='/' element={<AllMovies/>} />
+            <Route index path='/' element={<Home/>}></Route>
+            <Route path='/home' element={<HomeLogIn/>}></Route>
+            <Route path='/allMovies' element={<AllMovies/>} />
             <Route path='/createMovie' element={<CreateMovie/>}></Route>
             <Route path='/searchMovie' element={<SearchId/>}></Route>
             <Route path='/updateMovie' element={<UpdateMovie/>}></Route>
@@ -28,7 +32,7 @@ function App() {
             <Route path='/userFav' element={<UserFavMovies/>}></Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </>
   )
 }
 

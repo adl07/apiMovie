@@ -5,6 +5,7 @@ import MovieCard from "../movieCard";
 import './userFav.css'
 import { stusMov } from "../../redux/listMovieSlice";
 import { useAppSelector } from "../../hooks/hooks";
+import { removeMovieList } from "../movieCard";
 
 
 interface MoviesProps{
@@ -33,11 +34,11 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
 
     const [useMovFav, setMovFav] = useState<MoviesProps[]>([])
 
-    console.log(idUser)
-    console.log(userName)
-    
+    //console.log(idUser)
+    //console.log(userName)
+    //console.log(favStus)
 
-    
+    console.log('info usemovfav',useMovFav)
 
     useEffect(()=>{
         const getMoviesFav = async ()=>{
@@ -67,12 +68,18 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
 
     },[idUser])
 
-    
+    const successRemoveMovie = async(user:string, movieId:string)=>{
+        const remove = await removeMovieList(user, movieId);
+        if(remove){
+            setMovFav((setPrevMov)=> setPrevMov.filter(movie => movie.id !== movieId))
+        }
+    }
 
     return(
         <div className="container-movie">
             {
-                useMovFav.map((mov)=>(
+                useMovFav.length > 0 ?  
+                (useMovFav.map((mov)=>(
                     <div key={mov.id}>
                         <MovieCard
                         id={mov.id}
@@ -81,15 +88,14 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
                         director={mov.director}
                         duration={mov.duration}
                         />
-
-                {  
-                    favStus? 
-                    (<button type="button">Quitar de la lista de favoritos</button> )
-                    :(<button type="button" >Agregar a favoritos</button>)
-                }
+                        <button type="button" onClick={async () =>successRemoveMovie(idUser, mov.id)}>Eliminar de la lista de favoritos</button>
                     </div>
                     
-                ))
+                ))):
+                (<div>
+                    <h2>No hay peliculas en la lista</h2>
+                </div>)
+                
             }
         </div>
     )
