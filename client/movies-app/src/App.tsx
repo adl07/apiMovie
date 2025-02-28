@@ -29,7 +29,7 @@ function App() {
             <Route path='/updateMovie' element={<UpdateMovie/>}></Route>
             <Route path='/deleteMovie' element={<DeleteMovie/>}></Route>
             <Route path='/login' element={<Login/>}></Route>
-            <Route path='/userFav' element={<UserFavMovies/>}></Route>
+            <Route path='/userFav/:idUser' element={<UserFavMovies idUser={''}/>}></Route>
         </Routes>
       </BrowserRouter>
     </>

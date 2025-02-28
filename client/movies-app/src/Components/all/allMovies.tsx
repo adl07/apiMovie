@@ -61,8 +61,9 @@ export default function AllMovies(){
 
 
     return(
-        <div className="container">  
-            {
+        <div className="container-movies">
+          <div className="container-allmovies-card">
+          {
               useLoading ? (
                 useAllMovies.map((mov, index)=>(
                   <div key={index} className="container-card">
@@ -88,7 +89,9 @@ export default function AllMovies(){
                   </div>
 
               ))
-              ): <ThreeDots
+              ):
+              <div className="loader-movies">
+                <ThreeDots
                 visible={true}
                 height="80"
                 width="80"
@@ -98,8 +101,9 @@ export default function AllMovies(){
                 wrapperStyle={{}}
                 wrapperClass=""
               />
+              </div>
             }
-            
+          </div>  
         </div>
     )
 }

@@ -1,11 +1,110 @@
-
-header a{
-    margin: 0 10px;
+container-header{
+    width: 100%;
 }
 
-.logo-img{
+
+.container-header nav{
+    display: flex;
+    width: 100%;
+}
+
+.logo-nav{
+    width: 100px;
+    height: 100px;
+}
+
+.avatar-user{
     width: 50px;
     height: 50px;
-    border-radius: 50px;
+    margin-left: 10px;
+}
+
+.nav-comand{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.nav-options{
+    display: flex;
+    margin-left: 60px;
+    width: 90%;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1cap;
+    height: 100px;
+}
+
+.nav-options ul{
+    display: flex;
+    align-items: center;
+}
+
+.nav-options ul li{
+    display: flex;
+    align-items: center;
+    padding: 0px 30px;
+}
+
+.nav-options ul li a{
+    display: flex;
+    align-items: center;
+}
+.nav-options ul li a span{
+    margin: 0px 10px;
+}
+
+
+
+.options-user{
+    position: relative;
+    display: grid;
+    flex-direction: column;
+    padding-top: 10px;
+    width: 15%;
+    text-transform: capitalize;
+    font-size: 15px;
+    border: 0.5px solid transparent;
+}
+
+.account-settings{
+    display: none;
+    position: absolute; 
+    top: 80%; 
+    left: 0;
+    background-color: rgb(19, 19, 19);
+    width: 100%;
+    z-index: 10; 
+}
+
+.options-user-active{
+    background-color: rgb(19, 19, 19);
+    border: 0.5px solid rgba(249, 249, 249, 0.1);
+}
+
+
+.options-user-active .bar{
+    margin: 0px 10px;
+    width: 180px;
+    border-bottom: 0.5px solid rgba(249, 249, 249, 0.1); 
+}
+
+.options-user-active .account-settings{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.account-settings li{
+    margin: 5px 0px;
+    padding-left: 5px;
+}
+
+.user-profile{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 5px 15px;
 }
 

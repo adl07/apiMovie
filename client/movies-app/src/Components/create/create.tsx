@@ -89,6 +89,7 @@ export default function CreateMovie(){
             setUsePoster("");
             } else {
             console.error('Error al agregar la película:', response.statusText);
+            setUseSuccess(false);
             }
         } catch (error) {
             console.error('Hubo un error con el POST:', error);

@@ -1,13 +1,32 @@
-.container {
+.container-movies {
     display: flex;
-    flex-wrap: wrap; /* Permite que las cards se ajusten automáticamente a la siguiente fila */
-    justify-content: space-between; /* Espaciado uniforme entre las cards */
-    gap: 16px; /* Espaciado entre las cards (puedes ajustarlo a tus necesidades) */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  .loader-movies{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .container-allmovies-card{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px; 
     padding: 16px;
+    width: 100%;
   }
   
-  .container-card {
-    flex: 1 1 calc(33.33% - 16px); /* Cada card ocupa un tercio del ancho del contenedor */
-    box-sizing: border-box; /* Asegura que el padding no rompa el diseño */
+  .container-card { 
+    box-sizing: border-box; 
   }
   
