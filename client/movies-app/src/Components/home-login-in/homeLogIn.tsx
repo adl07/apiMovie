@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './homeLogIn.css'
 import AllMovies from "../all/allMovies";
 import Header from "../header/header";

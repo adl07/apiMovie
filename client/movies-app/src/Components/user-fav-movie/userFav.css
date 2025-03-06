@@ -1,3 +1,30 @@
-.container-movie{
-    height: max-content;
+.container-movies-favs{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #1a1d29;
+}
+
+.container-movies-favs h1{
+    padding-top: 20px;
+    font-size: 38px;
+    font-weight: 500;
+}
+.grid-movies{
+    display: grid;
+    align-content: start;
+    grid-template-columns: repeat(5, 1fr);
+    padding-top: 20px;
+    margin-bottom: 80px;
+    flex: 1;
+}
+
+.btn-remove-movie-list{
+    margin-top: 50px;
+}
+
+footer {
+    height: auto;
+    bottom: 0;
+    left: 0;
+    
 }

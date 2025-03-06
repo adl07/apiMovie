@@ -1,0 +1,49 @@
+.container-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #0e0b14;
+    height: auto;
+    width: 100%;
+    color: #cacaca;
+    box-sizing: border-box;
+    
+}
+
+.container-footer img{
+    width: 100px;
+    height: 100px;
+}
+
+.priv-help{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    font-size: 12px;
+    
+}
+
+.sup-dev{
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    width: 23%;
+    margin: 20px;
+}
+
+
+.cancel-subs{
+    font-size: 14px;
+    font-weight: 700;
+    margin: 5px;
+}
+.subs-serv{
+    font-size: 12px;
+    width: 35%;
+    margin: 5px;
+}
+.copyright{
+    font-size: 12px;
+    margin: 10px 0px;
+}

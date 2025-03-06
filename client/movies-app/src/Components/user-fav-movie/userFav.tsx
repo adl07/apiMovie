@@ -6,6 +6,8 @@ import './userFav.css'
 import { stusMov } from "../../redux/listMovieSlice";
 import { useAppSelector } from "../../hooks/hooks";
 import { removeMovieList } from "../movieCard";
+import Header from "../header/header";
+import FooterPage from "../footer/footer";
 
 
 interface MoviesProps{
@@ -15,8 +17,9 @@ interface MoviesProps{
     director: string,
     duration: number,
     poster: string,
-    rate: number,
-    iduser?: string ,
+    rate: number | string,
+    iduser?: string,
+    public?: string,
     fav: boolean
 }
 
@@ -76,27 +79,37 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
     }
 
     return(
-        <div className="container-movie">
-            {
-                useMovFav.length > 0 ?  
-                (useMovFav.map((mov)=>(
-                    <div key={mov.id}>
-                        <MovieCard
-                        id={mov.id}
-                        title={mov.title}
-                        poster={mov.poster}
-                        director={mov.director}
-                        duration={mov.duration}
-                        />
-                        <button type="button" onClick={async () =>successRemoveMovie(idUser, mov.id)}>Eliminar de la lista de favoritos</button>
-                    </div>
+        <div className="container-movies-favs">
+            <Header/>
+            <h1>Whatchlist</h1>
+            <div className="grid-movies">
+                {
+                    useMovFav.length > 0 ?  
+                    (useMovFav.map((mov)=>(
+                        <div key={mov.id}>
+                            <MovieCard
+                            id={mov.id}
+                            title={mov.title}
+                            poster={mov.poster}
+                            director={mov.director}
+                            duration={mov.duration}
+                            year={mov.year}
+                            rate={parseFloat(mov.rate).toFixed(1)}
+                            public={mov.public}
+                            />
+                            <button className="btn-remove-movie-list" type="button" onClick={async () =>successRemoveMovie(idUser, mov.id)}>Eliminar de la lista de favoritos</button>
+                        </div>
+                        
+                    ))):
+                    (<div>
+                        <h2>No hay peliculas en la lista</h2>
+                    </div>)
                     
-                ))):
-                (<div>
-                    <h2>No hay peliculas en la lista</h2>
-                </div>)
-                
-            }
+                }
+            </div>
+            <footer>
+                <FooterPage/>
+            </footer>
         </div>
     )
 }

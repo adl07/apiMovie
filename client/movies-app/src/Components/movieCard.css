@@ -1,7 +1,9 @@
 .movie-card{
+        display: grid;
+        flex-direction: row;
         width: 274px;
         height: 154px;
-        margin: 10px auto;
+        margin: 20px auto;
         box-sizing: border-box;
 }
 
@@ -9,15 +11,56 @@
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    box-shadow: 0px 5px 0px 0px #070609;
+    box-sizing: border-box;
 }
 
 .info-movie{
-   display: block;
+    display: block;
 }
 
 
-.movie-card:hover{
-    transition: all 0.5s ease-out;
-    transform: scale(0.9, 0.9);
+.detail-movie{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    color: #CACACA;
+
+}
+
+.detail-movie span{
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 700;
+    opacity: 0.5;
+    transition: opacity 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.items-movie-detail{
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.5;
+    transition: opacity 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.item-public{
+    background-color: #364154;
+    padding: 0 5px;
+}
+
+.img-movie:hover{
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
     cursor: pointer;
+    outline: 3px solid #CACACA;
+}
+
+.movie-card:hover .detail-movie span,
+.movie-card:hover .items-movie-detail{
+    opacity: 1;
+    color: white;
 }

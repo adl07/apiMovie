@@ -70,9 +70,6 @@ export default function AllMovies(){
                       <MovieCard 
                       id={mov.id}
                       poster={mov.poster}
-                      title={mov.title}
-                      director={mov.director}
-                      duration={mov.duration}
                       />
 
                     <button type="button" onClick={()=>successAddMovieList(idUser, mov.id)}>Agregar a favoritos</button>

@@ -65,7 +65,7 @@ export const addMovieList= async (idUser:string, idMovie:string): Promise<boolea
 }
 
 
-export default function MovieCard({id, title, poster, director,duration}:Props){
+export default function MovieCard({id, title, poster, director,duration,year,rate,public: pub,genre}:Props){
 
 
     const dispatch = useDispatch()
@@ -91,13 +91,16 @@ export default function MovieCard({id, title, poster, director,duration}:Props){
 
     return(
         <div id={id} className="movie-card">
-            {/*<h2>{title}</h2>*/}
+            
             <img className="img-movie" src={poster} />
-            {/*
-                <p>{director}</p>
-                <p>{duration}</p>
-            */}
-                
+            <div className="detail-movie">
+                <span>{title}</span>
+                <div className="items-movie-detail" >
+                    <p className="item-public">{pub}</p>
+                    <p>{year}</p>
+                    <p>{rate}</p>
+                </div>
+            </div> 
         </div>
     )
 }

@@ -19,7 +19,10 @@ export default function MovieList({Mov}:{Mov:Movie[]}){
                 title={Mov.title} 
                 poster={Mov.poster}
                 director={Mov.director}
-                duration={Mov.duration}/>
+                duration={Mov.duration}
+                genre={Mov.genre}
+                year={Mov.year}
+                public={Mov.public}/>
         </>
     )
 }

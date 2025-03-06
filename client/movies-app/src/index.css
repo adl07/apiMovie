@@ -6,13 +6,16 @@
   font-family: Poppins, serif, sans-serif;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  --tw-bg-opacity: 1
-  background-color: hsl(var(--background-200) / var(--tw-bg-opacity));
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --tw-bg-opacity: 1;
+  --primary-color: #1a1d29;
+  --secondary-color: #191c28;
+  --tertiary-color: #191c27;
+  --dark-color: #08090d;
+  --accent-color: #0f1118;
 }
 
 
