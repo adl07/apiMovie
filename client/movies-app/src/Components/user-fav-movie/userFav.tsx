@@ -8,6 +8,7 @@ import { useAppSelector } from "../../hooks/hooks";
 import { removeMovieList } from "../movieCard";
 import Header from "../header/header";
 import FooterPage from "../footer/footer";
+import { ThreeDots } from "react-loader-spinner";
 
 
 interface MoviesProps{
@@ -31,6 +32,8 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
 
     const favStus = useAppSelector((state)=> state.movfav?.favs);
 
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+
     const dispatch = useDispatch()
 
     //const [favStates, setFavState] = useState<boolean>();
@@ -45,6 +48,7 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
 
     useEffect(()=>{
         const getMoviesFav = async ()=>{
+            setIsLoading(true)
         try {
             const response = await fetch(`https://api-movies-app.vercel.app/movies/userid/${idUser}`);
             if (!response.ok) {
@@ -52,6 +56,7 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
             }
             const data = await response.json();
             setMovFav(data)
+            setIsLoading(false)
             console.log('get movies',data)
 
             const favstate = data[0]?.favs[0].favs;
@@ -84,8 +89,24 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
             <h1>Whatchlist</h1>
             <div className="grid-movies">
                 {
-                    useMovFav.length > 0 ?  
-                    (useMovFav.map((mov)=>(
+                    isLoading ?
+                    (
+                        <div className="loader-movies">
+                            <ThreeDots
+                            visible={true}
+                            height="80"
+                            width="80"
+                            color="#4fa94d"
+                            radius="9"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            />
+                        </div>
+                    ): 
+                    (
+                        useMovFav.length > 0 ?  
+                        (useMovFav.map((mov)=>(
                         <div key={mov.id}>
                             <MovieCard
                             id={mov.id}
@@ -100,11 +121,13 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
                             <button className="btn-remove-movie-list" type="button" onClick={async () =>successRemoveMovie(idUser, mov.id)}>Eliminar de la lista de favoritos</button>
                         </div>
                         
-                    ))):
-                    (<div>
-                        <h2>No hay peliculas en la lista</h2>
-                    </div>)
-                    
+                        )))
+                        :
+                        (<div>
+                            <h2>No hay peliculas en la lista</h2>
+                        </div>)
+                    )
+
                 }
             </div>
             <footer>

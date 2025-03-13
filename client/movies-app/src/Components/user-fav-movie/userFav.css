@@ -1,4 +1,6 @@
 .container-movies-favs{
+    display: flex;
+    flex-direction: column;
     width: 100%;
     min-height: 100vh;
     background-color: #1a1d29;
@@ -22,9 +24,9 @@
     margin-top: 50px;
 }
 
-footer {
+.container-movies-favs footer {
+    width: 100%;
     height: auto;
     bottom: 0;
-    left: 0;
     
 }

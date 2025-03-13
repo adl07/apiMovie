@@ -1,4 +1,4 @@
-.containerHome{
+.container-home{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -13,4 +13,11 @@
     justify-content: center;
     margin-top: 100px;
     height: auto;
+    flex: 1;
+}
+
+.container-home footer{
+    width: 100%;
+    height: auto;
+    bottom: 0;
 }

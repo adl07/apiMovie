@@ -9,6 +9,7 @@ import ErrorPopUp from "../error-movie/error-popUp";
 
 
 
+
 export default function AllMovies(){
 
 

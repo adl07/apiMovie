@@ -24,7 +24,7 @@ export default function Header(){
             <nav>
                 <div className="nav-comand">
                     <div className="nav-options">
-                        <a href="http://localhost:5173/">
+                        <a href="/home">
                             <img src={Logo} className="logo-nav"/>
                         </a>
                         <ul>
@@ -42,7 +42,7 @@ export default function Header(){
                             </li>
                             <li>
                                 <a>
-                                    
+                                    <Link to={"/searchMovie"}>
                                         <span>
                                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48">
                                                 <g fill="#fff" >
@@ -51,6 +51,7 @@ export default function Header(){
                                             </svg>
                                         </span>
                                         <p>SEARCH</p>
+                                    </Link>
                                 </a>
                                 
                             </li>

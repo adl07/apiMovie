@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Movie } from "../movie";
-import MovieList from "../movieList";
 import './search.css'
+import Header from "../header/header";
+import FooterPage from "../footer/footer";
+import MovieCard from "../movieCard";
+import { ThreeDots } from "react-loader-spinner";
 
 
 
@@ -10,43 +13,105 @@ export default function SearchId(){
 
     const [stateIdValue, setIdValue] = useState<string>('');
 
-    const [stateInfo, setInfo] = useState<Movie[]>([]);
+    const [allMovies, setAllMovies] = useState<Movie[]>([]);
+
+    const [filterMovies, setFilterMovies] = useState<Movie[]>([]);
 
     const [useLoading, setUseLoading] = useState<boolean>(false);
 
-    const getMovieId = async ({id}:{id:string})=>{
-        const response = await fetch(`https://api-movies-app.vercel.app/movies/${id}`);
-        const data:Movie[]  = await response.json();
-        setUseLoading(true);
-        setInfo(data)
-        setIdValue('')
-        console.log(data)
-    }
-    const handleValue=()=>{
-        getMovieId({id: stateIdValue})
-    }
+
+    useEffect(()=>{
+        const fetchMoviesTitle = async()=>{
+
+            setUseLoading(true)
+            try {
+                const response = await fetch('https://api-movies-app.vercel.app/movies');
+                const data:Movie[]  = await response.json();
+                setAllMovies(data)
+                setFilterMovies(data)
+                console.log(data)
+            } catch (error) {
+                console.error("Error fetching movies:", error);
+            }
+    
+            setUseLoading(false);
+        }
+        fetchMoviesTitle();
+    },[])
+    
+
+    //const filterMovies = stateInfo.filter((movie)=> movie.title?.toLocaleLowerCase().includes(stateIdValue.toLocaleLowerCase()))
+
+    useEffect(()=>{
+        const delaySearch = setTimeout(()=>{
+            if(!stateIdValue.trim()){
+                setFilterMovies(allMovies); //si no se ingresan caracteres se muestran todas las movies
+            } else{
+                setFilterMovies(
+                    allMovies.filter((movie)=> movie.title.toLowerCase().includes(stateIdValue.toLowerCase()))
+                )
+            }
+        }, 500)
+
+        return ()=> clearTimeout(delaySearch)
+    },[stateIdValue, allMovies])
 
     return(
-        <div className="contianer-card-movie">
+        <div className="contianer-movies-search">
+            <Header/>
             <div className="card-search">
-                <span>Busca tu pelicula por el id 🍿</span>
                 <input 
                 type="text" 
-                placeholder="Ingrese Id..."
+                placeholder="Que vemos hoy?...🍿"
                 value={stateIdValue}
                 onChange={(e)=> setIdValue(e.target.value)}
                 />
-                <button className="btn-custom-buscar" onClick={()=>handleValue()}>Buscar</button>
+                
             </div>
-            {
-                useLoading ? (
-                    <MovieList Mov={stateInfo}/>
-                ):
-                <div>
-                    <h4>No hay busquedas...</h4>
-                </div>
-            }
+
+            <div className="contain-mov-card-result">
+                {useLoading ? (
+                    <div className="loader-movies">
+                    <ThreeDots
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    radius="9"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    />
+                    </div>
+                ) : filterMovies.length > 0 ? (
+                    <div className="container-movs-filter">
+                        {
+                            filterMovies.map((mov, index)=>(
+                                <MovieCard 
+                                id={mov.id}
+                                poster={mov.poster}
+                                title={mov.title}
+                                director={mov.director}
+                                duration={mov.duration}
+                                year={mov.year}
+                                rate={parseFloat(mov.rate).toFixed(1)}
+                                public={mov.public}
+                                />))
+                        }
+                    </div>
+                ) : (
+                    <div className="not-found-mov">
+                        <span>{`No hay resultados para "${stateIdValue}"`}</span>
+                    </div>
+                )
+                }
+            </div>
+            <footer>
+                <FooterPage/>
+            </footer>
         </div>
     )
 }
+
+
 
