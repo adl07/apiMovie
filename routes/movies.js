@@ -12,7 +12,7 @@ export const createMovieRouter = ({ movieModel }) => {
   moviesRouter.get("/users/:user", movieController.getUser);
   moviesRouter.get("/userId/:userId", movieController.getMoviesFav);
   moviesRouter.post("/movieList", movieController.addMovieList);
-  moviesRouter.post("/register", movieController.createUserRegistrer)
+  moviesRouter.post("/register", movieController.createUser);
   moviesRouter.patch("/updateFav", movieController.updateMovieList); 
   
   
