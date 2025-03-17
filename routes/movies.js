@@ -12,6 +12,7 @@ export const createMovieRouter = ({ movieModel }) => {
   moviesRouter.get("/users/:user", movieController.getUser);
   moviesRouter.get("/userId/:userId", movieController.getMoviesFav);
   moviesRouter.post("/movieList", movieController.addMovieList);
+  moviesRouter.post("/register", movieController.createUser)
   moviesRouter.patch("/updateFav", movieController.updateMovieList); 
   
   
@@ -20,7 +21,6 @@ export const createMovieRouter = ({ movieModel }) => {
   moviesRouter.get("/:id", movieController.getById);
   moviesRouter.delete("/:id", movieController.delete);
   moviesRouter.patch("/:id", movieController.update);
-  moviesRouter.post("/register", movieController.createUserRegistrer);
   
 
   return moviesRouter;

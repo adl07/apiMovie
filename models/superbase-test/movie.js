@@ -297,7 +297,7 @@ export class MovieModel {
   }
 
 
-  static async createUserRegistrer({input}){
+  static async createUser({input}){
     const {username, email, password, subscripcion} = input
     try {
       const {data, error} = await supabase
