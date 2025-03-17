@@ -192,7 +192,7 @@ export class MovieController {
     res.status(201).json(newMovie);
   };
 
-  createUserRegistrer= async (req, res)=>{
+  createUserRegistrer = async (req, res)=>{
     const result = validateRegistreUser(req.body);
     if(!result.success){
       return res.status(400).json({error: JSON.parse(result.error.message)});
