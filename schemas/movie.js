@@ -31,10 +31,34 @@ const movieSchema = z.object({
   ),
 });
 
+const registreUserSchema= z.object({
+  username: z.string({
+    invalid_type_error: "El nombre del usuario debe ser un string",
+    required_error: "El nombre del usuario es requerido"
+  }).min(4).max(10),
+  email: z.string().email(),
+  subscripcion: z.string({
+    invalid_type_error: "El nombre de la subscripcion debe ser un string",
+    required_error: "El nombre de la subscripcion es requerido"
+  }),
+  password: z.string()
+  .min(8, "La contraseña debe tener al menos 8 caracteres")
+  .max(32, "La contraseña no puede tener más de 32 caracteres")
+  .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
+  .regex(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
+  .regex(/[0-9]/, "La contraseña debe contener al menos un número")
+  .regex(/[@$!%*?&]/, "La contraseña debe contener al menos un carácter especial (@$!%*?&)")  
+  
+})
+
 export function validateMovie(object) {
   return movieSchema.safeParse(object);
 }
 
 export function validatePartialMovie(object) {
   return movieSchema.partial().safeParse(object);
+}
+
+export function validateRegistreUser(object){
+  return registreUserSchema.safeParse(object);
 }

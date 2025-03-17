@@ -1,7 +1,7 @@
 //import { MovieModel } from "../models/movie.js";
 //import { MovieModel } from "../models/mysql/movie.js";
 
-import { validateMovie, validatePartialMovie } from "../schemas/movie.js";
+import { validateMovie, validatePartialMovie, validateRegistreUser } from "../schemas/movie.js";
 
 export class MovieController {
   constructor({ movieModel }) {
@@ -192,6 +192,16 @@ export class MovieController {
     res.status(201).json(newMovie);
   };
 
+  createUserRegistrer= async (req, res)=>{
+    const result = validateRegistreUser(req.body);
+    if(!result.success){
+      return res.status(400).json({error: JSON.parse(result.error.message)});
+    }
+    const newUser = await this.movieModel.createUserRegistrer({input: result.data})
+
+    res.status(201).json(newUser);
+  }
+
   delete = async (req, res) => {
     const { id } = req.params;
     const result = await this.movieModel.delete({ id });
@@ -217,4 +227,6 @@ export class MovieController {
 
     return res.json(updateMovie);
   };
+
+  
 }

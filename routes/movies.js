@@ -12,13 +12,16 @@ export const createMovieRouter = ({ movieModel }) => {
   moviesRouter.get("/users/:user", movieController.getUser);
   moviesRouter.get("/userId/:userId", movieController.getMoviesFav);
   moviesRouter.post("/movieList", movieController.addMovieList);
+  moviesRouter.post("/register", movieController.createUserRegistrer);
   moviesRouter.patch("/updateFav", movieController.updateMovieList); 
+  
   
   // Rutas con parámetros dinámicos después
   moviesRouter.post("/", movieController.create);
   moviesRouter.get("/:id", movieController.getById);
   moviesRouter.delete("/:id", movieController.delete);
   moviesRouter.patch("/:id", movieController.update);
+  
 
   return moviesRouter;
 };

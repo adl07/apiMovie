@@ -297,6 +297,22 @@ export class MovieModel {
   }
 
 
+  static async createUser({input}){
+    const {username, email, password, subscripcion} = input
+    try {
+      const {data, error} = await supabase
+        .from("users")
+        .insert([{username, email, password, subscripcion}])
+        .select();
+        if(error) throw error;
+        return data[0]
+    } catch (error) {
+      console.error("Error al crear el usuario",error)
+      throw Error("No se pudo crear el usuario")
+      
+    }
+  }
+
 
   // Método para verificar la conexión
   static async checkConnection() {
