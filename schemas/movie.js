@@ -31,7 +31,7 @@ const movieSchema = z.object({
   ),
 });
 
-/*const registreUserSchema= z.object({
+const registreUserSchema= z.object({
   username: z.string({
     invalid_type_error: "El nombre del usuario debe ser un string",
     required_error: "El nombre del usuario es requerido"
@@ -49,7 +49,7 @@ const movieSchema = z.object({
   .regex(/[0-9]/, "La contraseña debe contener al menos un número")
   .regex(/[@$!%*?&]/, "La contraseña debe contener al menos un carácter especial (@$!%*?&)")  
   
-})*/
+})
 
 export function validateMovie(object) {
   return movieSchema.safeParse(object);
@@ -58,7 +58,7 @@ export function validateMovie(object) {
 export function validatePartialMovie(object) {
   return movieSchema.partial().safeParse(object);
 }
-/*
+
 export function validateRegistreUser(object){
   return registreUserSchema.safeParse(object);
-}*/
+}
