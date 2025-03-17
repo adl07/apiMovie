@@ -297,7 +297,7 @@ export class MovieModel {
   }
 
 
-  static async createUser({input}){
+  /*static async createUser({input}){
     const {username, email, password, subscripcion} = input
     try {
       const {data, error} = await supabase
@@ -312,6 +312,7 @@ export class MovieModel {
       
     }
   }
+    */
 
 
   // Método para verificar la conexión

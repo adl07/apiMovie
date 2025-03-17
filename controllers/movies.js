@@ -192,7 +192,7 @@ export class MovieController {
     res.status(201).json(newMovie);
   };
 
-  createUser = async (req, res)=>{
+  /*createUser = async (req, res)=>{
     const result = validateRegistreUser(req.body);
     if(!result.success){
       return res.status(400).json({error: JSON.parse(result.error.message)});
@@ -200,7 +200,7 @@ export class MovieController {
     const newUser = await this.movieModel.createUser({input: result.data})
 
     res.status(201).json(newUser);
-  }
+  }*/
 
   delete = async (req, res) => {
     const { id } = req.params;
