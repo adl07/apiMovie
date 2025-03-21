@@ -1,0 +1,43 @@
+.container-singup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #1A1D29;
+}
+
+
+.container-card-plan{
+    display: grid;
+    place-items: center;
+    background-color: aliceblue;
+    width: 370px;
+    height: 500px;
+    color: #02172a;
+    padding: 15px 10px;
+    border-radius: 10px;
+    box-shadow: 5px 3px 5px #4d4d4d;
+}
+
+.container-card-plan h1{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.container-card-plan span{
+    display: grid;
+    justify-content: center;
+}
+
+.item-cheeck-plan{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 75%;
+    
+}
+
+.item-cheeck-plan p{
+    padding-left: 5px;
+}

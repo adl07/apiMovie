@@ -1,0 +1,41 @@
+.container-planform{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color:#1A1D29;
+    
+}
+
+.container-planform-planes{
+    display: grid;
+    place-items: start;
+    width: 1076px;
+    height: 967px;
+    background-color: aliceblue;
+    color: #1A1D29;
+}
+
+.columns-card-plans{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+}
+
+.descrip-tyc{
+    color: #737373;
+    font-size: 13px;
+}
+
+.container-planform-planes span{
+    font-size: 13px;
+}
+
+.container-planform-planes h1{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.container-planform-planes h3{
+   
+}

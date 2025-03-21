@@ -1,0 +1,39 @@
+
+
+.container-verify{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 100vh;
+        background-color: #1A1D29;
+
+}
+
+.container-verify-email{
+    display: grid;
+    place-items: center;
+    background-color: aliceblue;
+    width: 370px;
+    height: 500px;
+    color: #02172a;
+    padding: 15px 10px;
+    border-radius: 10px;
+    box-shadow: 5px 3px 5px #4d4d4d;
+
+}
+
+.container-verify-email h1{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.icon-cheeck{
+    width: 51px;
+    height: 51px;
+    border: 3px solid #02d6e8;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

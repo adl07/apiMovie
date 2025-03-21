@@ -2,13 +2,12 @@ import './home.css'
 import Logo from '../../images/Logo.png';
 import { useState } from 'react';
 import {Carousel} from "@material-tailwind/react"
-import Login from '../login/login';
+import { Link} from 'react-router-dom';
 
 
 const imgBgrHome: string[] = ["bgHomeOne", "bgHomeTwo", "bgHomeThree"]
 
 export default function Home(){
-
 
     const [currentPage, setCurrentPage] = useState(0);
     const [useImage, setUseImage] = useState<string>(imgBgrHome[0]);
@@ -18,31 +17,32 @@ export default function Home(){
             <main>
                 <div className={`container-home ${useImage} transition-bg`}>
                     <div className='container-login'>
-                        <button className='btn-login-home'>
-                            <a href='http://localhost:5173/login' >INICIAR SESIÓN</a>
-                        </button>
+                        <Link to="/login" className="btn-login-home">
+                                INICIAR SESIÓN
+                        </Link>
                     </div>
-                    <section className='lorem-home'>
+                    <div className='lorem-home'>
                                 <img src={Logo} alt="" className="logo-img"/>
                                 <h1>Hay un nuevo Disney+</h1>
                                 <h3>Donde todo se encuentra</h3>
-
                                 <ul className='descrip-subs'>
                                     <li>
-                                        <button className='btn-sub-estd'>
-                                            <a>Estandar</a>
-                                        </button>
+                                        <div className="btn-sub-estd">
+                                            <Link to={"/singup"}>
+                                                Estandar
+                                            </Link>
+                                        </div>
                                         <p>Estándar incluye series, películas y una selección de canales de ESPN (ESPN e ESPN3).</p>
                                     </li>
                                     <li>
-                                        <button className='btn-sub-prem'>
-                                            <a>Premium</a>
-                                        </button>
+                                        <div className='btn-sub-prem'>
+                                            <Link to={"/singup"}>Premium</Link>
+                                        </div>
                                         <p>Premium incluye series, películas, todos los canales básicos de ESPN, torneos y más de 500 eventos exclusivos por mes.</p>
                                     </li>
                                 </ul>
                                 
-                    </section>
+                    </div>
                     <Carousel
                         className="rounded-xl"
                         autoplay={false}
