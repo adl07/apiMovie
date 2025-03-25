@@ -35,7 +35,7 @@ function App() {
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/singup' element={<SingUp/>}></Route>
             <Route path='/singup/reform' element={<Reform/>}></Route>
-            <Route path='/singup/verifyemail' element={<VerifyEmail email=''/>}></Route>
+            <Route path='/singup/verifyemail' element={<VerifyEmail/>}></Route>
             <Route path='/singup/plan' element={<SingUpPlan/>}></Route>
             <Route path='/singup/planform' element={<Planform planes={[]}/>}></Route>
             <Route path='/userFav/:idUser' element={<UserFavMovies idUser=''/>}></Route>

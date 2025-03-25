@@ -1,12 +1,27 @@
 import React from "react";
 import './singUpPlan.css'
 import { Link } from "react-router-dom";
+import Logo from '../../images/img-logo-removebg-preview.png'
+import FooterPage from "../footer/footer";
+
 
 
 
 const SingUpPlan: React.FC=()=>{
     return (
         <div className="container-singup">
+            <div className="planform-header">
+                <div className="logo">
+                    <img className="img-logo-planform" src={Logo}/>
+                </div>
+                <div className="login-home">
+                    <a>
+                        <Link to={"/login"} className="btn-login-home">
+                            <span>INICIAR SESIÓN</span>
+                        </Link>
+                    </a>
+                </div>
+            </div>
             <div className="container-card-plan">
                 <div className="icon-cheeck">
                     <svg
@@ -103,6 +118,9 @@ const SingUpPlan: React.FC=()=>{
                 <div className="btn-siguiente">
                     <Link to={"/singup/planform"}>Siguiente</Link>
                 </div>
+            </div>
+            <div className="planform-footer">
+                <FooterPage/>
             </div>
         </div>
     )

@@ -1,5 +1,6 @@
 .container-singup{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -17,7 +18,8 @@
     color: #02172a;
     padding: 15px 10px;
     border-radius: 10px;
-    box-shadow: 5px 3px 5px #4d4d4d;
+    box-shadow: 3px 3px 3px #4d4d4d;
+    margin-bottom: 40px;
 }
 
 .container-card-plan h1{

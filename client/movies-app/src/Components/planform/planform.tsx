@@ -78,7 +78,7 @@ const Planform: React.FC=()=>{
                     <Link to={""}>Siguiente</Link>
                 </div>
             </div>
-            <div>
+            <div className="planform-footer">
                 <FooterPage/>
             </div>            
         </div>
