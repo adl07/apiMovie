@@ -3,24 +3,36 @@ import { Link } from "react-router-dom";
 import './planform.css'
 import PlansCard from "../plans-card/plansCard";
 import { CardPlanProps } from "../plans-card/plansCard";
+import Logo from '../../images/img-logo-removebg-preview.png'
+import FooterPage from "../footer/footer";
+
 
 const values =[{
-        plan:"basico", 
-        resolucion: 123, 
+        plan:"Basico", 
+        resolucion: 5.999, 
         price: 450, 
-        quality: "buena", 
+        quality: "720p (HD)", 
         devices: ["pc", "celular"], 
         users: 1, 
         dev_change: 1
     },
     {
+        plan: "Estandar",
+        resolucion: 1080,
+        price: 9.999,
+        quality: "1080p (Full HD)",
+        devices: ["TV", "PC", "Móvil"],
+        users: 2,
+        dev_change: 2
+    },
+    {
         plan: "Premium",
         resolucion: 1080,
-        price: 12.99,
-        quality: "Full HD",
+        price: 13.499,
+        quality: "4K (Ultra HD) + HDR",
         devices: ["TV", "PC", "Móvil"],
         users: 4,
-        dev_change: 2
+        dev_change: 6
     }
 ]
 
@@ -31,6 +43,18 @@ const Planform: React.FC=()=>{
 
     return(
         <div className="container-planform">
+            <div className="planform-header">
+                <div className="logo">
+                    <img className="img-logo-planform" src={Logo}/>
+                </div>
+                <div className="login-home">
+                    <a>
+                        <Link to={"/login"} className="btn-login-home">
+                            <span>INICIAR SESIÓN</span>
+                        </Link>
+                    </a>
+                </div>
+            </div>
             <div className="container-planform-planes">
                 <span>PASO 3 DE 4</span>
                 <h1>Selecciona el plan ideal para ti</h1>
@@ -54,7 +78,9 @@ const Planform: React.FC=()=>{
                     <Link to={""}>Siguiente</Link>
                 </div>
             </div>
-        
+            <div>
+                <FooterPage/>
+            </div>            
         </div>
     )
 }

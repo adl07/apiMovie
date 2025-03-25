@@ -1,25 +1,59 @@
 .container-planform{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
     min-height: 100vh;
     background-color:#1A1D29;
     
 }
 
+.planform-header{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.logo{
+    display: flex;
+    width: 50%;
+    padding-left: 20px;
+}
+
+.login-home{
+    display: flex;
+    width: 50%;
+    padding: 5px;
+    justify-content: end;
+}
+
+.planform-header{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.img-logo-planform{
+    width: 100px;
+    height: 100px
+}
 .container-planform-planes{
     display: grid;
     place-items: start;
-    width: 1076px;
+    width: 1200px;
     height: 967px;
     background-color: aliceblue;
     color: #1A1D29;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .columns-card-plans{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
+    padding: 5px 10px;
 }
 
 .descrip-tyc{
@@ -36,6 +70,19 @@
     font-weight: 500;
 }
 
-.container-planform-planes h3{
-   
+
+.btn-login-home{
+    width: 180px;
+    height: 50px;
+    background-color: #040714;
+    color: #f9f9f9;
+    border-radius: 3px;
+    margin: 10px 30px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
+
