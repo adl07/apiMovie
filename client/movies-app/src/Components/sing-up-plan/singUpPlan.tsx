@@ -3,6 +3,7 @@ import './singUpPlan.css'
 import { Link } from "react-router-dom";
 import Logo from '../../images/img-logo-removebg-preview.png'
 import FooterPage from "../footer/footer";
+import Devices from "../../images/devices.png"
 
 
 
@@ -22,6 +23,7 @@ const SingUpPlan: React.FC=()=>{
                     </a>
                 </div>
             </div>
+            <img className="devices-img" src={Devices}/>
             <div className="container-card-plan">
                 <div className="icon-cheeck">
                     <svg

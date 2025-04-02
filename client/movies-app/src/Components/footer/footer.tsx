@@ -3,7 +3,7 @@ import './footer.css'
 import Logo from '../../images/img-logo-removebg-preview.png'
 
 
-const FooterPage: React.FC<>=()=>{
+const FooterPage: React.FC=()=>{
     return(
             <div className="container-footer">
                 <img src={Logo} />

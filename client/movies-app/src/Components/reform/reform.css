@@ -10,11 +10,22 @@
         width: 380px;
         height: 500px;
         color: #02172a;
-        padding: 10px;
+        padding: 20px 10px;
         border-radius: 10px;
-        margin-top: 8px;
+        margin-top: 20px;
         margin-bottom: 50px;
         box-shadow: 3px 3px 3px #4d4d4d;
+}
+
+.cont-paso-uno h2 {
+    margin: 10px 0px;
+    font-size: 17px;
+}
+
+.cont-paso-uno h4 {
+    margin: 10px 0px;
+    font-size: 15px;
+    color: #4d4d4d;
 }
 
 
@@ -30,7 +41,9 @@
     color: aliceblue;
     padding-left: 10px;
     background-color: #1A1D29;
+    opacity: 90%;
     border-radius: 5px;
+    width: 100%;
 }
 
 .cont-form-register input::placeholder{
