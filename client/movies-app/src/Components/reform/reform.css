@@ -7,7 +7,7 @@
 }
 .cont-paso-uno{
         background-color: aliceblue;
-        width: 380px;
+        width: 400px;
         height: 500px;
         color: #02172a;
         padding: 20px 10px;
@@ -32,18 +32,48 @@
 .cont-form-register{
     display: grid;
     flex-direction: column;
-    place-content: center;
+    width: 100%;
+    min-width: 100%;
+    padding: 10px;
 }
 
-.cont-form-register input{
-    margin: 10px 0px;
-    height: 45px;
-    color: aliceblue;
-    padding-left: 10px;
-    background-color: #1A1D29;
-    opacity: 90%;
-    border-radius: 5px;
-    width: 100%;
+.input-email{
+        margin: 7px 0px;
+        height: 45px;
+        color: aliceblue;
+        background-color: #1A1D29;
+        opacity: 90%;
+        border-radius: 5px;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        padding-left: 10px;
+}
+
+.input-username{
+        margin: 7px 0px;
+        height: 45px;
+        color: aliceblue;
+        background-color: #1A1D29;
+        opacity: 90%;
+        border-radius: 5px;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        padding-left: 10px;
+}
+
+.input-password{
+        margin: 7px 0px;
+        height: 45px;
+        color: aliceblue;
+        background-color: #1A1D29;
+        opacity: 90%;
+        border-radius: 5px;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        padding-left: 10px;
 }
 
 .cont-form-register input::placeholder{
@@ -58,3 +88,20 @@
     height: 150px;
     color: #02d6e8;
 }
+
+
+.btn-siguiente-disable{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 260px;
+        height: 50px;
+        background-color: #02d6e8;
+        color: #02172a;
+        border-radius: 3px;
+        margin: 20px auto;
+        cursor: pointer;
+        border: none;
+        opacity: 50%;
+}
+
