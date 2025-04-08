@@ -12,10 +12,16 @@
 
 
 
-.container-plans-cards li{
+.container-plans-cards ul li{
     padding: 10px 15px;
     width: 100%;
     border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+
+.container-plans-cards ul li:last-child {
+    padding: 10px 15px;
+    width: 100%;
+    border-bottom: none;
 }
 
 
@@ -34,6 +40,35 @@
     font-size: 1.100rem;
     font-weight: 500;
     line-height: 1.5;
+}
+
+.checbx-select-plan{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+.inpt-checbx-plan{
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        background-color: #fff;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+}
+
+.inpt-checbx-plan:checked::after{
+        content: "✔";
+        color: #fff;
+        background-color: #6d3be3;
+        border-color: #6d3be3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        border-radius: 20px;
+        outline: none;
 }
 
 

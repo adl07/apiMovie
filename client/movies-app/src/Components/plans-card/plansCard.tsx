@@ -24,6 +24,9 @@ const PlansCard: React.FC<PlansCardProps>
                             <ul>
                                 <li className="item-detail-head">
                                     <div className="item-detail-card-head">
+                                        <div className="checbx-select-plan">
+                                            <input className="inpt-checbx-plan"  type='checkbox'/>
+                                        </div>
                                         <h3>{CardProps.plan}</h3>
                                         <p>{CardProps.resolucion}</p>
                                     </div>
