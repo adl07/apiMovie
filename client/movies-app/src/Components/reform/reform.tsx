@@ -29,16 +29,14 @@ function Reform(){
         onSubmit:(values, {resetForm}) =>{
             setIsDisable(false) 
             try {
-                dispatch(getDateRegister
-                    ({
-                    email: values.email, 
-                    username: values.username, 
-                    pass: values.password
-                    }),
-                )
+                dispatch(getDateRegister({
+                        email: values.email, 
+                        username: values.username, 
+                        pass: values.password
+                }))
                 console.log(`tenemos como email ${values.email} \n tenemos como username ${values.username} \n tenemos como pass ${values.password}`)
                 console.log("Formulario enviado:", values)
-                console.log(registerLoginUser);
+                console.log(registerLoginUser)
                 //reseteo los campos
                 resetForm()
                 navigate("/singup/verifyemail")

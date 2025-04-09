@@ -12,6 +12,7 @@
 
 
 
+
 .container-plans-cards ul li{
     padding: 10px 15px;
     width: 100%;
@@ -24,6 +25,30 @@
     border-bottom: none;
 }
 
+.container-plans-cards-checked{
+    width: 360px;
+    height: 600px;
+    color: #02172a;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0px 10px;
+    border-radius: 15px;
+    border: 3px solid rgb(109, 59, 227);
+    box-shadow: rgba(127, 72, 172, 0.185) 0px 10px 10px 0px;
+}
+
+
+.container-plans-cards-checked ul li{
+    padding: 10px 15px;
+    width: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+
+.container-plans-cards-checked ul li:last-child {
+    padding: 10px 15px;
+    width: 100%;
+    border-bottom: none;
+}
 
 .item-detail-head {
     margin-top: 8px;

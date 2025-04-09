@@ -1,20 +1,17 @@
 import { z } from "zod";
 
 export const registerLoginUser = z.object({
-  email: z
-    .string({
+  email: z.string({
       required_error: "Por favor ingresa un email",
     })
     .email("El email no es válido"),
-  username: z
-    .string({
+  username: z.string({
       invalid_type_error: "Por favor ingresa un nombre de usuario",
       required_error: "El nombre de usuario debe tener al menos 4 caracteres",
     })
     .min(4, "El nombre de usuario debe tener al menos 4 caracteres")
     .max(10, "El nombre de usuario debe tener un maximo de 10 caracteres"),
-  password: z
-    .string({
+  password: z.string({
       required_error: "Por favor ingresa una contraseña",
     })
     .min(8, "La contraseña debe tener al menos 8 caracteres")

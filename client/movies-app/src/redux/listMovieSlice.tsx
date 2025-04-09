@@ -26,7 +26,7 @@ export const movieStatusSlice=createSlice({
 
 export const {stusMov} = movieStatusSlice.actions
 
-export const userReducer = movieStatusSlice.reducer
+export const movFavReducer = movieStatusSlice.reducer
 
 
 

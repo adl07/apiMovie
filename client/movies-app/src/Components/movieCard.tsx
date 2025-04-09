@@ -72,14 +72,14 @@ export default function MovieCard({id, title, poster, director,duration,year,rat
     
     const idUser = useAppSelector((state)=> state.user.id);
 
-    const idMovie = useAppSelector((state)=> state.getMovie.idmovie?? id);
+    const idMovie = useAppSelector((state)=> state.movie.idmovie);
 
     const favStus = useAppSelector((state)=> state.movfav?.favs);
 
 
 
     useEffect(()=>{
-        dispatch(getMovie({idmovie:id}))
+        dispatch(getMovie({id:id}))
             console.log("Id del usuario",idUser)
             console.log("Id de la pelicula",idMovie)
             //console.log('reportando status desde moviecard', favStus)

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { userReducer } from "./userSlice";
-import { movieStatusSlice } from "./listMovieSlice";
+import { movFavReducer } from "./listMovieSlice";
 import { moviesReducer } from "./movieSlice";
 import { registerReducer } from "./registerUser";
 
@@ -9,7 +9,7 @@ import { registerReducer } from "./registerUser";
 export const store = configureStore({
     reducer:{
         user: userReducer,
-        movfav: movieStatusSlice.reducer,
+        movfav: movFavReducer,
         movie: moviesReducer,
         register: registerReducer
     },

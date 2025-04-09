@@ -24,9 +24,9 @@ interface MoviesProps{
     fav: boolean
 }
 
-const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
+const UserFavMovies: React.FC=()=>{
 
-    idUser = useSelector((state)=>state.user.id)
+    const idUser = useSelector((state)=>state.user.id)
 
     const userName = useSelector((state) => state.user.username)
 
@@ -51,8 +51,8 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
             setIsLoading(true)
         try {
             const response = await fetch(`https://api-movies-app.vercel.app/movies/userid/${idUser}`);
+            console.log(response)
             if (!response.ok) {
-                setIsLoading(false)
                 throw new Error("Error al llamar a la api")
                 
             }
@@ -68,10 +68,14 @@ const UserFavMovies: React.FC<{idUser:string}>=({idUser})=>{
             console.log(error)
             throw new Error("Error al obtener las peliculas favoritas del usuario");
             
+        }finally {
+            setIsLoading(false)
         }
     }
 
-    getMoviesFav()
+    if(idUser){  // esto es clave, sino idUser puede venir undefined al principio
+        getMoviesFav()
+    }
 
     },[idUser])
 

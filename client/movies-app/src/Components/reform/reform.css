@@ -8,13 +8,12 @@
 .cont-paso-uno{
         background-color: aliceblue;
         width: 400px;
-        height: 500px;
+        height: 525px;
         color: #02172a;
         padding: 20px 10px;
         border-radius: 10px;
         margin-top: 20px;
         margin-bottom: 50px;
-        box-shadow: 3px 3px 3px #4d4d4d;
 }
 
 .cont-paso-uno h2 {
@@ -35,6 +34,7 @@
     width: 100%;
     min-width: 100%;
     padding: 10px;
+    gap: 5px;
 }
 
 .input-email{
@@ -51,7 +51,7 @@
 }
 
 .input-username{
-        margin: 7px 0px;
+        margin-top: 5px;
         height: 45px;
         color: aliceblue;
         background-color: #1A1D29;
@@ -64,7 +64,7 @@
 }
 
 .input-password{
-        margin: 7px 0px;
+        margin-top: 25px;
         height: 45px;
         color: aliceblue;
         background-color: #1A1D29;

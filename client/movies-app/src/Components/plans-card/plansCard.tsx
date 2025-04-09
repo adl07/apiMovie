@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import './plansCard.css'
 
 
@@ -16,16 +16,29 @@ interface PlansCardProps {
     CardProps: CardPlanProps; //recibe un solo objeto del tipo CardPlanProps
   }
 
-const PlansCard: React.FC<PlansCardProps> 
-=({CardProps})=>{
+const PlansCard: React.FC<PlansCardProps> =({CardProps})=>{
+
+    const [isChecked, setIsChecked] = useState<boolean>(true)
+
+
+    const handleCheck =()=>{
+        setIsChecked(!isChecked)
+        console.log(isChecked)
+    }
+
+
     return(
-            <div className="container-plans-cards">
+            <div className={isChecked ? 'container-plans-cards' : 'container-plans-cards-checked'}>
                         <div>
                             <ul>
                                 <li className="item-detail-head">
                                     <div className="item-detail-card-head">
                                         <div className="checbx-select-plan">
-                                            <input className="inpt-checbx-plan"  type='checkbox'/>
+                                            <input 
+                                                className="inpt-checbx-plan"  
+                                                type='checkbox'
+                                                onClick={()=>handleCheck()}
+                                                />
                                         </div>
                                         <h3>{CardProps.plan}</h3>
                                         <p>{CardProps.resolucion}</p>
