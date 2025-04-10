@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './planform.css'
 import PlansCard from "../plans-card/plansCard";
 import { CardPlanProps } from "../plans-card/plansCard";
 import Logo from '../../images/img-logo-removebg-preview.png'
 import FooterPage from "../footer/footer";
+import { useSelector } from "react-redux";
 
 
 const values =[{
         plan:"Basico", 
-        resolucion: 5.999, 
-        price: 450, 
+        resolucion: 450,  
+        price: 5.999, 
         quality: "720p (HD)", 
         devices: ["pc", "celular"], 
         users: 1, 
@@ -40,6 +41,16 @@ const values =[{
 const Planform: React.FC=()=>{
 
     const [planes, setPlanes] = useState<CardPlanProps[]>(values)
+
+    const status = useSelector((state)=> state.subscription.status)
+    const price = useSelector((state)=> state.subscription.price)
+    const plan = useSelector((state)=> state.subscription.plan)
+
+    useEffect(() => {
+        console.log(`estoy en planform: ${status}`)
+        console.log(`estoy en planform: ${price}`)
+        console.log(`estoy en planform: ${plan}`)
+    }, [status,price,plan])
 
     return(
         <div className="container-planform">
@@ -73,10 +84,10 @@ const Planform: React.FC=()=>{
                     Solo las personas que vivan contigo pueden usar tu cuenta. Puedes ver Netflix en 4 dispositivos al mismo tiempo con el plan Premium, en 2 con el plan Estándar y en 1 con el plan Básico.
                     Los eventos en vivo se incluyen en todos los planes de Netflix y contienen anuncios.
                 </span>
-
-                <div className="btn-siguiente">
-                    <Link to={""}>Siguiente</Link>
-                </div>
+                
+                <button className={status ? 'btn-siguiente' : 'btn-siguiente-disable'}>
+                        <Link to={"/singup/payment"}>Siguiente</Link>
+                </button>
             </div>
             <div className="planform-footer">
                 <FooterPage/>

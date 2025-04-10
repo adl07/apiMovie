@@ -15,6 +15,7 @@ import SingUpPlan from './Components/sing-up-plan/singUpPlan'
 import Reform from './Components/reform/reform'
 import VerifyEmail from './Components/verify-email/verifyEmail'
 import Planform from './Components/planform/planform'
+import { PaymentPicker } from './Components/payment-picker/paymentPicker'
 
 
 
@@ -38,6 +39,7 @@ function App() {
             <Route path='/singup/verifyemail' element={<VerifyEmail/>}></Route>
             <Route path='/singup/plan' element={<SingUpPlan/>}></Route>
             <Route path='/singup/planform' element={<Planform planes={[]}/>}></Route>
+            <Route path='/singup/payment' element={<PaymentPicker/>}></Route>
             <Route path='/userFav/:idUser' element={<UserFavMovies/>}></Route>
         </Routes>
       </BrowserRouter>

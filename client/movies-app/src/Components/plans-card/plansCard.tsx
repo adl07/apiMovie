@@ -1,5 +1,7 @@
 import React,{useState} from "react";
 import './plansCard.css'
+import { useDispatch } from "react-redux";
+import { getSubscription } from "../../redux/planMember";
 
 
 export interface CardPlanProps{
@@ -18,11 +20,16 @@ interface PlansCardProps {
 
 const PlansCard: React.FC<PlansCardProps> =({CardProps})=>{
 
+    const dispatch = useDispatch()
+
     const [isChecked, setIsChecked] = useState<boolean>(true)
 
-
+    
     const handleCheck =()=>{
         setIsChecked(!isChecked)
+
+        dispatch(getSubscription({status: isChecked, price: CardProps.price, plan: CardProps.plan }))
+
         console.log(isChecked)
     }
 

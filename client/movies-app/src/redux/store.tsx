@@ -4,6 +4,7 @@ import { userReducer } from "./userSlice";
 import { movFavReducer } from "./listMovieSlice";
 import { moviesReducer } from "./movieSlice";
 import { registerReducer } from "./registerUser";
+import { planSubsReducer } from "./planMember";
 
 
 export const store = configureStore({
@@ -11,7 +12,8 @@ export const store = configureStore({
         user: userReducer,
         movfav: movFavReducer,
         movie: moviesReducer,
-        register: registerReducer
+        register: registerReducer,
+        subscription: planSubsReducer
     },
 })
 
