@@ -3,8 +3,15 @@ import FooterPage from '../footer/footer'
 import Logo from '../../images/img-logo-removebg-preview.png'
 import './paymentPicker.css'
 import { PaySummary } from '../paysummary/paySummary'
+import {useSelector } from 'react-redux'
 
 export const PaymentPicker=()=>{
+
+    
+
+    const emailRegister = useSelector((state)=> state.register.email)
+    const userRegister = useSelector((state)=> state.register.username)
+
     return(
         <div className='container-payment'>
             <div className='header-payment'>
@@ -23,8 +30,8 @@ export const PaymentPicker=()=>{
                 <PaySummary 
                     plan='Estandar'
                     price='5.0000'
-                    email='test@gmail.com'
-                    username='ttest'
+                    email={emailRegister}
+                    username={userRegister}
                 />
             </div>
 

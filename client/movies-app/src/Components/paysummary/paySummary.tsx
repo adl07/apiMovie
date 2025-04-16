@@ -1,4 +1,7 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { cardCreditProps, type CardCreditType } from "../../schemas/cardCred";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useFormik } from "formik";
 import './paySummary.css'
 
 interface payValues{
@@ -10,6 +13,47 @@ interface payValues{
 
 
 export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
+
+    const formik = useFormik<CardCreditType>({
+            initialValues:{
+                numberCard: "",
+                fecVencCard: "",
+                cvvCard: "",
+                userCard:"",
+            },
+                validationSchema: toFormikValidationSchema(cardCreditProps),
+            onSubmit:(values, {resetForm}) =>{
+                //setIsDisable(false) 
+                try {
+                    /*dispatch(getDateRegister({
+                            email: values.email, 
+                            username: values.username, 
+                            pass: values.password
+                    }))*/
+                    console.log(`tenemos como card number ${values.numberCard} \n tenemos como card user ${values.userCard} 
+                        \n tenemos como cvv ${values.cvvCard}  \n tenemos como fecha venc ${values.fecVencCard}`)
+                    console.log("Formulario enviado:", values)
+                    console.log(cardCreditProps)
+                    //reseteo los campos
+                    resetForm()
+                    //navigate("/singup/verifyemail")
+                } catch (error) {
+                    console.log(error)
+                    throw new Error("Hubo un fallo al realizar ingresar los datos");
+                }
+            }
+        })
+
+        useEffect(()=>{
+                if(Object.keys(formik.errors).length === 0 && 
+                    Object.values(formik.values).every(value => value !== "")
+                ){
+                    //setIsDisable(false)
+                } else{
+                    //setIsDisable(true)
+                }
+            },[formik.errors, formik.values])
+
     return(
         <div className="cont-form-summary">
             <span>PASO 4 DE 4</span> 
@@ -20,6 +64,7 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
                 <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/MASTERCARD.png" alt="Mastercard" className="logoIcon MASTERCARD default-ltr-cache-kg1rox e18ygst00" data-uia="logoIcon-MASTERCARD"></img>
                 <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/AMEX.png" alt="American Express" className="logoIcon AMEX default-ltr-cache-kg1rox e18ygst00" data-uia="logoIcon-AMEX"></img>
             </div>
+            {/*
             <div className="card-inputs">
                 <input  
                     className="input-card-number"
@@ -32,13 +77,87 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
                     className="input-name-card" 
                     placeholder="Nombre de la tarjeta"/>
             </div>
+             */}
 
+            {/*Agrego form de formik */}
+
+            <form onSubmit={formik.handleSubmit} className="card-inputs">
+                        <input 
+                            placeholder="Número de tarjeta"
+                            id="numberCard"
+                            name="numberCard"
+                            type="text"
+                            value={formik.values.numberCard}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            className="input-card-number"
+                            autoComplete="off"
+
+                        />
+                        <p className="text-xs text-red-500 h-5">
+                            {formik.touched.numberCard && formik.errors.numberCard ? formik.errors.numberCard : ''}
+                        </p>
+
+                        <div className="inputs-fecven">
+                            <div className="container-input-fecvenc">
+                                <input 
+                                    placeholder="Fecha de vencimiento"
+                                    id="fecVencCard"
+                                    name="fecVencCard"
+                                    type="text"
+                                    value={formik.values.fecVencCard}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    className="input-fec-venc"
+                                    autoComplete="off"
+                                />
+                                <p className="text-xs text-red-500 h-5">
+                                    {formik.touched.fecVencCard && formik.errors.fecVencCard ? formik.errors.fecVencCard : ''}
+                                </p>
+                            </div>
+                            <div className="container-input-cvv">
+                                <input placeholder="CVV"
+                                    id="cvvCard"
+                                    name="cvvCard"
+                                    type="text"
+                                    value={formik.values.cvvCard}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    className="input-cvv"
+                                    autoComplete="off"
+                                />
+                                <p className="text-xs text-red-500 h-2">
+                                    {formik.touched.cvvCard && formik.errors.cvvCard ? formik.errors.cvvCard : ''}
+                                </p>
+                            </div>
+                        </div>
+                        <input placeholder="Nombre de la tarjeta"
+                            id="userCard"
+                            name="userCard"
+                            type="userCard"
+                            value={formik.values.userCard}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            className="input-name-card"
+                            autoComplete="off"
+                        />
+                        <p className="text-xs text-red-500 h-5">
+                            {formik.touched.userCard && formik.errors.userCard ? formik.errors.userCard : ''}
+                        </p>
+                        {/*
+                        <button className={isDisable ? 'btn-siguiente-disable' : 'btn-siguiente'} type="submit">
+                            Siguiente
+                        </button>
+                         */}
+                    </form>
+
+            {/*Fin formik form */}
             <div>
                 <p>${price} al mes (sin impuestos incluidos)</p>
                 <p>{plan}</p>
             </div>
             <div className="date-register">
-                <p>Recibiras la notificacion al correo <strong>{email}</strong> , es con el que registraste tu membresia </p>
+                <p>Recibiras la notificacion al correo <strong>{email}</strong> , es con el que registraste tu membresia.</p>
                 <p>Recorda iniciar sesion con tu user <strong>{username}</strong></p>
             </div>
             <p className="copyright">Al hacer clic en el botón «Iniciar membresía», aceptas nuestros Términos de uso y nuestra Declaración de privacidad, y declaras que tienes más de 18 años. Asimismo, entiendes que Netflix continuará tu membresía de manera automática y, hasta que la canceles, te facturará el cargo mensual (actualmente de $ {price} al mes + impuestos aplicables) a través de la forma de pago elegida. Puedes cancelar la membresía en cualquier momento para evitar cargos en el futuro. Para cancelarla, ve a Cuenta y haz clic en «Cancelar membresía».</p>
