@@ -33,12 +33,15 @@
     border-radius: 2px;
     min-height: 50px;
     margin: 5px 0px;
+    padding-left: 10px;
     
 }
+
 .inputs-fecven{
     display: flex;
     width: 100%;
 }
+
 .inputs-fecven input{
     width: 95%;
     background-color: transparent;
@@ -46,6 +49,7 @@
     border-radius: 2px;
     min-height: 50px;
     margin: 5px 0px;
+    padding-left: 10px;
 }
 
 .input-fec-venc{
@@ -60,6 +64,7 @@
     border-radius: 2px;
     min-height: 50px;
     margin: 5px 0px;
+    padding-left: 10px;
 }
 
 .date-register{
@@ -100,4 +105,19 @@
     margin: 20px auto;
     cursor: pointer; 
     border: none; 
+}
+
+.btn-iniciar-memb-disable{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    height: 50px;
+    background-color: #02d6e8;
+    color: #02172a;
+    border-radius: 3px;
+    margin: 20px auto;
+    cursor: pointer;
+    border: none;
+    opacity: 50%;
 }

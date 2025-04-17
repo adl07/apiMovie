@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { cardCreditProps, type CardCreditType } from "../../schemas/cardCred";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useFormik } from "formik";
@@ -13,6 +13,8 @@ interface payValues{
 
 
 export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
+
+    const [isDisable, setIsDisable] = useState<boolean>(true)
 
     const formik = useFormik<CardCreditType>({
             initialValues:{
@@ -48,9 +50,9 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
                 if(Object.keys(formik.errors).length === 0 && 
                     Object.values(formik.values).every(value => value !== "")
                 ){
-                    //setIsDisable(false)
+                    setIsDisable(false)
                 } else{
-                    //setIsDisable(true)
+                    setIsDisable(true)
                 }
             },[formik.errors, formik.values])
 
@@ -163,7 +165,7 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
             <p className="copyright">Al hacer clic en el botón «Iniciar membresía», aceptas nuestros Términos de uso y nuestra Declaración de privacidad, y declaras que tienes más de 18 años. Asimismo, entiendes que Netflix continuará tu membresía de manera automática y, hasta que la canceles, te facturará el cargo mensual (actualmente de $ {price} al mes + impuestos aplicables) a través de la forma de pago elegida. Puedes cancelar la membresía en cualquier momento para evitar cargos en el futuro. Para cancelarla, ve a Cuenta y haz clic en «Cancelar membresía».</p>
 
             <div>
-                <button className="btn-iniciar-memb">Iniciar membresia</button>
+                <button className={isDisable ? 'btn-iniciar-memb-disable' : 'btn-iniciar-memb'}>Iniciar membresia</button>
             </div>
         </div>
     )
