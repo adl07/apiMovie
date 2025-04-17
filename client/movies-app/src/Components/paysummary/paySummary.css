@@ -12,7 +12,10 @@
 }
 
 .card-inputs{
-    width: 70%;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    padding: 15px;
 }
 
 .card-inputs input::placeholder{
@@ -27,37 +30,34 @@
 
 
 .input-card-number{
-    width: 100%;
+    width: 80%;
     background-color: transparent;
     border: 0.5px solid #8c8c8c;
     border-radius: 2px;
     min-height: 50px;
-    margin: 5px 0px;
+    margin: 10px 0px;
     padding-left: 10px;
     
 }
 
 .inputs-fecven{
     display: flex;
-    width: 100%;
+    width: 80%;
+    margin: 6px 0px;
 }
 
-.inputs-fecven input{
-    width: 95%;
-    background-color: transparent;
-    border: 0.5px solid #8c8c8c;
-    border-radius: 2px;
-    min-height: 50px;
-    margin: 5px 0px;
-    padding-left: 10px;
-}
 
 .input-fec-venc{
     width: 100%;
+    background-color: transparent;
+    border: 0.5px solid #8c8c8c;
+    border-radius: 2px;
+    min-height: 50px;
+    margin: 5px 0px;
+    padding-left: 10px;
 }
 
-
-.input-name-card{
+.input-cvv{
     width: 100%;
     background-color: transparent;
     border: 0.5px solid #8c8c8c;
@@ -67,7 +67,46 @@
     padding-left: 10px;
 }
 
+.container-input-fecvenc{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin: 12px 12px 5px 0px;
+}
+
+.container-input-cvv{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+}
+
+.container-input-name-card{
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.container-input-card-number{
+    width: 100%;
+    margin: 6px 0px;
+}
+
+.input-name-card{
+    width: 80%;
+    background-color: transparent;
+    border: 0.5px solid #8c8c8c;
+    border-radius: 2px;
+    min-height: 50px;
+    margin: 10px 0px;
+    padding-left: 10px;
+}
+
+
+
 .date-register{
+    margin: 10px 0px;
     text-align: start;
 }
 .date-register p{
@@ -75,22 +114,19 @@
 }
 
 .copyright{
+    width: 100%;
+    text-align: start;
     font-size: 13px;
     color: #8c8c8c;
 }
 
-.container-input-fecvenc{
-    display: flex;
-    flex-direction: column;
+.descrip-price{
     width: 100%;
-    margin: 12px 0px;
+    font-size: 14px;
 }
 
-.container-input-cvv{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 12px 0px;
+.descrip-price p{
+    font-weight: 600;
 }
 
 .btn-iniciar-memb{
