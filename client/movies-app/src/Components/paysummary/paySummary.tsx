@@ -8,14 +8,16 @@ interface payValues{
     plan: string,
     price: string,
     email: string,
-    username:string
+    username:string,
+    send: ()=> void
 }
 
 
-export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
+export const PaySummary: React.FC<payValues>=({plan, price, email, username, send})=>{
 
     const [isDisable, setIsDisable] = useState<boolean>(true)
 
+    
     const formik = useFormik<CardCreditType>({
             initialValues:{
                 numberCard: "",
@@ -35,7 +37,6 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
                     console.log(`tenemos como card number ${values.numberCard} \n tenemos como card user ${values.userCard} 
                         \n tenemos como cvv ${values.cvvCard}  \n tenemos como fecha venc ${values.fecVencCard}`)
                     console.log("Formulario enviado:", values)
-                    console.log(cardCreditProps)
                     //reseteo los campos
                     resetForm()
                     //navigate("/singup/verifyemail")
@@ -66,20 +67,6 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
                 <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/MASTERCARD.png" alt="Mastercard" className="logoIcon MASTERCARD default-ltr-cache-kg1rox e18ygst00" data-uia="logoIcon-MASTERCARD"></img>
                 <img src="https://assets.nflxext.com/siteui/acquisition/payment/ffe/paymentpicker/AMEX.png" alt="American Express" className="logoIcon AMEX default-ltr-cache-kg1rox e18ygst00" data-uia="logoIcon-AMEX"></img>
             </div>
-            {/*
-            <div className="card-inputs">
-                <input  
-                    className="input-card-number"
-                    placeholder="Número de tarjeta"/>
-                <div className="inputs-fecven">
-                    <input placeholder="Fecha de vencimiento"/>
-                    <input placeholder="CVV"/>
-                </div>
-                    <input 
-                    className="input-name-card" 
-                    placeholder="Nombre de la tarjeta"/>
-            </div>
-             */}
 
             {/*Agrego form de formik */}
 
@@ -157,18 +144,18 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username})=>{
                         </button>
                          */}
 
-            <div className="descrip-price">
-                <span>${price} al mes (sin impuestos incluidos)</span>
-                <p>{plan}</p>
-            </div>
-            <div className="date-register">
-                <p>Recibiras la notificacion al correo <strong>{email}</strong> , es con el que registraste tu membresia.</p>
-                <p>Recorda iniciar sesion con tu user <strong>{username}</strong></p>
-            </div>
+                    <div className="descrip-price">
+                        <span>${price} al mes (sin impuestos incluidos)</span>
+                        <p>{plan}</p>
+                    </div>
+                    <div className="date-register">
+                        <p>Recibiras la notificacion al correo <strong>{email}</strong> , es con el que registraste tu membresia.</p>
+                        <p>Recorda iniciar sesion con tu user <strong>{username}</strong></p>
+                    </div>
                 <p className="copyright">Al hacer clic en el botón «Iniciar membresía», aceptas nuestros Términos de uso y nuestra Declaración de privacidad, y declaras que tienes más de 18 años. Asimismo, entiendes que Netflix continuará tu membresía de manera automática y, hasta que la canceles, te facturará el cargo mensual (actualmente de $ {price} al mes + impuestos aplicables) a través de la forma de pago elegida. Puedes cancelar la membresía en cualquier momento para evitar cargos en el futuro. Para cancelarla, ve a Cuenta y haz clic en «Cancelar membresía».</p>
 
-                <button className={isDisable ? 'btn-iniciar-memb-disable' : 'btn-iniciar-memb'} type="submit">Iniciar membresia</button>
-                    </form>
+                <button className={isDisable ? 'btn-iniciar-memb-disable' : 'btn-iniciar-memb'} type="submit" onClick={send}>Iniciar membresia</button>
+            </form>
 
             {/*Fin formik form */}
             

@@ -30,3 +30,36 @@
     border-radius: 5px;
     margin-bottom: 50px;
 }
+
+.popup-buttons{
+    display: flex;
+    width: 100%;
+}
+
+.button-accept{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+    background-color: #02d6e8;
+    color: #02172a;
+    border-radius: 3px;
+    margin: 20px auto;
+    cursor: pointer; 
+    border: none; 
+}
+
+.button-close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    background-color: aliceblue;
+    color: #02d6e8;
+    border-radius: 3px;
+    margin: 20px auto;
+    cursor: pointer; 
+    border: none;
+}
