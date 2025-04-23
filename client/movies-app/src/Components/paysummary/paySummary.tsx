@@ -3,6 +3,7 @@ import { cardCreditProps, type CardCreditType } from "../../schemas/cardCred";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useFormik } from "formik";
 import './paySummary.css'
+import { number } from "zod";
 
 interface payValues{
     plan: string,
@@ -16,6 +17,12 @@ interface payValues{
 export const PaySummary: React.FC<payValues>=({plan, price, email, username, send})=>{
 
     const [isDisable, setIsDisable] = useState<boolean>(true)
+
+    const formatCardNumber=(value: string)=>{
+        return value.replace(/\D/g, '') // solo números
+                .replace(/(.{4})/g, '$1 ')
+                .trim();
+        }
 
     
     const formik = useFormik<CardCreditType>({
@@ -45,9 +52,12 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username, sen
                     throw new Error("Hubo un fallo al realizar ingresar los datos");
                 }
             }
-        })
+        }
+    )
 
+    
         useEffect(()=>{
+                
                 if(Object.keys(formik.errors).length === 0 && 
                     Object.values(formik.values).every(value => value !== "")
                 ){
@@ -77,8 +87,11 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username, sen
                                     id="numberCard"
                                     name="numberCard"
                                     type="text"
-                                    value={formik.values.numberCard}
-                                    onChange={formik.handleChange}
+                                    value={formatCardNumber(formik.values.numberCard)}
+                                    onChange={(e) => {
+                                            const rawValue = e.target.value.replace(/\s+/g, '');
+                                            formik.setFieldValue('numberCard', rawValue);
+                                    }}
                                     onBlur={formik.handleBlur}
                                     className="input-card-number"
                                     autoComplete="off"
@@ -127,7 +140,7 @@ export const PaySummary: React.FC<payValues>=({plan, price, email, username, sen
                                 id="userCard"
                                 name="userCard"
                                 type="userCard"
-                                value={formik.values.userCard}
+                                value={formik.values.userCard.toUpperCase()}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 className="input-name-card"
