@@ -27,6 +27,7 @@ function App() {
           {/**<Header/> */}
         <Routes>
             <Route index path='/' element={<Home/>}></Route>
+            <Route path='*' element={<>NOT FOUND</>}></Route>
             <Route path='/home' element={<HomeLogIn/>}></Route>
             <Route path='/allMovies' element={<AllMovies/>} />
             <Route path='/createMovie' element={<CreateMovie/>}></Route>

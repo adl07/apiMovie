@@ -2,6 +2,8 @@
 //import { MovieModel } from "../models/mysql/movie.js";
 
 import { validateMovie, validatePartialMovie, validateRegistreUser } from "../schemas/movie.js";
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET
 
 export class MovieController {
   constructor({ movieModel }) {
@@ -26,6 +28,8 @@ export class MovieController {
     }
   };
 
+
+  
   getUser = async (req, res) => {
     try {
       const { user } = req.params;
@@ -36,7 +40,21 @@ export class MovieController {
           message: "Usuario no encontrado",
         });
       }
-      return res.json(users);
+
+      //Generacion token//
+
+      const token = jwt.sign({
+        id: users.id,
+        username: users.username,
+      },
+      JWT_SECRET,
+      {expiresIn: "1h" // token válido por 1 hora// 
+        }
+    )
+      return res.json({
+        user: users,
+        token: token
+      });
     } catch (error) {
       console.error("Error en controller getUser:", error);
       return res.status(500).json({
