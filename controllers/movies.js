@@ -3,7 +3,6 @@
 
 import { validateMovie, validatePartialMovie, validateRegistreUser } from "../schemas/movie.js";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
 const JWT_SECRET = process.env.JWT_SECRET
 
 
@@ -56,7 +55,7 @@ export class MovieController {
       res
       .cookie('access_token', token,{
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'development',
         sameSite: 'strict',
         maxAge: 1000 * 60 * 60
       })
