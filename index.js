@@ -2,6 +2,8 @@ import express from "express";
 import { createMovieRouter } from "./routes/movies.js";
 import { MovieModel } from "./models/superbase-test/movie.js";
 import cors from 'cors';
+import cookieParser from "cookie-parser";
+
 
 export function createApp({ movieModel }) {
   const app = express();
@@ -24,6 +26,8 @@ export function createApp({ movieModel }) {
   });
 
   app.use("/movies", createMovieRouter({ movieModel }));
+
+  app.use(cookieParser());
 
   // Middleware para manejar rutas no encontradas
   app.use((req, res, next) => {
@@ -48,6 +52,8 @@ export function createApp({ movieModel }) {
       });
     }
   });
+
+  
 
   return app;
 }
