@@ -54,12 +54,12 @@ export class MovieController {
         }
     )
       return res
-      .cookie('access_token', token,{
+      /*.cookie('access_token', token,{
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' && req.hostname !== 'localhost',
+        secure: false,
         sameSite: 'strict',
         maxAge: 1000 * 60 * 60
-      })
+      })*/
       .json({
         user: users,
         token: token
