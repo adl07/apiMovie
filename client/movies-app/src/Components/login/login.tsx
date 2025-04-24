@@ -40,16 +40,17 @@ const Login: React.FC=()=>{
         try {
             const req = await fetch(`https://api-movies-app.vercel.app/movies/users/${user}`);
             const data = await req.json();
-            console.log(data.id)
-            console.log(data.username)
-            setUseInfo({name: data.username, id: data.id})
-            if (data.username) {
-                dispatch(addUser({ username: data.username, iduser: data.id }))
+            console.log(data)
+            console.log(data.user.id)
+            console.log(data.user.username)
+            setUseInfo({name: data.user.username, id: data.user.id})
+            if (data.user.username) {
+                dispatch(addUser({ username: data.user.username, iduser: data.user.id }))
                 navigate("/home")
                 console.log('useInfo',useInfoUser)
             }
             
-            if(data.username === null || data.username === undefined){
+            if(data.user.username === null || data.user.username === undefined){
                 console.log('queda en false')
                 setUseAlert(false)
                 setIsPopupOpen(true)
