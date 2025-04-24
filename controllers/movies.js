@@ -3,7 +3,9 @@
 
 import { validateMovie, validatePartialMovie, validateRegistreUser } from "../schemas/movie.js";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 const JWT_SECRET = process.env.JWT_SECRET
+
 
 export class MovieController {
   constructor({ movieModel }) {
@@ -51,7 +53,14 @@ export class MovieController {
       {expiresIn: "1h" // token válido por 1 hora// 
         }
     )
-      return res.json({
+      return res
+      .cookie('access_token', token,{
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production' && req.hostname !== 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60
+      })
+      .json({
         user: users,
         token: token
       });
