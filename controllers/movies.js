@@ -53,13 +53,13 @@ export class MovieController {
       {expiresIn: "1h" // token válido por 1 hora// 
         }
     )
-      return res
-      /*.cookie('access_token', token,{
+      res
+      .cookie('access_token', token,{
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 1000 * 60 * 60
-      })*/
+      })
       .json({
         user: users,
         token: token
