@@ -2,7 +2,7 @@
 //import { MovieModel } from "../models/mysql/movie.js";
 
 import { validateMovie, validatePartialMovie, validateRegistreUser } from "../schemas/movie.js";
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET
 
 export class MovieController {
