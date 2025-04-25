@@ -38,7 +38,9 @@ const Login: React.FC=()=>{
 
         
         try {
-            const req = await fetch(`https://api-movies-app.vercel.app/movies/users/${user}`);
+            const req = await fetch(`https://api-movies-app.vercel.app/movies/users/${user}`,{
+                credentials:"include"
+            });
             const data = await req.json();
             console.log(data)
             console.log(data.user.id)

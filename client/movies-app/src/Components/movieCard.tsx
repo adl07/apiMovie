@@ -37,6 +37,7 @@ export const removeMovieList= async(idUser:string, idMovie:string): Promise<bool
 export const addMovieList= async (idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         const response = await fetch('https://api-movies-app.vercel.app/movies/movieList',{
+            credentials:'include',
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
