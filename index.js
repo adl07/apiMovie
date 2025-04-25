@@ -18,12 +18,8 @@ export function createApp({ movieModel }) {
           "http://movies.com",
         ];
 
-        if (ACCEPTED_ORIGINS.includes(origin)) {
-          return callback(null, true);
-        }
-
-        if (!origin) {
-          return callback(null, true);
+        if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
+          return callback(null, origin);
         }
 
         return callback(new Error("Not allowed by CORS"));
