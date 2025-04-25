@@ -3,32 +3,13 @@ import { createMovieRouter } from "./routes/movies.js";
 import { MovieModel } from "./models/superbase-test/movie.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { corsMiddleware } from "./middlewares/cors.js";
 
 export function createApp({ movieModel }) {
   const app = express();
 
   // Configuración de CORS mejorada
-  app.use(
-    cors({
-      origin: (origin, callback) => {
-        const ACCEPTED_ORIGINS = [
-          "http://localhost:8080",
-          "http://localhost:1234",
-          "http://localhost:5173",
-          "http://movies.com",
-        ];
-
-        if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
-          return callback(null, origin);
-        }
-
-        return callback(new Error("Not allowed by CORS"));
-      },
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-      credentials: true,
-    })
-  );
+  app.use(corsMiddleware);
 
   app.use(express.json());
   app.disable("x-powered-by");
