@@ -1,15 +1,15 @@
 import cors from "cors";
 import jwt from "jsonwebtoken";
 
-const ACCEPTED_ORIGINS = [
-  "http://localhost:8080",
-  "http://localhost:1234",
-  "http://localhost:5173",
-  "http://movies.com",
-];
-
 export const corsMiddleware = cors({
   origin: (origin, callback) => {
+    const ACCEPTED_ORIGINS = [
+      "http://localhost:8080",
+      "http://localhost:1234",
+      "http://localhost:5173",
+      "http://movies.com",
+    ];
+
     if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
       return callback(null, origin);
     }
