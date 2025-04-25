@@ -1,10 +1,13 @@
 //import { MovieModel } from "../models/movie.js";
 //import { MovieModel } from "../models/mysql/movie.js";
 
-import { validateMovie, validatePartialMovie, validateRegistreUser } from "../schemas/movie.js";
+import {
+  validateMovie,
+  validatePartialMovie,
+  validateRegistreUser,
+} from "../schemas/movie.js";
 import jwt from "jsonwebtoken";
-const JWT_SECRET = process.env.JWT_SECRET
-
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export class MovieController {
   constructor({ movieModel }) {
@@ -29,8 +32,6 @@ export class MovieController {
     }
   };
 
-
-  
   getUser = async (req, res) => {
     try {
       const { user } = req.params;
@@ -44,25 +45,28 @@ export class MovieController {
 
       //Generacion token//
 
-      const token = jwt.sign({
-        id: users.id,
-        username: users.username,
-      },
-      JWT_SECRET,
-      {expiresIn: "1h" // token válido por 1 hora// 
+      const token = jwt.sign(
+        {
+          id: users.id,
+          username: users.username,
+        },
+        JWT_SECRET,
+        {
+          expiresIn: "1h", // token válido por 1 hora//
         }
-    )
+      );
       res
-      .cookie('access_token', token,{
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'development',
-        sameSite: 'strict',
-        maxAge: 1000 * 60 * 60
-      })
-      .json({
-        user: users,
-        token: token
-      });
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: true,
+          //process.env.NODE_ENV === 'development',
+          sameSite: "none",
+          maxAge: 1000 * 60 * 60,
+        })
+        .json({
+          user: users,
+          token: token,
+        });
     } catch (error) {
       console.error("Error en controller getUser:", error);
       return res.status(500).json({
@@ -72,12 +76,9 @@ export class MovieController {
     }
   };
 
-
-  logoutUser = async (req, res)=>{
-    res
-      .clearCookie('access_token')
-      .json({message: 'Logout successful'})
-  }
+  logoutUser = async (req, res) => {
+    res.clearCookie("access_token").json({ message: "Logout successful" });
+  };
 
   getMoviesFav = async (req, res) => {
     try {
@@ -146,12 +147,11 @@ export class MovieController {
     }
   };
 
-
-  updateMovieList = async(req, res)=>{
+  updateMovieList = async (req, res) => {
     try {
-      console.log("[DEBUG] Body recibido:", req.body)
+      console.log("[DEBUG] Body recibido:", req.body);
 
-      const { idUser, idMovie } = req.body
+      const { idUser, idMovie } = req.body;
 
       if (!idUser || !idMovie) {
         return res.status(400).json({
@@ -166,12 +166,15 @@ export class MovieController {
       });
 
       if (!updateMovieFav) {
-        return res.status(404).json({ error: "No se encontró la película o no se pudo actualizar" });
+        return res
+          .status(404)
+          .json({
+            error: "No se encontró la película o no se pudo actualizar",
+          });
       }
 
       console.log("Película actualizada:", updateMovieFav);
       return res.status(200).json(updateMovieFav);
-
     } catch (error) {
       console.error("[DEBUG] Error en controller updateMovieList:", error);
       res.status(500).json({
@@ -179,8 +182,8 @@ export class MovieController {
         message: error.message,
       });
     }
-  }
-  
+  };
+
   getById = async (req, res) => {
     try {
       const { id } = req.params;
@@ -225,15 +228,15 @@ export class MovieController {
     res.status(201).json(newMovie);
   };
 
-  createUser = async (req, res)=>{
+  createUser = async (req, res) => {
     const result = validateRegistreUser(req.body);
-    if(!result.success){
-      return res.status(400).json({error: JSON.parse(result.error.message)});
+    if (!result.success) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) });
     }
-    const newUser = await this.movieModel.createUser({input: result.data})
+    const newUser = await this.movieModel.createUser({ input: result.data });
 
     res.status(201).json(newUser);
-  }
+  };
 
   delete = async (req, res) => {
     const { id } = req.params;
@@ -260,6 +263,4 @@ export class MovieController {
 
     return res.json(updateMovie);
   };
-
-  
 }

@@ -1,37 +1,38 @@
 import express from "express";
 import { createMovieRouter } from "./routes/movies.js";
 import { MovieModel } from "./models/superbase-test/movie.js";
-import cors from 'cors';
+import cors from "cors";
 import cookieParser from "cookie-parser";
-
 
 export function createApp({ movieModel }) {
   const app = express();
 
-   // Configuración de CORS mejorada
-   app.use(cors({
-    origin: (origin, callback) => {
-      const ACCEPTED_ORIGINS = [
-        "http://localhost:8080",
-        "http://localhost:1234",
-        "http://localhost:5173",
-        "http://movies.com",
-      ];
-    
-      if (ACCEPTED_ORIGINS.includes(origin)) {
-        return callback(null, true);
-      }
-    
-      if (!origin) {
-        return callback(null, true);
-      }
-    
-      return callback(new Error("Not allowed by CORS"));
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-  }));
+  // Configuración de CORS mejorada
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        const ACCEPTED_ORIGINS = [
+          "http://localhost:8080",
+          "http://localhost:1234",
+          "http://localhost:5173",
+          "http://movies.com",
+        ];
+
+        if (ACCEPTED_ORIGINS.includes(origin)) {
+          return callback(null, true);
+        }
+
+        if (!origin) {
+          return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+      },
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    })
+  );
 
   app.use(express.json());
   app.disable("x-powered-by");
@@ -42,35 +43,33 @@ export function createApp({ movieModel }) {
     next();
   });
 
-  app.use("/movies", createMovieRouter({ movieModel }));
-
   app.use(cookieParser());
+
+  app.use("/movies", createMovieRouter({ movieModel }));
 
   // Middleware para manejar rutas no encontradas
   app.use((req, res, next) => {
-    res.status(404).json({ error: 'Ruta no encontrada' });
+    res.status(404).json({ error: "Ruta no encontrada" });
   });
 
   // Middleware de manejo de errores mejorado
   app.use((err, req, res, next) => {
-    console.error('Error en la aplicación:', err);
-    
+    console.error("Error en la aplicación:", err);
+
     // Resetear la conexión de Supabase si es necesario
-    if (err.message?.includes('connection')) {
-      console.log('Intentando resetear la conexión...');
+    if (err.message?.includes("connection")) {
+      console.log("Intentando resetear la conexión...");
       // La próxima petición creará una nueva conexión
     }
 
     // Asegurarse de que la respuesta no se haya enviado ya
     if (!res.headersSent) {
       res.status(err.status || 500).json({
-        error: err.message || 'Ha ocurrido un error en el servidor',
-        status: err.status || 500
+        error: err.message || "Ha ocurrido un error en el servidor",
+        status: err.status || 500,
       });
     }
   });
-
-  
 
   return app;
 }
@@ -78,7 +77,6 @@ export function createApp({ movieModel }) {
 // Crear y exportar la instancia de la aplicación
 const app = createApp({ movieModel: MovieModel });
 export default app;
-
 
 /* import express from "express";
 import { createMovieRouter } from "./routes/movies.js";
@@ -91,16 +89,6 @@ app.disable("x-powered-by");
 app.use("/movies", createMovieRouter({ movieModel: MovieModel }));
 
 export default app; */
-
-
-
-
-
-
-
-
-
-
 
 /* import express, { json } from "express";
 import { createMovieRouter } from "./routes/movies.js";
