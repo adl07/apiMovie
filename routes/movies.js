@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { MovieController } from "../controllers/movies.js";
+import { verifyToken } from "../middlewares/cors.js";
 //import { MovieModel } from "../models/mysql/movie.js";
 
 export const createMovieRouter = ({ movieModel }) => {
@@ -7,23 +8,28 @@ export const createMovieRouter = ({ movieModel }) => {
 
   const movieController = new MovieController({ movieModel });
 
- // Rutas específicas primero
-  moviesRouter.get("/", movieController.getAll);
+  // Rutas específicas primero
+  moviesRouter.get("/", verifyToken, movieController.getAll);
   moviesRouter.get("/users/:user", movieController.getUser);
-  moviesRouter.get("/userId/:userId", movieController.getMoviesFav);
-  moviesRouter.post("/movieList", movieController.addMovieList);
+  moviesRouter.get(
+    "/userId/:userId",
+    verifyToken,
+    movieController.getMoviesFav
+  );
+  moviesRouter.post("/movieList", verifyToken, movieController.addMovieList);
   moviesRouter.post("/register", movieController.createUser);
-  moviesRouter.post("/logout/:user", movieController.logoutUser);
-  moviesRouter.patch("/updateFav", movieController.updateMovieList); 
-  
-  
-  
+  moviesRouter.post("/logout/:user", verifyToken, movieController.logoutUser);
+  moviesRouter.patch(
+    "/updateFav",
+    verifyToken,
+    movieController.updateMovieList
+  );
+
   // Rutas con parámetros dinámicos después
   moviesRouter.post("/", movieController.create);
   moviesRouter.get("/:id", movieController.getById);
   moviesRouter.delete("/:id", movieController.delete);
   moviesRouter.patch("/:id", movieController.update);
-  
 
   return moviesRouter;
 };
