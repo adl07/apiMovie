@@ -13,7 +13,9 @@ export const createMovieRouter = ({ movieModel }) => {
   moviesRouter.get("/userId/:userId", movieController.getMoviesFav);
   moviesRouter.post("/movieList", movieController.addMovieList);
   moviesRouter.post("/register", movieController.createUser);
+  moviesRouter.post("/logout/:user", movieController.logoutUser);
   moviesRouter.patch("/updateFav", movieController.updateMovieList); 
+  
   
   
   // Rutas con parámetros dinámicos después

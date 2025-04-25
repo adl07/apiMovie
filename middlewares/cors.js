@@ -1,4 +1,6 @@
 import cors from "cors";
+import jwt from "jsonwebtoken";
+
 
 export const corsMiddleware = () => {
   cors({
@@ -22,3 +24,24 @@ export const corsMiddleware = () => {
     },
   });
 };
+
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+export const verifyToken =(req, res, next)=>{
+
+  const token = req.cookies.access_token;
+
+  if(!token){
+    return res.status(401).json({error: 'No autorizado. Falta el token.'});
+  }
+
+
+  try {
+    const decodetk = jwt.verify(token, JWT_SECRET);
+    req.user = decodetk; //
+    next(); //sigue al siguiente handler
+  } catch (error) {
+    return res.status(401).json({error: 'Token inválido o expirado.'})
+  }
+}

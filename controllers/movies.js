@@ -72,6 +72,13 @@ export class MovieController {
     }
   };
 
+
+  logoutUser = async (req, res)=>{
+    res
+      .clearCookie('access_token')
+      .json({message: 'Logout successful'})
+  }
+
   getMoviesFav = async (req, res) => {
     try {
       const { userId } = req.params;
