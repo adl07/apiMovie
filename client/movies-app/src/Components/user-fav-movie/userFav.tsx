@@ -50,7 +50,9 @@ const UserFavMovies: React.FC=()=>{
         const getMoviesFav = async ()=>{
             setIsLoading(true)
         try {
-            const response = await fetch(`https://api-movies-app.vercel.app/movies/userid/${idUser}`);
+            const response = await fetch(`https://api-movies-app.vercel.app/movies/userid/${idUser}`,{
+                credentials:"include"
+            });
             console.log(response)
             if (!response.ok) {
                 throw new Error("Error al llamar a la api")

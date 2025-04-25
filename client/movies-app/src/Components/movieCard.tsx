@@ -11,6 +11,7 @@ type Props = Movie;
 export const removeMovieList= async(idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         const response = await fetch('https://api-movies-app.vercel.app/movies/updateFav', {
+            credentials:"include",
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',
