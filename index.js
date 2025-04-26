@@ -8,6 +8,33 @@ import { corsMiddleware } from "./middlewares/cors.js";
 export function createApp({ movieModel }) {
   const app = express();
 
+  // ⚠️ Manejo manual del preflight CORS para Vercel
+  app.options("*", (req, res) => {
+    const ACCEPTED_ORIGINS = [
+      "http://localhost:8080",
+      "http://localhost:1234",
+      "http://localhost:5173",
+      "http://movies.com",
+    ];
+
+    const origin = req.headers.origin;
+    if (origin && ACCEPTED_ORIGINS.includes(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+
+    res.status(200).end();
+  });
+
   // Configuración de CORS mejorada
   app.use(corsMiddleware);
 
