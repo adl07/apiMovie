@@ -1,14 +1,76 @@
 import express from "express";
 import { createMovieRouter } from "./routes/movies.js";
 import { MovieModel } from "./models/superbase-test/movie.js";
-import cors from "cors";
 import cookieParser from "cookie-parser";
 import { corsMiddleware } from "./middlewares/cors.js";
 
 export function createApp({ movieModel }) {
   const app = express();
 
-  // ⚠️ Manejo manual del preflight CORS para Vercel
+  // Determinar el entorno
+  const environment = process.env.NODE_ENV || "development";
+  console.log(`Ejecutando en entorno ${environment}`);
+
+  // Configuración de CORS mejorada
+  app.use(corsMiddleware);
+
+  // Añadir middleware de depuración CORS
+  app.use((req, res, next) => {
+    // Registrar detalles de la petición
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    console.log(`Origen: ${req.headers.origin}`)
+
+    // Registrar cabeceras CORS en la respuesta
+    const originalSetHeader = res.setHeader;
+    res.setHeader = function(name, value) {
+      if (name.toLowerCase().startsWith("access-control")) {
+        console.log(`Configurando cabecera: ${name} = ${value}`);
+      }
+      return originalSetHeader.call(this, name, value);
+    };
+
+    next();
+  });
+
+
+  app.use(express.json());
+  app.disable("x-powered-by");
+
+  app.use(cookieParser());
+
+  app.use("/movies", createMovieRouter({ movieModel }));
+
+  // Middleware para manejar rutas no encontradas
+  app.use((req, res, next) => {
+    res.status(404).json({ error: "Ruta no encontrada" });
+  });
+
+  // Middleware de manejo de errores mejorado
+  app.use((err, req, res, next) => {
+    console.error("Error en la aplicación:", err);
+
+  // Middleware para logging de requests
+    app.use((req, res, next) => {
+      console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+      next();
+    });
+
+    // Resetear la conexión de Supabase si es necesario
+    if (err.message?.includes("connection")) {
+      console.log("Intentando resetear la conexión...");
+      // La próxima petición creará una nueva conexión
+    }
+
+    // Asegurarse de que la respuesta no se haya enviado ya
+    if (!res.headersSent) {
+      res.status(err.status || 500).json({
+        error: err.message || "Ha ocurrido un error en el servidor",
+        status: err.status || 500,
+      });
+    }
+  });
+
+  /* // ⚠️ Manejo manual del preflight CORS para Vercel
   app.options("*", (req, res) => {
     const ACCEPTED_ORIGINS = [
       "http://localhost:8080",
@@ -33,47 +95,7 @@ export function createApp({ movieModel }) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
 
     res.status(200).end();
-  });
-
-  // Configuración de CORS mejorada
-  app.use(corsMiddleware);
-
-  app.use(express.json());
-  app.disable("x-powered-by");
-
-  // Middleware para logging de requests
-  app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    next();
-  });
-
-  app.use(cookieParser());
-
-  app.use("/movies", createMovieRouter({ movieModel }));
-
-  // Middleware para manejar rutas no encontradas
-  app.use((req, res, next) => {
-    res.status(404).json({ error: "Ruta no encontrada" });
-  });
-
-  // Middleware de manejo de errores mejorado
-  app.use((err, req, res, next) => {
-    console.error("Error en la aplicación:", err);
-
-    // Resetear la conexión de Supabase si es necesario
-    if (err.message?.includes("connection")) {
-      console.log("Intentando resetear la conexión...");
-      // La próxima petición creará una nueva conexión
-    }
-
-    // Asegurarse de que la respuesta no se haya enviado ya
-    if (!res.headersSent) {
-      res.status(err.status || 500).json({
-        error: err.message || "Ha ocurrido un error en el servidor",
-        status: err.status || 500,
-      });
-    }
-  });
+  }); */
 
   return app;
 }

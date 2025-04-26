@@ -35,8 +35,8 @@ export class MovieController {
   getUser = async (req, res) => {
     try {
       const { user } = req.params;
-      const users = await this.movieModel.getUser({ user });
-      if (!users) {
+      const userData = await this.movieModel.getUser({ user });
+      if (!userData) {
         return res.status(404).json({
           error: "No encontrado",
           message: "Usuario no encontrado",
@@ -47,24 +47,30 @@ export class MovieController {
 
       const token = jwt.sign(
         {
-          id: users.id,
-          username: users.username,
+          id: userData.id,
+          username: userData.username,
         },
         JWT_SECRET,
         {
           expiresIn: "1h", // token válido por 1 hora//
         }
       );
+
+      // Determinar si estamos en producción
+    const isProduction = process.env.NODE_ENV === 'production';
+      
+
+    // Configurar opciones de cookie directamente
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: true,
-          //process.env.NODE_ENV === 'development',
-          sameSite: "none",
-          maxAge: 1000 * 60 * 60,
+          secure: isProduction, // Solo usar secure en producción
+          sameSite: isProduction ? "none" : "lax", // Usar 'none' en producción con secure:true
+          maxAge: 1000 * 60 * 60, // 1 hora
+          path: '/', // Asegurarse de que la cookie esté disponible para todas las rutas
         })
         .json({
-          user: users,
+          user: userData,
           token: token,
         });
     } catch (error) {
@@ -76,8 +82,19 @@ export class MovieController {
     }
   };
 
+  // Actualizar tu método de logout para usar la misma configuración
   logoutUser = async (req, res) => {
-    res.clearCookie("access_token").json({ message: "Logout successful" });
+
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    res
+      .clearCookie("access_token", {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        path: "/",
+      })
+      .json({ message: "Logout successful" });
   };
 
   getMoviesFav = async (req, res) => {

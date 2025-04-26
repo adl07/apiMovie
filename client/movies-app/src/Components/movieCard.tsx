@@ -8,7 +8,7 @@ import { useAppSelector } from "../hooks/hooks";
 
 type Props = Movie;
 
-export const removeMovieList= async(idUser:string, idMovie:string): Promise<boolean>=>{
+export const removeMovieList = async(idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         const response = await fetch('https://api-movies-app.vercel.app/movies/updateFav', {
             credentials:"include",
@@ -19,7 +19,8 @@ export const removeMovieList= async(idUser:string, idMovie:string): Promise<bool
             body: JSON.stringify({idUser,idMovie})
         });
 
-        console.log(response)
+        console.log(response.status)
+
         if (response.ok) {
             const result = await response.json();
             console.log('Película quita con éxito:', result)
@@ -34,8 +35,9 @@ export const removeMovieList= async(idUser:string, idMovie:string): Promise<bool
 }   
 
 
-export const addMovieList= async (idUser:string, idMovie:string): Promise<boolean>=>{
+export const addMovieList = async (idUser:string, idMovie:string): Promise<boolean>=>{
     try {
+        console.log("Enviando request con credentials include");
         const response = await fetch('https://api-movies-app.vercel.app/movies/movieList',{
             credentials:'include',
             method: 'POST',
@@ -46,15 +48,12 @@ export const addMovieList= async (idUser:string, idMovie:string): Promise<boolea
             
         });
         console.log("Id movie y idUser que se le envia",idUser, idMovie)
+        console.log("Estado de la respuesta:", response.status);
 
         if (response.ok) {
             const result = await response.json();
             console.log(result)
-            if(result === false){
-                return false
-            } else {
-                return true
-            }
+            return result !== false;
             
         } else{
             console.error('Error al agregar la película a la lista:', response.statusText);
@@ -85,7 +84,7 @@ export default function MovieCard({id, title, poster, director,duration,year,rat
             console.log("Id del usuario",idUser)
             console.log("Id de la pelicula",idMovie)
             //console.log('reportando status desde moviecard', favStus)
-    },[dispatch, id])
+    },[dispatch, id, idUser, idMovie])
 
 
     
