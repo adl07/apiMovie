@@ -1,24 +1,11 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
+    { "src": "api/index.js", "use": "@vercel/node" }
   ],
-
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "cors.js"
-    }
-    
-  },
-
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
-    }
-
+    { "src": "/movies", "dest": "/api/index.js" },
+    { "src": "/movies/(.*)", "dest": "/api/index.js" },
+    { "src": "/(.*)", "dest": "/api/index.js" }
   ]
 }
