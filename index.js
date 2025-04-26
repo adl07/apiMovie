@@ -7,12 +7,11 @@ import { corsMiddleware } from "./middlewares/cors.js";
 export function createApp({ movieModel }) {
   const app = express();
 
-  // Determinar el entorno
+  /* // Determinar el entorno
   const environment = process.env.NODE_ENV || "development";
   console.log(`Ejecutando en entorno ${environment}`);
 
-  // Configuración de CORS mejorada
-  app.use(corsMiddleware);
+  
 
   // Añadir middleware de depuración CORS
   app.use((req, res, next) => {
@@ -30,9 +29,26 @@ export function createApp({ movieModel }) {
     };
 
     next();
-  });
+  }); */
 
+  // Middleware para manejar manualmente el preflight CORS
+  app.use((req, res, next) => {
+    // Configurar cabeceras CORS manualmente para asegurar que se apliquen correctamente
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173")
+    res.header("Access-Control-Allow-Credentials", "true")
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
 
+    // Manejar solicitudes OPTIONS
+    if (req.method === "OPTIONS") {
+      return res.status(204).end()
+    }
+
+    next()
+  })
+
+  // Configuración de CORS mejorada
+  app.use(corsMiddleware);
   app.use(express.json());
   app.disable("x-powered-by");
 

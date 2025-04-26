@@ -10,7 +10,7 @@ type Props = Movie;
 
 export const removeMovieList = async(idUser:string, idMovie:string): Promise<boolean>=>{
     try {
-        const response = await fetch('https://api-movies-app.vercel.app/movies/updateFav', {
+        const response = await fetch('api/movies/updateFav', {
             credentials:"include",
             method: 'PATCH',
             headers: {
@@ -38,7 +38,7 @@ export const removeMovieList = async(idUser:string, idMovie:string): Promise<boo
 export const addMovieList = async (idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         console.log("Enviando request con credentials include");
-        const response = await fetch('https://api-movies-app.vercel.app/movies/movieList',{
+        const response = await fetch('api/movies/movieList',{
             credentials:'include',
             method: 'POST',
             headers: {

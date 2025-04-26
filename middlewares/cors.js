@@ -8,28 +8,11 @@ if (!JWT_SECRET) {
 }
 
 export const corsMiddleware = cors({
-  origin: (origin, callback) => {
-    const ACCEPTED_ORIGINS = [
-      "http://localhost:8080",
-      "http://localhost:1234",
-      "http://localhost:5173",
-      "http://movies.com",
-    ];
-
-    if (!origin || ACCEPTED_ORIGINS.includes(origin)) {
-      return callback(null, origin);
-    }else {
-      console.log(`Origen ${origin} no permitido por CORS`);
-      callback(new Error("No permitido por CORS"));
-    }
-
-  },
-  methods: ["GET", "POST", "PUT","PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  maxAge: 86400, // 24 horas - cachear resultados de preflight por 1 día
+    origin: "http://localhost:5173", // Especifica exactamente el origen permitido
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 204,
 
 });
 
