@@ -32,7 +32,7 @@ export default function AllMovies(){
       useEffect(()=>{
         const getData = async () => {
           try {
-            const response = await fetch('https://api-movies-app.vercel.app/movies',{
+            const response = await fetch('api/movies',{
               credentials: "include"
             }); // URL de la API
             const data: Movie[] = await response.json(); // Convertir respuesta a JSON

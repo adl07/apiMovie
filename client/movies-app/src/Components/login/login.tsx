@@ -39,7 +39,6 @@ const Login: React.FC=()=>{
         
         try {
             const req = await fetch(`api/movies/users/${user}`,{
-                credentials:"include"
             });
             const data = await req.json();
             console.log(data)

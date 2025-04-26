@@ -2,8 +2,9 @@ import './header.css'
 import Logo from '../../images/img-logo-removebg-preview.png'
 import Avatar from '../../images/scale-removebg-preview.png'
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 
 
 export default function Header(){
@@ -18,6 +19,27 @@ export default function Header(){
 
     const [useActHover, setActHover] = useState<boolean>(false);
 
+    const navigate = useNavigate()
+
+    const hanldeLogOut = async()=>{
+        try {
+            const response = await fetch(`/api/movies/logout/${idUser}`,{
+                credentials:"include"
+            })
+            console.log(response)
+            navigate('/')
+            if(!response.ok){
+                console.log("Error al llamar a la api")
+            }
+        } catch (error) {
+            console.log("ocurrio un error", error)
+            throw new Error("Error al llamar a la api");
+        }
+    }
+
+    useEffect(()=>{
+        hanldeLogOut()
+    },[idUser])
     
     return(
         <header className="container-header">
@@ -87,7 +109,9 @@ export default function Header(){
                                     <p>Cuenta</p>
                                 </li>
                                 <li>
-                                    <p>Cerrar Sesion</p>
+                                    <button onClick={hanldeLogOut}>
+                                        Cerrar Sesion
+                                    </button>
                                 </li>
                             </div>
                         </ul>

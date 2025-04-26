@@ -16,9 +16,9 @@ export const createMovieRouter = ({ movieModel }) => {
     verifyToken,
     movieController.getMoviesFav
   );
+  moviesRouter.get("/logout/:user", verifyToken, movieController.logoutUser);
   moviesRouter.post("/movieList", verifyToken, movieController.addMovieList);
   moviesRouter.post("/register", movieController.createUser);
-  moviesRouter.post("/logout/:user", verifyToken, movieController.logoutUser);
   moviesRouter.patch(
     "/updateFav",
     verifyToken,

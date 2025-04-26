@@ -50,16 +50,17 @@ const UserFavMovies: React.FC=()=>{
         const getMoviesFav = async ()=>{
             setIsLoading(true)
         try {
-            const response = await fetch(`https://api-movies-app.vercel.app/movies/userid/${idUser}`,{
+            const response = await fetch(`/api/movies/userid/${idUser}`,{
                 credentials:"include"
             });
-            console.log(response)
+            console.log("api response",response)
             if (!response.ok) {
                 throw new Error("Error al llamar a la api")
                 
             }
             
             const data = await response.json();
+            console.log("respuesta de la data api", data)
             setMovFav(data)
             const favstate = data[0]?.favs[0].favs;
             dispatch(stusMov({favs: favstate}))
