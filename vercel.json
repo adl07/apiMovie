@@ -6,15 +6,19 @@
       "use": "@vercel/node"
     }
   ],
+
   "functions": {
     "api/index.js": {
       "includeFiles": "cors.js"
     }
+    
   },
+
   "routes": [
     {
       "src": "/(.*)",
       "dest": "/api/index.js"
     }
+
   ]
 }
