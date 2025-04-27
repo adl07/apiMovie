@@ -5,10 +5,9 @@ import Header from "../header/header";
 import FooterPage from "../footer/footer";
 import MovieCard from "../movieCard";
 import { ThreeDots } from "react-loader-spinner";
-import { string } from "zod";
 
 
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function SearchId(){
 
@@ -26,7 +25,7 @@ export default function SearchId(){
 
             setUseLoading(true)
             try {
-                const response = await fetch('/api/movies',{
+                const response = await fetch(`${API_URL}/movies`,{
                     credentials:"include"
                 });
                 const data:Movie[]  = await response.json();

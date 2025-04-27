@@ -24,9 +24,11 @@ export default function Header(){
 
     const dispatch = useDispatch()
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const handleLogOut = async()=>{
         try {
-            const response = await fetch(`/api/movies/logout/${idUser}`,{
+            const response = await fetch(`${API_URL}/movies/logout/${idUser}`,{
                 credentials:"include"
             })
             console.log(response)

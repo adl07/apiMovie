@@ -27,12 +27,12 @@ export default function AllMovies(){
 
     const closePopup = () => setIsPopupOpen(false);
 
-
+    const API_URL = import.meta.env.VITE_API_URL;
 
       useEffect(()=>{
         const getData = async () => {
           try {
-            const response = await fetch('api/movies',{
+            const response = await fetch(`${API_URL}/movies`,{
               credentials: "include"
             }); // URL de la API
             const data: Movie[] = await response.json(); // Convertir respuesta a JSON

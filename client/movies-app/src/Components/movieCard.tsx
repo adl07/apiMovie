@@ -9,11 +9,13 @@ import { RootState } from "../redux/store";
 
 type Props = Movie;
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const removeMovieList = async(idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         console.log("Enviando request con credentials include");
         console.log()
-        const response = await fetch('/api/movies/updateFav', {
+        const response = await fetch(`${API_URL}/movies/updateFav`, {
             credentials:'include',
             method: 'PATCH',
             headers: {
@@ -41,7 +43,7 @@ export const removeMovieList = async(idUser:string, idMovie:string): Promise<boo
 export const addMovieList = async (idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         console.log("Enviando request con credentials include");
-        const response = await fetch('api/movies/movieList',{
+        const response = await fetch(`${API_URL}/movies/movieList`,{
             credentials:'include',
             method: 'POST',
             headers: {
