@@ -16,17 +16,12 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": false,                     // Cambiado de true a false
+    "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "noImplicitAny": false,
-    "strictNullChecks": false,           // Añadido para evitar errores de null/undefined
-    "strictPropertyInitialization": false, // Añadido para evitar errores de inicialización
-    "allowJs": true,                     // Añadido para permitir archivos JavaScript
-    "forceConsistentCasingInFileNames": true, // Añadido para consistencia
-    "esModuleInterop": true              // Añadido para mejor compatibilidad con módulos
   },
   "include": ["src"]
 }
