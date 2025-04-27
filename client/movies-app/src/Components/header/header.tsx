@@ -5,15 +5,16 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './header.css'
 import { clearUser } from '../../redux/userSlice';
+import { RootState } from '../../redux/store';
 
 
 export default function Header(){
 
-    const userName = useSelector((state:{user: {username:string}})=>state?.user.username)
+    const userName = useSelector((state: RootState)=>state?.user.username)
 
     console.log('desde home login', userName)
 
-    const idUser = useSelector((state)=>state?.user.id)
+    const idUser = useSelector((state: RootState)=>state?.user.id)
 
     console.log('desde home login', idUser)
 

@@ -25,7 +25,7 @@ export default function SearchId(){
 
             setUseLoading(true)
             try {
-                const response = await fetch('https://api-movies-app.vercel.app/movies',{
+                const response = await fetch('/api/movies',{
                     credentials:"include"
                 });
                 const data:Movie[]  = await response.json();

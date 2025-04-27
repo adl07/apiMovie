@@ -9,6 +9,7 @@ import { removeMovieList } from "../movieCard";
 import Header from "../header/header";
 import FooterPage from "../footer/footer";
 import { ThreeDots } from "react-loader-spinner";
+import { RootState } from "../../redux/store";
 
 
 interface MoviesProps{
@@ -26,11 +27,11 @@ interface MoviesProps{
 
 const UserFavMovies: React.FC=()=>{
 
-    const idUser = useSelector((state)=>state.user.id)
+    const idUser = useSelector((state: RootState)=>state.user.id)
 
-    const userName = useSelector((state) => state.user.username)
+    const userName = useSelector((state: RootState) => state.user.username)
 
-    const favStus = useAppSelector((state)=> state.movfav?.favs);
+    const favStus = useAppSelector((state: RootState)=> state.movfav?.favs);
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 

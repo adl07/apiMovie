@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import MovieCard from './movieCard';
 import { Movie } from './movie';
 
 
 export default function MovieList({Mov}:{Mov:Movie[]}){
 
-    console.log(Mov)
+    console.log("Hola soy movieListe",Mov)
     //const [ state, setState] = useState<Mov[]>([]);
 
     useEffect(() => {

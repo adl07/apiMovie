@@ -4,6 +4,7 @@ import './movieCard.css'
 import { useEffect } from "react";
 import { getMovie } from "../redux/movieSlice";
 import { useAppSelector } from "../hooks/hooks";
+import { RootState } from "../redux/store";
 
 
 type Props = Movie;
@@ -73,11 +74,11 @@ export default function MovieCard({id, title, poster, director,duration,year,rat
 
     const dispatch = useDispatch()
     
-    const idUser = useAppSelector((state)=> state.user.id);
+    const idUser = useAppSelector((state: RootState)=> state.user.id);
 
-    const idMovie = useAppSelector((state)=> state.movie.idmovie);
+    const idMovie = useAppSelector((state: RootState)=> state.movie.idmovie);
 
-    const favStus = useAppSelector((state)=> state.movfav?.favs);
+    const favStus = useAppSelector((state: RootState)=> state.movfav?.favs);
 
 
 

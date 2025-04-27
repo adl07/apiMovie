@@ -6,6 +6,7 @@ import { CardPlanProps } from "../plans-card/plansCard";
 import Logo from '../../images/img-logo-removebg-preview.png'
 import FooterPage from "../footer/footer";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 
 const values =[{
@@ -42,9 +43,9 @@ const Planform: React.FC=()=>{
 
     const [planes, setPlanes] = useState<CardPlanProps[]>(values)
 
-    const status = useSelector((state)=> state.subscription.status)
-    const price = useSelector((state)=> state.subscription.price)
-    const plan = useSelector((state)=> state.subscription.plan)
+    const status = useSelector((state: RootState)=> state.subscription.status)
+    const price = useSelector((state: RootState)=> state.subscription.price)
+    const plan = useSelector((state: RootState)=> state.subscription.plan)
 
     useEffect(() => {
         console.log(`estoy en planform: ${status}`)

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import FooterPage from "../footer/footer"
 import Devices from "../../images/devices.png"
 import Logo from "../../images/img-logo-removebg-preview.png"
+import { RootState } from "../../redux/store"
 
 
 
@@ -12,7 +13,7 @@ import Logo from "../../images/img-logo-removebg-preview.png"
 
 const VerifyEmail: React.FC=()=>{
 
-    const emailUser = useSelector((state)=>state?.register.email)
+    const emailUser = useSelector((state: RootState)=>state?.register.email)
 
     console.log('desde verifyEmail', emailUser)
 

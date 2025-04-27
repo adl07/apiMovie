@@ -7,16 +7,17 @@ import {useSelector } from 'react-redux'
 import { alert } from '@material-tailwind/react'
 import Success from '../success/success'
 import { useState } from 'react'
+import { RootState } from '../../redux/store'
 
 export const PaymentPicker=()=>{
 
     
 
-    const emailRegister = useSelector((state)=> state.register.email)
-    const userRegister = useSelector((state)=> state.register.username)
-    const idPlan = useSelector((status)=> status.subscription.plan);
-    const pricePlan = useSelector((status)=> status.subscription.price);
-    const password = useSelector((status)=> status.register.pass);
+    const emailRegister = useSelector((state: RootState)=> state.register.email)
+    const userRegister = useSelector((state: RootState)=> state.register.username)
+    const idPlan = useSelector((state: RootState)=> state.subscription.plan);
+    const pricePlan = useSelector((state: RootState)=> state.subscription.price);
+    const password = useSelector((state: RootState)=> state.register.pass);
     const navigate = useNavigate()
     const [isSubscription, setIsSubscription] = useState<boolean>(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
