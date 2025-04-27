@@ -31,8 +31,9 @@ export const userSlice = createSlice({
             
         },
 
-        clearUser:(state, action)=>{
+        clearUser:(state)=>{
             state.username = ""
+            state.id =""
         }
     }
 })

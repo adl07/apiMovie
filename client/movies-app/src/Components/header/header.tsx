@@ -1,10 +1,10 @@
-import './header.css'
 import Logo from '../../images/img-logo-removebg-preview.png'
 import Avatar from '../../images/scale-removebg-preview.png'
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Navigate } from 'react-router-dom';
+import './header.css'
+import { clearUser } from '../../redux/userSlice';
 
 
 export default function Header(){
@@ -21,13 +21,16 @@ export default function Header(){
 
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     const handleLogOut = async()=>{
         try {
             const response = await fetch(`/api/movies/logout/${idUser}`,{
                 credentials:"include"
             })
             console.log(response)
-            navigate('/')
+            dispatch(clearUser())
+            navigate("/")
             if(!response.ok){
                 console.log("Error al llamar a la api")
             }
@@ -36,10 +39,6 @@ export default function Header(){
             throw new Error("Error al llamar a la api");
         }
     }
-
-    useEffect(()=>{
-        handleLogOut()
-    },[idUser])
     
     return(
         <header className="container-header">

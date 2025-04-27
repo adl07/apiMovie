@@ -10,8 +10,10 @@ type Props = Movie;
 
 export const removeMovieList = async(idUser:string, idMovie:string): Promise<boolean>=>{
     try {
-        const response = await fetch('api/movies/updateFav', {
-            credentials:"include",
+        console.log("Enviando request con credentials include");
+        console.log()
+        const response = await fetch('/api/movies/updateFav', {
+            credentials:'include',
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',

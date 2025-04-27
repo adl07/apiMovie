@@ -16,6 +16,7 @@ import Reform from './Components/reform/reform'
 import VerifyEmail from './Components/verify-email/verifyEmail'
 import Planform from './Components/planform/planform'
 import { PaymentPicker } from './Components/payment-picker/paymentPicker'
+import ProtectedRoute from './routes/protectedRoutes'
 
 
 
@@ -28,10 +29,26 @@ function App() {
         <Routes>
             <Route index path='/' element={<Home/>}></Route>
             <Route path='*' element={<>NOT FOUND</>}></Route>
-            <Route path='/home' element={<HomeLogIn/>}></Route>
-            <Route path='/allMovies' element={<AllMovies/>} />
+            <Route path='/home' element={
+              <ProtectedRoute>
+                    <HomeLogIn/>
+              </ProtectedRoute>
+              }>
+
+              </Route>
+            <Route path='/allMovies' element={
+              <ProtectedRoute>
+                  <AllMovies/>
+              </ProtectedRoute>
+                } 
+              />
             <Route path='/createMovie' element={<CreateMovie/>}></Route>
-            <Route path='/searchMovie' element={<SearchId/>}></Route>
+            <Route path='/searchMovie' element={
+              <ProtectedRoute>
+                <SearchId/>
+              </ProtectedRoute>
+              }>
+            </Route>
             <Route path='/updateMovie' element={<UpdateMovie/>}></Route>
             <Route path='/deleteMovie' element={<DeleteMovie/>}></Route>
             <Route path='/login' element={<Login/>}></Route>
@@ -41,7 +58,11 @@ function App() {
             <Route path='/singup/plan' element={<SingUpPlan/>}></Route>
             <Route path='/singup/planform' element={<Planform planes={[]}/>}></Route>
             <Route path='/singup/payment' element={<PaymentPicker/>}></Route>
-            <Route path='/userFav/:idUser' element={<UserFavMovies/>}></Route>
+            <Route path='/userFav/:idUser' element={
+              <ProtectedRoute>
+                <UserFavMovies/>
+                </ProtectedRoute>}>
+            </Route>
         </Routes>
       </BrowserRouter>
     </>
