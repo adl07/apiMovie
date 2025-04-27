@@ -13,7 +13,7 @@ type DateMovie={
     duration: number,
     director: string,
     poster: string,
-    genre: [],
+    genre: string[],
     
 }
 

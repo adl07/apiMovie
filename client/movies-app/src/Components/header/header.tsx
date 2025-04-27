@@ -9,7 +9,7 @@ import { clearUser } from '../../redux/userSlice';
 
 export default function Header(){
 
-    const userName = useSelector((state)=>state?.user.username)
+    const userName = useSelector((state:{user: {username:string}})=>state?.user.username)
 
     console.log('desde home login', userName)
 
