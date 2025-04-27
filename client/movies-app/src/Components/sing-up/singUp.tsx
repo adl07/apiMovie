@@ -1,9 +1,9 @@
 import React from "react";
 import Devices from "../../images/devices.png"
-import './SingUp.css'
 import { Link } from "react-router-dom";
 import Logo from '../../images/img-logo-removebg-preview.png'
 import FooterPage from "../footer/footer";
+import "./singUp.css"
 
 
 const SingUp: React.FC=()=>{
