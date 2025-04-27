@@ -21,7 +21,7 @@ export default function Header(){
 
     const navigate = useNavigate()
 
-    const hanldeLogOut = async()=>{
+    const handleLogOut = async()=>{
         try {
             const response = await fetch(`/api/movies/logout/${idUser}`,{
                 credentials:"include"
@@ -38,7 +38,7 @@ export default function Header(){
     }
 
     useEffect(()=>{
-        hanldeLogOut()
+        handleLogOut()
     },[idUser])
     
     return(
@@ -109,7 +109,7 @@ export default function Header(){
                                     <p>Cuenta</p>
                                 </li>
                                 <li>
-                                    <button onClick={hanldeLogOut}>
+                                    <button onClick={handleLogOut}>
                                         Cerrar Sesion
                                     </button>
                                 </li>
