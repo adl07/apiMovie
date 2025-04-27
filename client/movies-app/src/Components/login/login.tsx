@@ -34,11 +34,14 @@ const Login: React.FC=()=>{
 
     const dispatch = useDispatch()
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const getUserLogin= async (user: string)=>{
 
         
+        
         try {
-            const req = await fetch(`api/movies/users/${user}`,{
+            const req = await fetch(`${API_URL}/movies/users/${user}`,{
             });
             const data = await req.json();
             console.log(data)
