@@ -56,7 +56,7 @@ function App() {
             <Route path='/singup/reform' element={<Reform/>}></Route>
             <Route path='/singup/verifyemail' element={<VerifyEmail/>}></Route>
             <Route path='/singup/plan' element={<SingUpPlan/>}></Route>
-            <Route path='/singup/planform' element={<Planform planes={[]}/>}></Route>
+            <Route path='/singup/planform' element={<Planform/>}></Route>
             <Route path='/singup/payment' element={<PaymentPicker/>}></Route>
             <Route path='/userFav/:idUser' element={
               <ProtectedRoute>
