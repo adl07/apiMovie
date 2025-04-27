@@ -32,7 +32,7 @@ export default function AllMovies(){
       useEffect(()=>{
         const getData = async () => {
           try {
-            const response = await fetch(`${API_URL}/movies`,{
+            const response = await fetch(`/${API_URL}/movies`,{
               credentials: "include"
             }); // URL de la API
             const data: Movie[] = await response.json(); // Convertir respuesta a JSON

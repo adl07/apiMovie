@@ -64,8 +64,8 @@ export class MovieController {
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: isProduction, // Solo usar secure en producción
-          sameSite: isProduction ? "none" : "lax", // Usar 'none' en producción con secure:true
+          secure: true, // Solo usar secure en producción
+          sameSite: true, // Usar 'none' en producción con secure:true
           maxAge: 1000 * 60 * 60, // 1 hora
           path: '/', // Asegurarse de que la cookie esté disponible para todas las rutas
         })
