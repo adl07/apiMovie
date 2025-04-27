@@ -5,6 +5,7 @@ import Header from "../header/header";
 import FooterPage from "../footer/footer";
 import MovieCard from "../movieCard";
 import { ThreeDots } from "react-loader-spinner";
+import { string } from "zod";
 
 
 
@@ -96,7 +97,7 @@ export default function SearchId(){
                                 director={mov.director}
                                 duration={mov.duration}
                                 year={mov.year}
-                                rate={parseFloat(mov.rate).toFixed(1)}
+                                rate={parseFloat(String(mov.rate)).toFixed(1)}
                                 public={mov.public}
                                 />))
                         }

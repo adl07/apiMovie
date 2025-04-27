@@ -122,7 +122,7 @@ const UserFavMovies: React.FC=()=>{
                             director={mov.director}
                             duration={mov.duration}
                             year={mov.year}
-                            rate={parseFloat(mov.rate).toFixed(1)}
+                            rate={parseFloat(String(mov.rate)).toFixed(1)}
                             public={mov.public}
                             />
                             <button className="btn-remove-movie-list" type="button" onClick={async () =>successRemoveMovie(idUser, mov.id)}>Eliminar de la lista de favoritos</button>

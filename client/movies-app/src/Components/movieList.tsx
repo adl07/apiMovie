@@ -14,7 +14,9 @@ export default function MovieList({Mov}:{Mov:Movie[]}){
     }, []);
     return (
         <>
-            <MovieCard 
+        {
+            Mov.map(Mov =>(
+                <MovieCard 
                 id={Mov.id} 
                 title={Mov.title} 
                 poster={Mov.poster}
@@ -23,6 +25,8 @@ export default function MovieList({Mov}:{Mov:Movie[]}){
                 genre={Mov.genre}
                 year={Mov.year}
                 public={Mov.public}/>
+            ))
+        }
         </>
     )
 }

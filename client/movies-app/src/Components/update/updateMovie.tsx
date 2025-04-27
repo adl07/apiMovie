@@ -11,7 +11,7 @@ type DateMovie={
     duration ?: number | null,
     director ?: string | null,
     poster?: string | null,
-    genre ?: [] | null,
+    genre ?: string[] | null,
     
 }
 

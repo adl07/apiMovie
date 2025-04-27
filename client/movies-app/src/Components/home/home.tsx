@@ -67,6 +67,9 @@ export default function Home(){
                             
                         </div>
                         )}
+                        placeholder="" // 
+                        onPointerEnterCapture={() => {}} 
+                        onPointerLeaveCapture={() => {}}
                     >   
                         <div className="h-full w-full bg-cover bg-center">
                         </div>
