@@ -6,9 +6,19 @@ const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
   console.warn("ADVERTENCIA: La variable de entorno JWT_SECRET no está configurada!");
 }
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://api-movie-front.vercel.app"
+];
 
 export const corsMiddleware = cors({
-    origin: "http://localhost:5173", // Especifica exactamente el origen permitido
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
