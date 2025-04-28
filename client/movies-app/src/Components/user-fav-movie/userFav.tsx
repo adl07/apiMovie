@@ -47,11 +47,13 @@ const UserFavMovies: React.FC=()=>{
 
     console.log('info usemovfav',useMovFav)
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(()=>{
         const getMoviesFav = async ()=>{
             setIsLoading(true)
         try {
-            const response = await fetch(`/api/movies/userid/${idUser}`,{
+            const response = await fetch(`${API_URL}/userid/${idUser}`,{
                 credentials:"include"
             });
             console.log("api response",response)
