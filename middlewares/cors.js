@@ -16,6 +16,7 @@ export const corsMiddleware = cors({
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log("Origen rechazado:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
@@ -34,7 +35,9 @@ export const verifyToken = (req, res, next) => {
     return next();
   }
 
-  const token = req.cookies.access_token;
+  const token = req.cookies.access_token || 
+  (req.headers.authorization && req.headers.authorization.split(" ")[1]);
+
 
   if (!token) {
     return res.status(401).json({ error: "No autorizado. Falta el token." });

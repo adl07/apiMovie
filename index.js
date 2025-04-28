@@ -7,30 +7,6 @@ import { corsMiddleware } from "./middlewares/cors.js";
 export function createApp({ movieModel }) {
   const app = express();
 
-  /* // Determinar el entorno
-  const environment = process.env.NODE_ENV || "development";
-  console.log(`Ejecutando en entorno ${environment}`);
-
-  
-
-  // Añadir middleware de depuración CORS
-  app.use((req, res, next) => {
-    // Registrar detalles de la petición
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    console.log(`Origen: ${req.headers.origin}`)
-
-    // Registrar cabeceras CORS en la respuesta
-    const originalSetHeader = res.setHeader;
-    res.setHeader = function(name, value) {
-      if (name.toLowerCase().startsWith("access-control")) {
-        console.log(`Configurando cabecera: ${name} = ${value}`);
-      }
-      return originalSetHeader.call(this, name, value);
-    };
-
-    next();
-  }); */
-
   // Middleware para manejar manualmente el preflight CORS
   app.use((req, res, next) => {
     // Configurar cabeceras CORS manualmente para asegurar que se apliquen correctamente
@@ -49,6 +25,15 @@ export function createApp({ movieModel }) {
 
   // Configuración de CORS mejorada
   app.use(corsMiddleware);
+
+  app.use((req, res, next) => {
+    // Registrar información de depuración
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    console.log("Cookies recibidas:", req.cookies);
+    console.log("Headers de autorización:", req.headers.authorization);
+    
+    next();
+  });
   app.use(express.json());
   app.disable("x-powered-by");
 
@@ -86,33 +71,7 @@ export function createApp({ movieModel }) {
     }
   });
 
-  /* // ⚠️ Manejo manual del preflight CORS para Vercel
-  app.options("*", (req, res) => {
-    const ACCEPTED_ORIGINS = [
-      "http://localhost:8080",
-      "http://localhost:1234",
-      "http://localhost:5173",
-      "http://movies.com",
-    ];
-
-    const origin = req.headers.origin;
-    if (origin && ACCEPTED_ORIGINS.includes(origin)) {
-      res.setHeader("Access-Control-Allow-Origin", origin);
-    }
-
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, OPTIONS"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-
-    res.status(200).end();
-  }); */
-
+  
   return app;
 }
 
@@ -173,3 +132,54 @@ export const createApp = ({ movieModel }) => {
   }
   res.sendStatus(200);
 }); */
+/* // ⚠️ Manejo manual del preflight CORS para Vercel
+  app.options("*", (req, res) => {
+    const ACCEPTED_ORIGINS = [
+      "http://localhost:8080",
+      "http://localhost:1234",
+      "http://localhost:5173",
+      "http://movies.com",
+    ];
+
+    const origin = req.headers.origin;
+    if (origin && ACCEPTED_ORIGINS.includes(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+    }
+
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+
+    res.status(200).end();
+  }); */
+
+
+   /* // Determinar el entorno
+  const environment = process.env.NODE_ENV || "development";
+  console.log(`Ejecutando en entorno ${environment}`);
+
+  
+
+  // Añadir middleware de depuración CORS
+  app.use((req, res, next) => {
+    // Registrar detalles de la petición
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    console.log(`Origen: ${req.headers.origin}`)
+
+    // Registrar cabeceras CORS en la respuesta
+    const originalSetHeader = res.setHeader;
+    res.setHeader = function(name, value) {
+      if (name.toLowerCase().startsWith("access-control")) {
+        console.log(`Configurando cabecera: ${name} = ${value}`);
+      }
+      return originalSetHeader.call(this, name, value);
+    };
+
+    next();
+  }); */

@@ -63,10 +63,9 @@ export class MovieController {
     // Configurar opciones de cookie directamente
       res
         .cookie("access_token", token, {
-          domain: ".vercel.app",
           httpOnly: true,
           secure: isProduction, // Solo usar secure en producción
-          sameSite: "none", // Usar 'none' en producción con secure:true
+          sameSite: isProduction ? "none" : "lax", // Usar 'none' en producción con secure:true
           maxAge: 1000 * 60 * 60, // 1 hora
           path: '/', // Asegurarse de que la cookie esté disponible para todas las rutas
         })

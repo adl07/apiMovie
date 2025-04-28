@@ -34,7 +34,7 @@ const Login: React.FC=()=>{
 
     const dispatch = useDispatch()
 
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL || "/api";
 
     const getUserLogin= async (user: string)=>{
 
@@ -42,6 +42,7 @@ const Login: React.FC=()=>{
         
         try {
             const req = await fetch(`${API_URL}/movies/users/${user}`,{
+                credentials:"include"
             });
             const data = await req.json();
             console.log(data)
