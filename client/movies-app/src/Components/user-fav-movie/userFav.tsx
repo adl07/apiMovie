@@ -53,7 +53,7 @@ const UserFavMovies: React.FC=()=>{
         const getMoviesFav = async ()=>{
             setIsLoading(true)
         try {
-            const response = await fetch(`${API_URL}/userid/${idUser}`,{
+            const response = await fetch(`${API_URL}/movies/userid/${idUser}`,{
                 credentials:"include"
             });
             console.log("api response",response)
