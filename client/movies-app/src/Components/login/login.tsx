@@ -49,6 +49,9 @@ const Login: React.FC=()=>{
             console.log(data.user.id)
             console.log(data.user.username)
             setUseInfo({name: data.user.username, id: data.user.id})
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            }
             if (data.user.username) {
                 dispatch(addUser({ username: data.user.username, iduser: data.user.id }))
                 navigate("/home")

@@ -11,15 +11,19 @@ type Props = Movie;
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+
 export const removeMovieList = async(idUser:string, idMovie:string): Promise<boolean>=>{
     try {
         console.log("Enviando request con credentials include");
-        console.log()
+        // Obtener el token de la respuesta de login que guardaste
+        const token = localStorage.getItem('token');
+
         const response = await fetch(`${API_URL}/movies/updateFav`, {
             credentials:'include',
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({idUser,idMovie})
         });
