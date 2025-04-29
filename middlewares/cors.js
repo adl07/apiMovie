@@ -8,7 +8,8 @@ if (!JWT_SECRET) {
 }
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://api-movie-front.vercel.app"
+  "https://api-movie-front.vercel.app",
+  "https://api-movies-app.vercel.app"
 ];
 
 export const corsMiddleware = cors({
