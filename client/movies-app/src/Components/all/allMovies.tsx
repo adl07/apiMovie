@@ -32,8 +32,14 @@ export default function AllMovies(){
       useEffect(()=>{
         const getData = async () => {
           try {
+             // Obtener el token de la respuesta de login que guardaste
+            const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/movies`,{
-              credentials: "include"
+              credentials: "include",
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                }
             }); // URL de la API
             console.log(`Fetching from: ${API_URL}`);
             const data: Movie[] = await response.json(); // Convertir respuesta a JSON

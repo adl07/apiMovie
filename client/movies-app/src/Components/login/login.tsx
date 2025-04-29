@@ -41,8 +41,15 @@ const Login: React.FC=()=>{
         
         
         try {
+            // Obtener el token de la respuesta de login que guardaste
+            const token = localStorage.getItem('token');
             const req = await fetch(`${API_URL}/movies/users/${user}`,{
-                credentials:"include"
+                credentials:"include",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    }
+                
             });
             const data = await req.json();
             console.log(data)
