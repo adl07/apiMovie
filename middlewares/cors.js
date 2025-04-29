@@ -35,9 +35,19 @@ export const verifyToken = (req, res, next) => {
     return next();
   }
 
-  const token = req.cookies.access_token || 
+  /*const token = req.cookies.access_token || 
   (req.headers.authorization && req.headers.authorization.split(" ")[1]);
+  */
 
+  // Verificar token en cookies
+  const cookieToken = req.cookies.access_token;
+  
+  // Verificar token en header Authorization
+  const authHeader = req.headers.authorization;
+  const headerToken = authHeader && authHeader.split(" ")[1];
+  
+  // Usar cualquiera de los dos tokens
+  const token = cookieToken || headerToken;
 
   if (!token) {
     return res.status(401).json({ error: "No autorizado. Falta el token." });
