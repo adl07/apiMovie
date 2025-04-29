@@ -53,9 +53,11 @@ const UserFavMovies: React.FC=()=>{
         const getMoviesFav = async ()=>{
             setIsLoading(true)
         try {
+            
             const response = await fetch(`${API_URL}/movies/userid/${idUser}`,{
                 credentials:"include"
             });
+            console.log("valor de API_URL desde userFav.tsx", `${API_URL}/movies/userid/${idUser}`)
             console.log("api response",response)
             if (!response.ok) {
                 throw new Error("Error al llamar a la api")

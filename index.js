@@ -8,7 +8,7 @@ export function createApp({ movieModel }) {
   const app = express();
 
   // Middleware para manejar manualmente el preflight CORS
-  app.use((req, res, next) => {
+  /*app.use((req, res, next) => {
     // Configurar cabeceras CORS manualmente para asegurar que se apliquen correctamente
     res.header("Access-Control-Allow-Origin", "*")
     res.header("Access-Control-Allow-Credentials", "true")
@@ -22,7 +22,7 @@ export function createApp({ movieModel }) {
 
     next()
   })
-
+  */
   // Configuración de CORS mejorada
   app.use(corsMiddleware);
 

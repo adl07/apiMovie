@@ -46,12 +46,17 @@ export const removeMovieList = async(idUser:string, idMovie:string): Promise<boo
 
 export const addMovieList = async (idUser:string, idMovie:string): Promise<boolean>=>{
     try {
+        
         console.log("Enviando request con credentials include");
+        // Obtener el token de la respuesta de login que guardaste
+        const token = localStorage.getItem('token');
+
         const response = await fetch(`${API_URL}/movies/movieList`,{
             credentials:'include',
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({idUser,idMovie })
             
