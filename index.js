@@ -10,7 +10,7 @@ export function createApp({ movieModel }) {
   // Middleware para manejar manualmente el preflight CORS
   app.use((req, res, next) => {
     // Configurar cabeceras CORS manualmente para asegurar que se apliquen correctamente
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173")
+    res.header("Access-Control-Allow-Origin", "*")
     res.header("Access-Control-Allow-Credentials", "true")
     res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
