@@ -53,9 +53,11 @@ export default function Header(){
             <nav>
                 <div className="nav-comand">
                     <div className="nav-options">
-                        <a href="/home">
-                            <img src={Logo} className="logo-nav"/>
-                        </a>
+                        <div>
+                            <a href="/home">
+                                <img src={Logo} className="logo-nav"/>
+                            </a>
+                        </div>
                         <ul>
                             <li>
                                 <a>

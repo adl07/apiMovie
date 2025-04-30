@@ -1,4 +1,5 @@
 .container-home{
+    display: flex;
     background-repeat: none;
     background-size: cover;
     height: 700px;
@@ -67,7 +68,7 @@ ul{
     z-index: 20;
 }
 
-.btn-login-home{
+.btn-login-home-user{
     width: 180px;
     height: 50px;
     background-color: #040714;
@@ -119,4 +120,47 @@ ul{
     width: 50px;
     height: 50px;
     border-radius: 50px;
+}
+
+
+@media (min-width: 350px) and (max-width: 390px) {
+
+    .btn-login-home-user{
+        width: 140px;
+        font-size: 13px;
+        height: 40px;
+    }
+
+    .container-home{
+        flex-direction: column;
+    }
+
+    .lorem-home{
+        display: grid;
+        gap: 10px;
+        padding: 100px 20px 20px 20px;
+        
+    }
+
+    .lorem-home h1{
+        place-self: center;
+        font-size: 25px;
+        margin-top: 15px;
+    }
+
+    .lorem-home h3 {
+        place-self: center;
+        font-size: 18px;
+    }
+
+    .descrip-subs{
+        display: inline-block;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .descrip-subs li{
+        display: grid;
+        gap: 10px;
+    }
 }

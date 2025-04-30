@@ -17,7 +17,7 @@ export default function Home(){
             <main>
                 <div className={`container-home ${useImage} transition-bg`}>
                     <div className='container-login'>
-                        <Link to="/login" className="btn-login-home">
+                        <Link to="/login" className="btn-login-home-user">
                                 INICIAR SESIÓN
                         </Link>
                     </div>

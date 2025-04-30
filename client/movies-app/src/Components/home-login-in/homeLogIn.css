@@ -21,3 +21,10 @@
     height: auto;
     bottom: 0;
 }
+
+@media (min-width: 350px) and (max-width: 390px ) {
+    
+    .container-home footer{
+        display: none;
+    }
+}

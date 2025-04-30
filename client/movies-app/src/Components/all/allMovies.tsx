@@ -27,7 +27,9 @@ export default function AllMovies(){
 
     const closePopup = () => setIsPopupOpen(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL || "/api";
+
+    console.log('API_URL:', API_URL);
 
       useEffect(()=>{
         const getData = async () => {
@@ -42,6 +44,7 @@ export default function AllMovies(){
                 }
             }); // URL de la API
             console.log(`Fetching from: ${API_URL}`);
+            console.log('API_URL:', API_URL);
             const data: Movie[] = await response.json(); // Convertir respuesta a JSON
             setAllMovies(data); // Guardar los datos en el estado
             setUseLoading(true);
