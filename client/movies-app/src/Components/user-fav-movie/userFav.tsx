@@ -53,9 +53,14 @@ const UserFavMovies: React.FC=()=>{
         const getMoviesFav = async ()=>{
             setIsLoading(true)
         try {
-            
+            const token = localStorage.getItem('token')
             const response = await fetch(`${API_URL}/movies/userid/${idUser}`,{
-                credentials:"include"
+                credentials:"include",
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+                
             });
             console.log("valor de API_URL desde userFav.tsx", `${API_URL}/movies/userid/${idUser}`)
             console.log("api response",response)

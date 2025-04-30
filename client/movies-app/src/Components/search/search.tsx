@@ -25,8 +25,14 @@ export default function SearchId(){
 
             setUseLoading(true)
             try {
+                const token = localStorage.getItem('token');
+
                 const response = await fetch(`${API_URL}/movies`,{
-                    credentials:"include"
+                    credentials:"include",
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization':`Bearer ${token}`
+                    }
                 });
                 const data:Movie[]  = await response.json();
                 setAllMovies(data)

@@ -28,8 +28,13 @@ export default function Header(){
 
     const handleLogOut = async()=>{
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/movies/logout/${idUser}`,{
-                credentials:"include"
+                credentials:"include",
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token} `
+                }
             })
             console.log(response)
             dispatch(clearUser())
