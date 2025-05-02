@@ -1,4 +1,5 @@
 import React from "react";
+import './error-popUp.css'
 
 
 interface PopUpProps{ 

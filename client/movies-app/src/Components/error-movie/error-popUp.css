@@ -5,6 +5,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    opacity: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +21,7 @@
     padding: 20px;
     border-radius: 15px;
     position: relative;
-    max-width: 400px;
+    width: 400px;
     height: auto;
     width: 100%;
   }
@@ -55,6 +56,22 @@
     cursor: pointer;
     font-size: 16px;
     width: 100px;
-    background-color: #212529;
-    color: white;
+    background-color: #02d6e8;
+    color: #02172a;
+  }
+
+  @media (min-width: 350px) and (max-width: 400px) {
+
+      .popup-content{
+        width: 370px !important;
+        height: 380px;
+      }
+
+      .popup-text{
+        font-size: 18px;
+      }
+
+      .popup-text-title{
+        font-size: 15px
+      }
   }

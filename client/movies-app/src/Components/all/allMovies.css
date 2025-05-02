@@ -4,7 +4,6 @@
     align-items: center;
     width: 100%;
     position: relative;
-    width: 100%;
   }
 
   .loader-movies{
@@ -30,3 +29,29 @@
     box-sizing: border-box; 
   }
   
+  .btn-add-watchlist{
+    display: flex;
+    font-family: 10px;
+    align-items: center;
+    padding-top: 5px;
+  }
+
+  .btn-add-watchlist svg{
+    margin-left: 5px;
+  }
+
+
+
+
+  @media (min-width: 350px) and (max-width: 400px ) {
+      .container-allmovies-card{
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .container-card{
+        width: 150px;
+        height: 120px;
+      }
+
+      
+  }

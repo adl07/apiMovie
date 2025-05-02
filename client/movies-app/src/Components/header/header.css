@@ -109,7 +109,14 @@
     padding: 5px 15px;
 }
 
-@media (min-width: 350px) and (max-width: 390px) {
+@media (min-width: 350px) and (max-width: 400px) {
+
+    
+
+    .logo-nav{
+        display: none;
+    }
+
     .nav-options{
         width: 100%;
         margin: 0;
@@ -124,4 +131,11 @@
     .nav-options ul li a p{
         display: none;
     }
+
+    .options-user{
+        width: 100%;
+    }
+    .user-profile p{
+        display: none;
+    }       
 }

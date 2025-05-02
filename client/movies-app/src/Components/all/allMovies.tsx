@@ -6,6 +6,7 @@ import {ThreeDots} from 'react-loader-spinner'
 import { useAppSelector } from "../../hooks/hooks";
 import { addMovieList } from "../movieCard";
 import ErrorPopUp from "../error-movie/error-popUp";
+import Success from "../success/success";
 
 
 
@@ -23,9 +24,15 @@ export default function AllMovies(){
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+    const [isPopupOpenSuccess, setPopupOpenSucces] = useState(false)
+
     const openPopup = () => setIsPopupOpen(true);
 
-    const closePopup = () => setIsPopupOpen(false);
+    const closePopup = () => {
+      setIsPopupOpen(false);
+      setStatusAdd(null);
+    }
+    
 
     const API_URL = import.meta.env.VITE_API_URL || "/api";
 
@@ -60,10 +67,16 @@ export default function AllMovies(){
 
       const successAddMovieList = async(user:string, movieId:string)=>{
               const addMovie = await addMovieList(user, movieId);
-              if(addMovie !== true){
+              console.log('valor de setStatusAdd', addMovie)
+              if(!addMovie){
                 setStatusAdd(false)
                 setIsPopupOpen(true)
-                console.log('valor de setStatusAdd', addMovie)
+                
+              } else{
+                setStatusAdd(true)
+                setPopupOpenSucces(true)
+                setIsPopupOpen(true)
+                
               }
           }
     
@@ -85,10 +98,27 @@ export default function AllMovies(){
                       poster={mov.poster}
                       />
 
-                    <button type="button" onClick={()=>successAddMovieList(idUser, mov.id)}>Agregar a favoritos</button>
+                    <button type="button" onClick={()=>successAddMovieList(idUser, mov.id)}>
+                      <div className="btn-add-watchlist">
+                            WATCHLIST
+                            <svg className="svg-watchlist" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 24 24">
+                                        <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
+                                            <line x1="12" y1="3" x2="12" y2="21"/>
+                                            <line x1="3" y1="12" x2="21" y2="12"/>
+                                        </g>
+                            </svg>
+                      </div>
+                    </button>
 
-                    {!useStatusAdd && (
-                        <ErrorPopUp isOpen={isPopupOpen}>
+                    {useStatusAdd ?  (
+                        <Success isOpen={isPopupOpenSuccess}>
+                        <h4 className="popup-text">Pelicula agregada a tu lista!</h4>
+                        <button onClick={closePopup} className="button-close-success">
+                          Cerrar
+                          </button>
+                        </Success>
+                    ) : (
+                      <ErrorPopUp isOpen={isPopupOpen}>
                             <h4 className="popup-text">Actualmente ya se encuentra la pelicula en la lista</h4>
                             <p className="popup-text-title">Por favor corrobora tu lista e intenta nuevamente</p>
                             <button onClick={closePopup} className="button-close">

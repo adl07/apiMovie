@@ -22,9 +22,22 @@
     bottom: 0;
 }
 
-@media (min-width: 350px) and (max-width: 390px ) {
-    
-    .container-home footer{
-        display: none;
+.contain-logo-respons{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.logo-responsive{
+    width: 150px;
+    height: 150px;
+}
+
+@media (min-width: 350px) and (max-width: 400px ) {
+    .carrousel-card{
+        margin-top: 5px;
     }
+
+
+    
 }

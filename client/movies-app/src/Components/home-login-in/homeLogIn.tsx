@@ -4,6 +4,7 @@ import AllMovies from "../all/allMovies";
 import Header from "../header/header";
 import FooterPage from "../footer/footer";
 import useResponsive from '../../hooks/useResponsive';
+import Logo from '../../images/img-logo-removebg-preview.png'
 
 
 
@@ -15,7 +16,12 @@ const HomeLogIn: React.FC=()=>{
 
     return(
         <div className="container-home">
-            <Header/>
+            {isResponsive ? 
+            <div className="contain-logo-respons">
+                <img src={Logo} className="logo-responsive"/>
+            </div> : 
+            <Header/>}
+            
             <section className="carrousel-card">
                 <AllMovies/>
             </section>

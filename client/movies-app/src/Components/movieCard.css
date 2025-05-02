@@ -3,7 +3,7 @@
         flex-direction: row;
         width: 274px;
         height: 154px;
-        margin: 40px auto;
+        margin: 20px auto;
         box-sizing: border-box;
 }
 
@@ -63,4 +63,18 @@
 .movie-card:hover .items-movie-detail{
     opacity: 1;
     color: white;
+}
+
+@media (min-width: 350px) and (max-width: 400px) {
+    .movie-card{
+        margin: 5px;
+        width: 150px;
+        height: 80px;
+    }
+    .img-movie{
+        width: 100%;
+        height: 80px;
+    }
+
+    
 }
