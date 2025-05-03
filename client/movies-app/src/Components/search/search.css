@@ -23,7 +23,6 @@
     background-color: #4B4E5A;
     color: #A8A9AD;
     flex: 1;
-    max-height: 80px;
 }
 
 .card-search input{
@@ -67,4 +66,50 @@
     width: 100%;
     bottom: 0;
     height: auto;
+}
+
+
+@media (min-width: 350px) and (max-width: 400px) {
+
+    .contianer-movies-search{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .card-search{
+        height: 50px !important;
+        max-height: 50px !important; 
+        overflow: hidden;
+        width: 370px;
+        border-radius: 5px;
+        
+    }
+
+    .card-search input{
+        height: 35px !important;
+        padding-bottom: 15px;
+        line-height: 30px; /* opcional: alinea el texto */
+        display: flex;
+        justify-content: center;
+        text-align: start;
+        align-items: start;
+    }
+
+    .card-search input::placeholder{
+        font-size: 20px;
+        line-height: 50px;
+        
+    }
+
+    .container-movs-filter{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .card-search input:not(:placeholder-shown) {
+        font-size: 20px;
+    }
 }

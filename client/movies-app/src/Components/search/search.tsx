@@ -5,6 +5,7 @@ import Header from "../header/header";
 import FooterPage from "../footer/footer";
 import MovieCard from "../movieCard";
 import { ThreeDots } from "react-loader-spinner";
+import useResponsive from "../../hooks/useResponsive";
 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -19,6 +20,7 @@ export default function SearchId(){
 
     const [useLoading, setUseLoading] = useState<boolean>(false);
 
+    const isResponsive = useResponsive(400)
 
     useEffect(()=>{
         const fetchMoviesTitle = async()=>{
@@ -66,7 +68,7 @@ export default function SearchId(){
 
     return(
         <div className="contianer-movies-search">
-            <Header/>
+            {isResponsive ? <div></div> : <Header/>}
             <div className="card-search">
                 <input 
                 type="text" 
@@ -115,7 +117,7 @@ export default function SearchId(){
                 }
             </div>
             <footer>
-                <FooterPage/>
+                {isResponsive ? <Header/> : <FooterPage/>}
             </footer>
         </div>
     )

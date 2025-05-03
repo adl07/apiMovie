@@ -73,7 +73,7 @@
     border-radius: 25px;
 }
 
-@media (min-width: 350px) and (max-width: 390px ) {
+@media (min-width: 350px) and (max-width: 400px ) {
     .form-login-card{
         width: 95%;
         margin: 5px;

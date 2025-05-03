@@ -123,7 +123,7 @@ ul{
 }
 
 
-@media (min-width: 350px) and (max-width: 390px) {
+@media (min-width: 350px) and (max-width: 400px) {
 
     .btn-login-home-user{
         width: 140px;

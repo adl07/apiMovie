@@ -53,5 +53,7 @@
         height: 120px;
       }
 
-      
+      .btn-add-watchlist{
+        margin-bottom: 10px;
+      }
   }

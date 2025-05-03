@@ -11,7 +11,7 @@ import Logo from '../../images/img-logo-removebg-preview.png'
 
 const HomeLogIn: React.FC=()=>{
     
-    const isResponsive = useResponsive(390);
+    const isResponsive = useResponsive(400);
 
 
     return(

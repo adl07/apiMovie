@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function useResponsive(breakpoint: number = 390) {
+export default function useResponsive(breakpoint: number = 400) {
   const [isResponsive, setIsResponsive] = useState(window.innerWidth <= breakpoint);
 
   useEffect(() => {
