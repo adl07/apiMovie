@@ -21,13 +21,9 @@ const HomeLogIn: React.FC=()=>{
                 <img src={Logo} className="logo-responsive"/>
             </div> : 
             <Header/>}
-            
             <section className="carrousel-card">
                 <AllMovies/>
             </section>
-            <div>
-
-            </div>
             <footer>
                 {isResponsive ? <Header/> :  <FooterPage/>}
             </footer>

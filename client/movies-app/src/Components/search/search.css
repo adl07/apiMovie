@@ -4,7 +4,7 @@
     justify-content: center;
     width: 100%;
     min-height: 100vh;
-    background-color: #1A1D29;
+    background-color: #17171B;
 }
 
 
@@ -20,7 +20,7 @@
     flex-direction: row;
     justify-content: start;
     align-items: start;
-    background-color: #4B4E5A;
+    background: linear-gradient(#3C3E48, #4B4E5A);
     color: #A8A9AD;
     flex: 1;
 }
@@ -78,6 +78,9 @@
         width: 100%;
     }
 
+    .contain-mov-card-result{
+        margin-bottom: 50px;
+    }
     .card-search{
         height: 50px !important;
         max-height: 50px !important; 
