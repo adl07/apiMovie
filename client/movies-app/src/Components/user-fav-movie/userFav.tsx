@@ -10,6 +10,8 @@ import Header from "../header/header";
 import FooterPage from "../footer/footer";
 import { ThreeDots } from "react-loader-spinner";
 import { RootState } from "../../redux/store";
+import useResponsive from "../../hooks/useResponsive";
+import Success from "../success/success";
 
 
 interface MoviesProps{
@@ -35,11 +37,21 @@ const UserFavMovies: React.FC=()=>{
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
+    const [isPopupOpenSuccess, setPopupOpenSucces] = useState(false)
+    const [useStatusAdd, setStatusAdd]= useState<boolean>(false);
+
+    const closePopup = () => {
+        setPopupOpenSucces(false);
+        setStatusAdd(null);
+      }
+
     const dispatch = useDispatch()
 
     //const [favStates, setFavState] = useState<boolean>();
 
     const [useMovFav, setMovFav] = useState<MoviesProps[]>([])
+
+    const isResponsive = useResponsive(400)
 
     //console.log(idUser)
     //console.log(userName)
@@ -92,16 +104,32 @@ const UserFavMovies: React.FC=()=>{
 
     },[idUser])
 
+
+
     const successRemoveMovie = async(user:string, movieId:string)=>{
         const remove = await removeMovieList(user, movieId);
         if(remove){
             setMovFav((setPrevMov)=> setPrevMov.filter(movie => movie.id !== movieId))
+            setStatusAdd(true)
+            setPopupOpenSucces(true)
         }
     }
 
+
+
     return(
+        <>
+            {useStatusAdd && (
+            <Success isOpen={isPopupOpenSuccess}>
+                <h4 className="popup-text">¡Película eliminada de tu lista!</h4>
+                <button onClick={closePopup} className="button-close-success">
+                Cerrar
+                </button>
+            </Success>
+            )}
         <div className="container-movies-favs">
-            <Header/>
+            {isResponsive ? <div></div> : <Header/>}
+            
             <h1>Whatchlist</h1>
             <div className="grid-movies">
                 {
@@ -139,17 +167,18 @@ const UserFavMovies: React.FC=()=>{
                         
                         )))
                         :
-                        (<div>
+                        (<div className="dialog-notmovie">
                             <h2>No hay peliculas en la lista</h2>
                         </div>)
                     )
-
                 }
             </div>
             <footer>
-                <FooterPage/>
+                {isResponsive ? <Header/> : <FooterPage/>}
             </footer>
         </div>
+        </>
+        
     )
 }
 

@@ -4,6 +4,7 @@
     width: 100%;
     min-height: 100vh;
     background-color: #1a1d29;
+    position: relative;
 }
 
 .container-movies-favs h1{
@@ -29,4 +30,22 @@
     height: auto;
     bottom: 0;
     
+}
+
+@media (min-width: 350px) and (max-width:400px) {
+    .grid-movies{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-movies .dialog-notmovie{
+        grid-column: 1 / -1;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        
+    }
+    .btn-remove-movie-list{
+        padding-top: 30px;
+        margin-top: 45px;
+    }
 }
