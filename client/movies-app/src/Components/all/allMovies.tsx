@@ -87,63 +87,65 @@ export default function AllMovies(){
 
 
     return(
-        <div className="container-movies">
-          <div className="container-allmovies-card">
-          {
-              useLoading ? (
-                useAllMovies.map((mov, index)=>(
-                  <div key={index} className="container-card">
-                      <MovieCard 
-                      id={mov.id}
-                      poster={mov.poster}
-                      />
+      <>
+          <div className="container-movies">
+            <div className="container-allmovies-card">
+            {
+                useLoading ? (
+                  useAllMovies.map((mov, index)=>(
+                    <div key={index} className="container-card">
+                        <MovieCard 
+                        id={mov.id}
+                        poster={mov.poster}
+                        />
 
-                    <button type="button" onClick={()=>successAddMovieList(idUser, mov.id)}>
-                      <div className="btn-add-watchlist">
-                            WATCHLIST
-                            <svg className="svg-watchlist" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 24 24">
-                                        <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
-                                            <line x1="12" y1="3" x2="12" y2="21"/>
-                                            <line x1="3" y1="12" x2="21" y2="12"/>
-                                        </g>
-                            </svg>
-                      </div>
-                    </button>
+                      <button type="button" onClick={()=>successAddMovieList(idUser, mov.id)}>
+                        <div className="btn-add-watchlist">
+                              WATCHLIST
+                              <svg className="svg-watchlist" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 24 24">
+                                          <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
+                                              <line x1="12" y1="3" x2="12" y2="21"/>
+                                              <line x1="3" y1="12" x2="21" y2="12"/>
+                                          </g>
+                              </svg>
+                        </div>
+                      </button>
+                    </div>
 
-                    {useStatusAdd ?  (
-                        <Success isOpen={isPopupOpenSuccess}>
-                        <h4 className="popup-text">Pelicula agregada a tu lista!</h4>
-                        <button onClick={closePopup} className="button-close-success">
-                          Cerrar
-                          </button>
-                        </Success>
-                    ) : (
-                      <ErrorPopUp isOpen={isPopupOpen}>
-                            <h4 className="popup-text">Actualmente ya se encuentra la pelicula en la lista</h4>
-                            <p className="popup-text-title">Por favor corrobora tu lista e intenta nuevamente</p>
-                            <button onClick={closePopup} className="button-close">
-                                Cerrar
+                ))
+                ):
+                <div className="loader-movies">
+                  <ThreeDots
+                  visible={true}
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  radius="9"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+                </div>
+              }
+            </div>  
+          </div>
+          {useStatusAdd ?  (
+                          <Success isOpen={isPopupOpenSuccess}>
+                          <h4 className="success-popup-text">Pelicula agregada a tu lista!</h4>
+                          <button onClick={closePopup} className="success-button-close-success">
+                            Cerrar
                             </button>
-                        </ErrorPopUp>
-                    )}
-                  </div>
-
-              ))
-              ):
-              <div className="loader-movies">
-                <ThreeDots
-                visible={true}
-                height="80"
-                width="80"
-                color="#4fa94d"
-                radius="9"
-                ariaLabel="three-dots-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
-              </div>
-            }
-          </div>  
-        </div>
+                          </Success>
+                      ) : (
+                        <ErrorPopUp isOpen={isPopupOpen}>
+                              <h4 className="popup-text">Actualmente ya se encuentra la pelicula en la lista</h4>
+                              <p className="popup-text-title">Por favor corrobora tu lista e intenta nuevamente</p>
+                              <button onClick={closePopup} className="button-close">
+                                  Cerrar
+                              </button>
+                          </ErrorPopUp>
+                      )}
+      </>
+        
     )
 }

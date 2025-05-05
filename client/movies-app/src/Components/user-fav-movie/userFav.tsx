@@ -43,11 +43,9 @@ const UserFavMovies: React.FC=()=>{
     const closePopup = () => {
         setPopupOpenSucces(false);
         setStatusAdd(null);
-      }
+    }
 
     const dispatch = useDispatch()
-
-    //const [favStates, setFavState] = useState<boolean>();
 
     const [useMovFav, setMovFav] = useState<MoviesProps[]>([])
 
@@ -119,14 +117,6 @@ const UserFavMovies: React.FC=()=>{
 
     return(
         <>
-            {useStatusAdd && (
-            <Success isOpen={isPopupOpenSuccess}>
-                <h4 className="popup-text">¡Película eliminada de tu lista!</h4>
-                <button onClick={closePopup} className="button-close-success">
-                Cerrar
-                </button>
-            </Success>
-            )}
         <div className="container-movies-favs">
             {isResponsive ? <div></div> : <Header/>}
             
@@ -173,10 +163,20 @@ const UserFavMovies: React.FC=()=>{
                     )
                 }
             </div>
+            
             <footer>
                 {isResponsive ? <Header/> : <FooterPage/>}
             </footer>
         </div>
+            { useStatusAdd ? (
+                <Success isOpen={isPopupOpenSuccess}>
+                    <h4 className="success-popup-text">¡Película eliminada de tu lista!</h4>
+                    <button onClick={closePopup} className="success-button-close-success">
+                    Cerrar
+                    </button>
+                </Success>
+                ) : null}
+            
         </>
         
     )
